@@ -23,7 +23,6 @@ type VoiceType = {
   maxFadeOut      : number
 }
 
-
 type VoiceProps = {
   i             : number, 
   setVoices     : Function, 
@@ -32,13 +31,11 @@ type VoiceProps = {
   dataAttribute : string
 }
 
-
 type Compound = 
   'activeNotes'
 | 'activeOctaves'
 | 'activeIntervals'
 | 'activeSounds'
-
 
 export type {
   VoiceType,

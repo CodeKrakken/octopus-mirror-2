@@ -26,6 +26,11 @@ const waveforms = [
   'square',
 ]
 
+const samples = {
+  snare: snareFile,
+  kick: kickFile
+}
+
 const ranges = [
   'Level',
   'Length',
@@ -35,17 +40,12 @@ const ranges = [
   'FadeOut',
 ] as const
 
-
 const checkboxGroups = {
   Notes: ['1','2','3','4','5','6','7','8','9','10','11','12','13'],
   Octaves: ['0','1','2','3','4','5','6','7','8','9','10'],
   Sounds: [
-    'sine',
-    'triangle',
-    'sawtooth',
-    'square',
-    'kick',
-    'snare'
+    ...waveforms,
+    ...Object.keys(samples)
   ],
   Intervals: ['1','0.5','0.25','0.125','0.0625']
 }
@@ -111,11 +111,6 @@ const fields = {
 const extrema = ['min', 'max']
 
 const oneMinute = 60
-
-const samples = {
-  snare: snareFile,
-  kick: kickFile
-}
 
 export {
   title,
