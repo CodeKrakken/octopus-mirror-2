@@ -50,6 +50,7 @@ const checkboxGroups = {
   Intervals: ['1','0.5','0.25','0.125','0.0625']
 }
 
+
 const fields = {
   label: {
     label: 'Name', 
@@ -57,21 +58,11 @@ const fields = {
     input: 'single'
   },
   bpm: {
-    attribs: {
-      maxLength: 5,
-      min: 0,
-      max: 60000
-    },
     label: 'BPM',
     value: 'bpm', 
     input: 'single'
   },
   restChance: {
-    attribs: {
-      min: 0,
-      max: 100,
-      maxLength: 3
-    },
     label: 'Rest Chance', 
     value: 'restChance',
     input: 'single'
