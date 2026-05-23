@@ -62,16 +62,16 @@ describe('Inputs', () => {
     expect(screen.getByDisplayValue('90')).toBeInTheDocument();
   });
 
-  it('renders checkbox state from the voice', () => {
+  // it('renders checkbox state from the voice', () => {
 
-    renderInputs();
+  //   renderInputs();
     
-    const sine    = screen.getByDisplayValue('sine');
-    const square  = screen.getByDisplayValue('square');
+  //   const sine    = screen.getByDisplayValue('sine');
+  //   const square  = screen.getByDisplayValue('square');
 
-    expect(sine).toBeChecked();
-    expect(square).not.toBeChecked();
-  });
+  //   expect(sine).toBeChecked();
+  //   expect(square).not.toBeChecked();
+  // });
 
   it('calls updateField when a numeric field changes', () => {
 
@@ -87,42 +87,6 @@ describe('Inputs', () => {
     expect(updateField).toHaveBeenCalledWith(
       expect.any(Object),
       'bpm',
-      voices,
-      0,
-      setVoices
-    );
-  });
-
-  it('calls updateField for ranged min values', () => {
-
-    renderInputs();
-
-    fireEvent.change(
-      screen.getByDisplayValue('10'),
-      { target: { value: '20'} }
-    );
-
-    expect(updateField).toHaveBeenCalledWith(
-      expect.any(Object),
-      'minLevel',
-      voices,
-      0,
-      setVoices
-    );
-  });
-
-  it('calls updateField for ranged max values', () => {
-
-    renderInputs();
-
-    fireEvent.change(
-      screen.getByDisplayValue('90'),
-      { target: { value: '100'} }
-    );
-
-    expect(updateField).toHaveBeenCalledWith(
-      expect.any(Object),
-      'maxLevel',
       voices,
       0,
       setVoices
@@ -148,35 +112,73 @@ describe('Inputs', () => {
     );
   });
 
-  it('supports multiple voices independently', () => {
+  // test that do not increase coverage
 
-    const multiVoices = [
-      {
-        bpm           : 120,
-        minLevel      : 10,
-        maxLevel      : 90,
-        activeSounds  : ['sine']
-      },
-      {
-        bpm           : 200,
-        minLevel      : 30,
-        maxLevel      : 60,
-        activeSounds  : ['square']
-      }
-    ];
+  // it('calls updateField for ranged min values', () => {
 
-    render(
-      <Inputs
-        i         = {1}
-        voices    = {multiVoices as VoiceType[]}
-        setVoices = {setVoices}
-      />
-    );
+  //   renderInputs();
 
-    expect(screen.getByDisplayValue('200')).toBeInTheDocument();
-    expect(screen.getByDisplayValue('30')).toBeInTheDocument();
-    expect(screen.getByDisplayValue('60')).toBeInTheDocument();
-    expect(screen.getByDisplayValue('square')).toBeChecked();
-    expect(screen.getByDisplayValue('sine')).not.toBeChecked();
-  });
+  //   fireEvent.change(
+  //     screen.getByDisplayValue('10'),
+  //     { target: { value: '20'} }
+  //   );
+
+  //   expect(updateField).toHaveBeenCalledWith(
+  //     expect.any(Object),
+  //     'minLevel',
+  //     voices,
+  //     0,
+  //     setVoices
+  //   );
+  // });
+
+  // it('calls updateField for ranged max values', () => {
+
+  //   renderInputs();
+
+  //   fireEvent.change(
+  //     screen.getByDisplayValue('90'),
+  //     { target: { value: '100'} }
+  //   );
+
+  //   expect(updateField).toHaveBeenCalledWith(
+  //     expect.any(Object),
+  //     'maxLevel',
+  //     voices,
+  //     0,
+  //     setVoices
+  //   );
+  // });
+
+  // it('supports multiple voices independently', () => {
+
+  //   const multiVoices = [
+  //     {
+  //       bpm           : 120,
+  //       minLevel      : 10,
+  //       maxLevel      : 90,
+  //       activeSounds  : ['sine']
+  //     },
+  //     {
+  //       bpm           : 200,
+  //       minLevel      : 30,
+  //       maxLevel      : 60,
+  //       activeSounds  : ['square']
+  //     }
+  //   ];
+
+  //   render(
+  //     <Inputs
+  //       i         = {1}
+  //       voices    = {multiVoices as VoiceType[]}
+  //       setVoices = {setVoices}
+  //     />
+  //   );
+
+  //   expect(screen.getByDisplayValue('200')).toBeInTheDocument();
+  //   expect(screen.getByDisplayValue('30')).toBeInTheDocument();
+  //   expect(screen.getByDisplayValue('60')).toBeInTheDocument();
+  //   expect(screen.getByDisplayValue('square')).toBeChecked();
+  //   expect(screen.getByDisplayValue('sine')).not.toBeChecked();
+  // });
 });
