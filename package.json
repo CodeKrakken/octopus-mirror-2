@@ -17,7 +17,7 @@
     "build": "react-scripts build",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
+    "test:coverage": "react-scripts test --coverage --watchAll=false",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -53,14 +53,13 @@
     "typescript": "^4.9.5"
   },
   "jest": {
-    "preset": "ts-jest",
-    "testEnvironment": "jsdom",
     "moduleNameMapper": {
       "\\.(css|less|scss|sass)$": "identity-obj-proxy",
       "\\.(wav|mp3|m4a|aac|ogg)$": "<rootDir>/src/__mocks__/fileMock.js"
     },
-    "setupFilesAfterEnv": [
-      "./src/setupTests.ts"
-    ]
+    "collectCoverageFrom": [  
+      "src/components/**/*.{ts,tsx}",  
+      "!src/**/*.d.ts"  
+    ]  
   }
 }
