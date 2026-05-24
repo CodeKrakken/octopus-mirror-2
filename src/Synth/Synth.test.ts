@@ -869,3 +869,135 @@ describe('Synth.functions - Audio Synthesis', () => {
     });
   });
 });
+
+import { firstInterval, getContext } from './Synth.functions';  
+import { waveforms } from '../content/data';  
+  
+// Mock dependencies  
+jest.mock('./Synth.functions', () => ({  
+  firstInterval: jest.fn(),  
+  getContext: jest.fn(() => ({ currentTime: 0 })),  
+  stopOne: jest.fn(),  
+}));  
+  
+jest.mock('../content/data', () => ({  
+  waveforms: ['sine', 'square', 'triangle'],  
+}));  
+  
+describe('Synth.start', () => {  
+  beforeEach(() => {  
+    jest.clearAllMocks();  
+    Synth.voices = [];  
+  });  
+  
+  it('calls firstInterval for each voice with correct arguments', () => {  
+    // Arrange  
+    const mockVoice1: VoiceType = {  
+      bpm: 120,  
+      minLevel: 10,  
+      maxLevel: 90,  
+      activeSounds: ['sine'],  
+      activeIntervals: ['1'],  
+      activeOctaves: ['4'],  
+      activeNotes: ['1'],  
+      restChance: 0,  
+      minLength: 50,  
+      maxLength: 100,  
+      minOffset: 0,  
+      maxOffset: 0,
+      minDetune: 0,
+      maxDetune: 0,
+      minFadeIn: 0,
+      maxFadeIn: 0,
+      minFadeOut: 0,
+      maxFadeOut: 0,  
+      nextInterval: 0,  
+      thisInterval: 0,  
+      isActive: false,  
+      label: 1  
+    };  
+  
+    const mockVoice2: VoiceType = { ...mockVoice1, label: 2 };  
+  
+    const runningRef = { current: true };  
+    const voicesRef = { current: [mockVoice1, mockVoice2] };  
+    const mockContext = { currentTime: 1.5 };  
+  
+    (getContext as jest.Mock).mockReturnValue(mockContext);  
+  
+    // Initialize context by calling Synth.add (which calls getContext internally)  
+    Synth.add(mockVoice1, false, runningRef, voicesRef);  
+    Synth.add(mockVoice2, false, runningRef, voicesRef);  
+      
+    // Clear the firstInterval calls from add()  
+    (firstInterval as jest.Mock).mockClear();  
+      
+    // Act  
+    Synth.start(runningRef, voicesRef);  
+  
+    // Assert  
+    expect(firstInterval).toHaveBeenCalledTimes(2);  
+      
+    expect(firstInterval).toHaveBeenCalledWith(  
+      mockVoice1,  
+      mockContext.currentTime,  
+      runningRef,  
+      voicesRef,  
+      waveforms,  
+      mockContext  
+    );  
+  
+    expect(firstInterval).toHaveBeenCalledWith(  
+      mockVoice2,  
+      mockContext.currentTime,  
+      runningRef,  
+      voicesRef,  
+      waveforms,  
+      mockContext  
+    );  
+  });  
+  
+  it('does not call firstInterval when voices array is empty', () => {  
+    // Arrange  
+    const runningRef = { current: true };  
+    const voicesRef = { current: [] };  
+    const mockContext = { currentTime: 1.5 };  
+  
+    (getContext as jest.Mock).mockReturnValue(mockContext);  
+  
+    // Initialize context by adding then removing a voice  
+    const tempVoice: VoiceType = {  
+      bpm: 120,  
+      minLevel: 10,  
+      maxLevel: 90,  
+      activeSounds: ['sine'],  
+      activeIntervals: ['1'],  
+      activeOctaves: ['4'],  
+      activeNotes: ['1'],  
+      restChance: 0,  
+      minLength: 50,  
+      maxLength: 100,  
+      minOffset: 0,  
+      maxOffset: 0,
+      minDetune: 0,
+      maxDetune: 0,
+      minFadeIn: 0,
+      maxFadeIn: 0,
+      minFadeOut: 0,
+      maxFadeOut: 0,  
+      nextInterval: 0,  
+      thisInterval: 0,  
+      isActive: false,  
+      label: 1  
+    };  
+    Synth.add(tempVoice, false, runningRef, voicesRef);  
+    Synth.voices = [];  
+    (firstInterval as jest.Mock).mockClear();  
+  
+    // Act  
+    Synth.start(runningRef, voicesRef);  
+  
+    // Assert  
+    expect(firstInterval).not.toHaveBeenCalled();  
+  });  
+});
