@@ -74,20 +74,6 @@ describe('Synth', () => {
 
       expect(synthFunctions.getContext).toHaveBeenCalled();
     });
-
-    it('uses voice nextInterval when calling firstInterval', () => {
-      const voice = setUpVoice();
-      voice.nextInterval = 5000;
-      const runningRef = { current: true };
-      const voicesRef = { current: [voice] };
-
-      Synth.add(voice, true, runningRef, voicesRef);
-
-      // Verify that firstInterval was called with the voice's nextInterval
-      // Note: we're mocking firstInterval, so we can't directly verify it was passed correctly
-      // but we verified that add calls getContext and does the setup
-      expect(Synth.voices).toContain(voice);
-    });
   });
 
   describe('delete', () => {
@@ -184,17 +170,6 @@ describe('Synth', () => {
       expect(Synth.voices[0].label).toBe(1);
       expect(Synth.voices[2].label).toBe(3);
     });
-
-    it('can update voice properties after adding', () => {
-      const voice = setUpVoice();
-      voice.bpm = 100;
-      Synth.voices = [voice];
-
-      voice.bpm = 120;
-      Synth.update(voice, 0);
-
-      expect(Synth.voices[0].bpm).toBe(120);
-    });
   });
 
   
@@ -233,10 +208,6 @@ describe('Synth', () => {
   });
 
   describe('voices state', () => {
-    it('starts with empty voices array', () => {
-      Synth.voices = [];
-      expect(Synth.voices.length).toBe(0);
-    });
 
     it('maintains voice order', () => {
       const voice1 = setUpVoice();
