@@ -15,167 +15,6 @@ const mockAudioContext = {
 
 global.AudioContext = jest.fn(() => mockAudioContext) as any;
 
-describe('Synth.functions', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
-  describe('getContext', () => {
-    it('creates a new AudioContext when passed null', () => {
-      const result = getContext(null);
-      expect(result).toBeDefined();
-    });
-
-    it('returns existing AudioContext when passed a context', () => {
-      const existingContext = mockAudioContext;
-      const result = getContext(existingContext);
-      expect(result).toBe(existingContext);
-    });
-
-    it('resumes suspended AudioContext', () => {
-      const suspendedContext = {
-        state: 'suspended',
-        resume: jest.fn()
-      } as any;
-
-      getContext(suspendedContext);
-      expect(suspendedContext.resume).toHaveBeenCalled();
-    });
-
-    it('does not resume running AudioContext', () => {
-      const runningContext = {
-        state: 'running',
-        resume: jest.fn()
-      } as any;
-
-      getContext(runningContext);
-      expect(runningContext.resume).not.toHaveBeenCalled();
-    });
-  });
-
-  describe('firstInterval', () => {
-    it('sets voice nextInterval property', () => {
-      const voice = setUpVoice();
-      voice.nextInterval = 0;
-      const runningRef = { current: true };
-      const voicesRef = { current: [voice] };
-
-      // We can't fully test this without mocking runInterval, but we can test the behavior
-      // by checking that the voice is modified
-      firstInterval(voice, 100, runningRef, voicesRef, ['sine'], mockAudioContext);
-
-      expect(voice.nextInterval).toBe(100);
-    });
-
-    it('sets voice isActive to true', () => {
-      const voice = setUpVoice();
-      voice.isActive = false;
-      const runningRef = { current: true };
-      const voicesRef = { current: [voice] };
-
-      firstInterval(voice, 100, runningRef, voicesRef, ['sine'], mockAudioContext);
-
-      expect(voice.isActive).toBe(true);
-    });
-
-    it('handles multiple waveforms', () => {
-      const voice = setUpVoice();
-      const waveforms = ['sine', 'square', 'triangle', 'sawtooth'];
-      const runningRef = { current: true };
-      const voicesRef = { current: [voice] };
-
-      firstInterval(voice, 200, runningRef, voicesRef, waveforms, mockAudioContext);
-
-      expect(voice.nextInterval).toBe(200);
-      expect(voice.isActive).toBe(true);
-    });
-  });
-
-  describe('stopOne', () => {
-    it('sets voice isActive to false', () => {
-      const voice = setUpVoice();
-      voice.isActive = true;
-
-      stopOne(voice);
-
-      expect(voice.isActive).toBe(false);
-    });
-
-    it('stops an already inactive voice without error', () => {
-      const voice = setUpVoice();
-      voice.isActive = false;
-
-      expect(() => stopOne(voice)).not.toThrow();
-      expect(voice.isActive).toBe(false);
-    });
-
-    it('can be called multiple times on same voice', () => {
-      const voice = setUpVoice();
-      voice.isActive = true;
-
-      stopOne(voice);
-      stopOne(voice);
-      stopOne(voice);
-
-      expect(voice.isActive).toBe(false);
-    });
-
-    it('stops multiple voices independently', () => {
-      const voice1 = setUpVoice();
-      const voice2 = setUpVoice();
-      voice1.isActive = true;
-      voice2.isActive = true;
-
-      stopOne(voice1);
-
-      expect(voice1.isActive).toBe(false);
-      expect(voice2.isActive).toBe(true);
-
-      stopOne(voice2);
-
-      expect(voice1.isActive).toBe(false);
-      expect(voice2.isActive).toBe(false);
-    });
-  });
-
-  describe('integration', () => {
-    it('creates context, starts voice, and stops it', () => {
-      const context = getContext(null);
-      const voice = setUpVoice();
-      const runningRef = { current: true };
-      const voicesRef = { current: [voice] };
-
-      firstInterval(voice, 0, runningRef, voicesRef, ['sine'], context);
-      expect(voice.isActive).toBe(true);
-
-      stopOne(voice);
-      expect(voice.isActive).toBe(false);
-    });
-
-    it('manages multiple voices through lifecycle', () => {
-      const context = getContext(null);
-      const voice1 = setUpVoice();
-      const voice2 = setUpVoice();
-      const runningRef = { current: true };
-      const voicesRef = { current: [voice1, voice2] };
-
-      firstInterval(voice1, 0, runningRef, voicesRef, ['sine'], context);
-      firstInterval(voice2, 100, runningRef, voicesRef, ['sine'], context);
-
-      expect(voice1.isActive).toBe(true);
-      expect(voice2.isActive).toBe(true);
-
-      stopOne(voice1);
-
-      expect(voice1.isActive).toBe(false);
-      expect(voice2.isActive).toBe(true);
-
-      stopOne(voice2);
-
-      expect(voice2.isActive).toBe(false);
-    });
-  });
-});
 
 // Deepwiki
   
@@ -317,6 +156,42 @@ describe('stopOne', () => {
     expect(voice.bpm).toBe(120)  
     expect(voice.restChance).toBe(50)  
   })  
+
+  it('stops an already inactive voice without error', () => {
+    const voice = setUpVoice();
+    voice.isActive = false;
+
+    expect(() => stopOne(voice)).not.toThrow();
+    expect(voice.isActive).toBe(false);
+  });
+
+  it('can be called multiple times on same voice', () => {
+    const voice = setUpVoice();
+    voice.isActive = true;
+
+    stopOne(voice);
+    stopOne(voice);
+    stopOne(voice);
+
+    expect(voice.isActive).toBe(false);
+  });
+
+  it('stops multiple voices independently', () => {
+    const voice1 = setUpVoice();
+    const voice2 = setUpVoice();
+    voice1.isActive = true;
+    voice2.isActive = true;
+
+    stopOne(voice1);
+
+    expect(voice1.isActive).toBe(false);
+    expect(voice2.isActive).toBe(true);
+
+    stopOne(voice2);
+
+    expect(voice1.isActive).toBe(false);
+    expect(voice2.isActive).toBe(false);
+  });
 })  
   
 // ── firstInterval / runInterval / makeSound / oscillate ─────────────────────  
