@@ -121,60 +121,16 @@ describe('getContext', () => {
     expect(MockAudioContext).toHaveBeenCalledTimes(1)  
   })  
   
-  // it('returns the existing context when one is provided', () => {  
-  //   const existing = createMockContext() as unknown as AudioContext  
-  //   const result   = getContext(existing)  
-  //   expect(MockAudioContext).not.toHaveBeenCalled()  
-  //   expect(result).toBe(existing)  
-  // })  
-  
   it('resumes a suspended context', () => {  
     const ctx = createMockContext('suspended') as unknown as AudioContext  
     getContext(ctx)  
     expect(mockResume).toHaveBeenCalledTimes(1)  
   })  
-  
-  // it('does not resume a running context', () => {  
-  //   const ctx = createMockContext('running') as unknown as AudioContext  
-  //   getContext(ctx)  
-  //   expect(mockResume).not.toHaveBeenCalled()  
-  // })  
 })  
   
 // ── stopOne ──────────────────────────────────────────────────────────────────  
   
 describe('stopOne', () => {  
-  // it('sets voice.isActive to false', () => {  
-  //   const voice = makeVoice({ isActive: true })  
-  //   stopOne(voice)  
-  //   expect(voice.isActive).toBe(false)  
-  // })  
-  
-  // it('does not modify other voice properties', () => {  
-  //   const voice = makeVoice({ isActive: true, bpm: 120, restChance: 50 })  
-  //   stopOne(voice)  
-  //   expect(voice.bpm).toBe(120)  
-  //   expect(voice.restChance).toBe(50)  
-  // })  
-
-  // it('stops an already inactive voice without error', () => {
-  //   const voice = setUpVoice();
-  //   voice.isActive = false;
-
-  //   expect(() => stopOne(voice)).not.toThrow();
-  //   expect(voice.isActive).toBe(false);
-  // });
-
-  // it('can be called multiple times on same voice', () => {
-  //   const voice = setUpVoice();
-  //   voice.isActive = true;
-
-  //   stopOne(voice);
-  //   stopOne(voice);
-  //   stopOne(voice);
-
-  //   expect(voice.isActive).toBe(false);
-  // });
 
   it('stops multiple voices independently', () => {
     const voice1 = setUpVoice();
@@ -202,66 +158,14 @@ describe('firstInterval', () => {
     jest.useFakeTimers()  
   })  
   afterEach(() => jest.useRealTimers())  
-  
-  // it('sets voice.nextInterval to the provided value', () => {  
-  //   const voice = makeVoice()  
-  //   const ctx   = createMockContext('running', 0)  
-  //   firstInterval(voice, 42, { current: false }, { current: [voice] }, ['sine'] as any, ctx as unknown as AudioContext)  
-  //   expect(voice.nextInterval).toBe(42)  
-  // })  
-  
-  // it('sets voice.isActive to true', () => {  
-  //   const voice = makeVoice()  
-  //   const ctx   = createMockContext('running', 0)  
-  //   firstInterval(voice, 0, { current: false }, { current: [voice] }, ['sine'] as any, ctx as unknown as AudioContext)  
-  //   expect(voice.isActive).toBe(true)  
-  // })  
-  
-  // it('does not schedule timers when not running', () => {  
-  //   const voice = makeVoice()  
-  //   const ctx   = createMockContext('running', 0)  
-  //   firstInterval(voice, 0, { current: false }, { current: [voice] }, ['sine'] as any, ctx as unknown as AudioContext)  
-  //   expect(jest.getTimerCount()).toBe(0)  
-  // })  
-  
-  // it('advances voice.nextInterval by intervalLength when it is time', () => {  
-  //   // currentTime=10 >= nextInterval=0 → isTimeFor true  
-  //   // intervalLength = oneMinute/bpm * interval = 60/60 * 1 = 1  
-  //   const voice = makeVoice({ bpm: 60, activeIntervals: ['1'] })  
-  //   const ctx   = createMockContext('running', 10)  
-  //   runAndFlush(voice, ctx)  
-  //   expect(voice.nextInterval).toBe(1)  
-  // })  
-  
-  // it('schedules a timer when running but not yet time', () => {  
-  //   const voice = makeVoice()  
-  //   const ctx   = createMockContext('running', 0)  
-  //   firstInterval(voice, 10, { current: true }, { current: [voice] }, ['sine'] as any, ctx as unknown as AudioContext)  
-  //   expect(jest.getTimerCount()).toBeGreaterThan(0)  
-  // })  
-  
-  // it('creates an oscillator when the sound is a waveform', () => {  
-  //   const voice = makeVoice({ activeSounds: ['sine'] })  
-  //   const ctx   = createMockContext('running', 10)  
-  //   runAndFlush(voice, ctx, { waveforms: ['sine'] })  
-  //   expect(ctx.createOscillator).toHaveBeenCalled()  
-  // })  
-  
+    
   it('plays a sample when the sound is not a waveform', () => {  
     const voice = makeVoice({ activeSounds: ['snare'] })  
     const ctx   = createMockContext('running', 10)  
     runAndFlush(voice, ctx, { waveforms: ['sine'] })  
     expect(global.Audio).toHaveBeenCalledWith('snare.wav')  
   })  
-  
-  // it('skips makeSound when the interval is a rest', () => {  
-  //   const voice = makeVoice({ restChance: 100 })  // always a rest  
-  //   const ctx   = createMockContext('running', 10)  
-  //   runAndFlush(voice, ctx)  
-  //   expect(ctx.createOscillator).not.toHaveBeenCalled()  
-  //   expect(global.Audio).not.toHaveBeenCalled()  
-  // })  
-  
+    
   it('schedules note end when noteLength is shorter than intervalLength', () => {  
     // minLength=50 → noteLength = intervalLength * 0.5 < intervalLength  
     const voice = makeVoice({ minLength: 50, maxLength: 50 })  
@@ -290,15 +194,6 @@ describe('firstInterval', () => {
     // linearRampToValueAtTime is called in both overlap and non-overlap paths  
     expect(mockGain.gain.linearRampToValueAtTime).toHaveBeenCalled()  
   })  
-  
-  // it('stops scheduling when voice.isActive becomes false before the timer fires', () => {  
-  //   const voice = makeVoice()  
-  //   const ctx   = createMockContext('running', 0)  
-  //   firstInterval(voice, 10, { current: true }, { current: [voice] }, ['sine'] as any, ctx as unknown as AudioContext)  
-  //   voice.isActive = false  
-  //   jest.runAllTimers()  
-  //   expect(jest.getTimerCount()).toBe(0)  
-  // })  
 })
 
 it('logs the error message when an exception is thrown inside runInterval', () => {  

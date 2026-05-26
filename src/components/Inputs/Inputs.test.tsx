@@ -53,15 +53,6 @@ describe('Inputs', () => {
 
   beforeEach(() => { jest.clearAllMocks();});
 
-  // it('renders numeric field values from the voice', () => {
-
-  //   renderInputs();
-
-  //   expect(screen.getByDisplayValue('120')).toBeInTheDocument();
-  //   expect(screen.getByDisplayValue('10')).toBeInTheDocument();
-  //   expect(screen.getByDisplayValue('90')).toBeInTheDocument();
-  // });
-
   it('calls updateField when a numeric field changes', () => {
 
     renderInputs();
