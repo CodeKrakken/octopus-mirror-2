@@ -2,31 +2,30 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import DeleteButton from './DeleteButton';
 
 describe('DeleteButton', () => {
+
   const mockHandleDelete = jest.fn();
 
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
+  beforeEach(() => { jest.clearAllMocks(); });
 
   it('passes correct index on multiple clicks', () => {
-    const { rerender } = render(
+
+    const Button = (i: number) => (
       <DeleteButton
         handleDelete={mockHandleDelete}
-        i={0}
+        i={i}
       />
     );
+
+    const { rerender } = render(Button(0));
+
     const button = screen.getByRole('button', { name: 'X' });
+
     fireEvent.click(button);
 
-    jest.clearAllMocks();
-    
-    rerender(
-      <DeleteButton
-        handleDelete={mockHandleDelete}
-        i={1}
-      />
-    );
+    rerender(Button(1));
+
     fireEvent.click(button);
+
     expect(mockHandleDelete).toHaveBeenCalledWith(1);
   });
 });
