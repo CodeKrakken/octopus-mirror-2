@@ -20,9 +20,7 @@ describe('Inputs.functions', () => {
   describe('updateField', () => {
 
     it('handles range field updates (maxLevel)', () => {
-      const mockEvent = {
-        target: { value: '99' }
-      } as any;
+      const mockEvent = { target: { value: '99' }} as any;
 
       updateField(mockEvent, 'maxLevel', voices, 0, setVoices);
 
@@ -33,9 +31,8 @@ describe('Inputs.functions', () => {
   describe('updateCheckbox', () => {
     
     it('preserves other values when adding a checkbox', () => {
-      const mockEvent = {
-        target: { value: 'square' }
-      } as any;
+
+      const mockEvent = { target: { value: 'square' } } as any;
 
       updateCheckbox(mockEvent, 'activeSounds', voices, 0, setVoices);
 
@@ -44,10 +41,9 @@ describe('Inputs.functions', () => {
     });
 
     it('preserves other values when removing a checkbox', () => {
+      
       voices[0].activeSounds = ['sine', 'square', 'triangle'];
-      const mockEvent = {
-        target: { value: 'square' }
-      } as any;
+      const mockEvent = { target: { value: 'square' } } as any;
 
       updateCheckbox(mockEvent, 'activeSounds', voices, 0, setVoices);
 
