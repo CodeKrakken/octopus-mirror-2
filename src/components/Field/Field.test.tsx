@@ -6,19 +6,9 @@ import { VoiceType } from '../Voice/Voice.types';
 
 jest.mock('../../content/data', () => ({
   fields: {
-    bpm: {
-      label: 'BPM',
-      value: 'bpm',
-      input: 'single'
-    },
     level: {
       label: 'Level',
       value: 'Level',
-      input: 'range'
-    },
-    length: {
-      label: 'Length',
-      value: 'Length',
       input: 'range'
     }
   },
@@ -33,15 +23,12 @@ describe('Field', () => {
   const mockSetVoices = jest.fn();
   const voices: VoiceType[] = [setUpVoice()];
 
-  voices[0].bpm = 120;
-  voices[0].minLevel = 30;
   voices[0].maxLevel = 80;
 
   beforeEach(() => { jest.clearAllMocks(); });
   
 
   it('calls updateField when range max input changes', () => {
-    // const { updateField } = require('../Inputs/Inputs.functions');
     
     render(
       <Field
@@ -51,6 +38,7 @@ describe('Field', () => {
         setVoices={mockSetVoices}
       />
     );
+
     const maxInput = screen.getByDisplayValue('80');
     fireEvent.change(maxInput, { target: { value: '90' } });
 
