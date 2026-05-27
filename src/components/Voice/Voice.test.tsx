@@ -8,11 +8,6 @@ jest.mock('../../content/data', () => ({
   checkboxGroups: {}
 }));
 
-jest.mock('../Inputs/Inputs.functions', () => ({
-  updateField: jest.fn(),
-  updateCheckbox: jest.fn()
-}));
-
 describe('Voice', () => {
   const mockHandleDelete = jest.fn();
   const mockSetVoices = jest.fn();
