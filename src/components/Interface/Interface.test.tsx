@@ -7,23 +7,18 @@ jest.mock('../../Synth/Synth', () => ({
     add: jest.fn(),  
     delete: jest.fn(),  
     start: jest.fn(),  
-    stop: jest.fn(),  
-    update: jest.fn(),  
-    voices: []  
+    stop: jest.fn()
   }  
 }));  
   
 jest.mock('../Header/Header', () => ({  
   __esModule: true,  
-  default: ({ handleStartStop, running, handleAddVoice, showStart }: any) => (  
+  default: ({ handleStartStop, handleAddVoice }: any) => (  
     <div>  
-      Test Title  
-      <button data-testid="add-voice" onClick={handleAddVoice}>Add Voice</button>  
-      {showStart && (  
-        <button data-testid="start-stop" onClick={handleStartStop}>  
-          {running ? 'Stop' : 'Start'}  
-        </button>  
-      )}  
+      <button data-testid="add-voice" onClick={handleAddVoice} />
+      <button data-testid="start-stop" onClick={handleStartStop}>  
+        Start
+      </button>  
     </div>  
   )  
 }));  
@@ -31,12 +26,14 @@ jest.mock('../Header/Header', () => ({
 jest.mock('../Voice/Voice', () => ({  
   __esModule: true,  
   default: ({ handleDelete, i }: any) => (  
-    <div data-voice={i}>  
-      <button data-testid={`delete-voice-${i}`} onClick={() => handleDelete(i)}>X</button>  
-    </div>  
+    <button 
+      data-testid={`delete-voice-${i}`} 
+      onClick={() => handleDelete(i)}
+    />
   )  
 }));  
   
+
 describe('Interface', () => {  
   beforeEach(() => {  
     jest.clearAllMocks();  
@@ -48,18 +45,7 @@ describe('Interface', () => {
     await act(async () => { fireEvent.click(screen.getByTestId('delete-voice-0')); });  
     expect(Synth.delete).toHaveBeenCalledWith(0);  
   });  
-  
-  describe('start function (lines 48-49)', () => {  
-    // it('calls toggleRunning(true) and Synth.start when start is triggered', async () => {  
-    //   render(<Interface />);  
-    //   await act(async () => { fireEvent.click(screen.getByTestId('add-voice')); });  
-    //   const startStopButton = screen.getByTestId('start-stop');  
-    //   await act(async () => { fireEvent.click(startStopButton); });  
-    //   expect(Synth.start).toHaveBeenCalled();  
-    //   expect(startStopButton).toHaveTextContent('Stop');  
-    // });  
-  });  
-  
+    
   describe('stopAll function (lines 53-54)', () => {  
     it('calls toggleRunning(false) and Synth.stop when stop is triggered', async () => {  
       render(<Interface />);  
