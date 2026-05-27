@@ -1,10 +1,10 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import Header from './Header';
 
-jest.mock('../../content/data', () => ({
-  title: 'Test Title',
-  addLabel: 'Test Add'
-}));
+// jest.mock('../../content/data', () => ({
+//   title: 'Test Title',
+//   addLabel: 'Test Add'
+// }));
 
 describe('Header', () => {
   const mockHandleAddVoice = jest.fn();
