@@ -1,13 +1,7 @@
 import { updateField, updateCheckbox } from './Inputs.functions';
 import { setUpVoice } from '../Interface/Interface.functions';
 import { VoiceType } from '../Voice/Voice.types';
-import { Synth } from '../../Synth/Synth';
 
-jest.mock('../../Synth/Synth', () => ({
-  Synth: {
-    update: jest.fn()
-  }
-}));
 
 describe('Inputs.functions', () => {
   let voices: VoiceType[];
