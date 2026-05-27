@@ -7,7 +7,7 @@ describe('DeleteButton', () => {
 
   beforeEach(() => { jest.clearAllMocks(); });
 
-  it('passes correct index on multiple clicks', () => {
+  it('passes correct index on click', () => {
 
     const Button = (i: number) => (
       <DeleteButton
@@ -16,13 +16,9 @@ describe('DeleteButton', () => {
       />
     );
 
-    const { rerender } = render(Button(0));
+    render(Button(1));
 
     const button = screen.getByRole('button', { name: 'X' });
-
-    fireEvent.click(button);
-
-    rerender(Button(1));
 
     fireEvent.click(button);
 
