@@ -1,6 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import Field from './Field';
 import { setUpVoice } from '../Interface/Interface.functions';
+import { updateField } from '../Inputs/Inputs.functions';
 import { VoiceType } from '../Voice/Voice.types';
 
 jest.mock('../../content/data', () => ({
@@ -31,16 +32,16 @@ jest.mock('../Inputs/Inputs.functions', () => ({
 describe('Field', () => {
   const mockSetVoices = jest.fn();
   const voices: VoiceType[] = [setUpVoice()];
+
   voices[0].bpm = 120;
   voices[0].minLevel = 30;
   voices[0].maxLevel = 80;
 
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
+  beforeEach(() => { jest.clearAllMocks(); });
+  
 
   it('calls updateField when range max input changes', () => {
-    const { updateField } = require('../Inputs/Inputs.functions');
+    // const { updateField } = require('../Inputs/Inputs.functions');
     
     render(
       <Field
