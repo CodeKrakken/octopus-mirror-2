@@ -25,9 +25,7 @@ describe('Inputs', () => {
     />
   );
 
-  voices[0].bpm       = 120
-  voices[0].minLevel  = 10
-  voices[0].maxLevel  = 90
+  voices[0].bpm = 120
 
   beforeEach(() => { jest.clearAllMocks();});
 
@@ -36,8 +34,7 @@ describe('Inputs', () => {
     renderInputs();
 
     fireEvent.change(
-      screen.getByDisplayValue('120'),
-      { target: { value: '140'} }
+      screen.getByDisplayValue('120'), { target: { value: '140'} }
     );
 
     expect(updateField).toHaveBeenCalledTimes(1);
@@ -51,13 +48,12 @@ describe('Inputs', () => {
     );
   });
 
+  
   it('calls updateCheckbox when a checkbox changes', () => {
 
     renderInputs();
 
-    fireEvent.click(
-      screen.getByDisplayValue('square')
-    );
+    fireEvent.click(screen.getByDisplayValue('square'));
 
     expect(updateCheckbox).toHaveBeenCalledTimes(1);
 
@@ -69,6 +65,4 @@ describe('Inputs', () => {
       setVoices
     );
   });
-
-  
 });
