@@ -4,17 +4,8 @@ import { setUpVoice } from '../Interface/Interface.functions';
 import { VoiceType } from './Voice.types';
 
 jest.mock('../../content/data', () => ({
-  fields: {
-    bpm: {
-      label: 'BPM',
-      value: 'bpm',
-      input: 'single'
-    }
-  },
-  extrema: ['min', 'max'],
-  checkboxGroups: { 
-    Sounds: ['sine', 'square']
-  }
+  fields: { bpm: { value: 'bpm' } },
+  checkboxGroups: {}
 }));
 
 jest.mock('../Inputs/Inputs.functions', () => ({
