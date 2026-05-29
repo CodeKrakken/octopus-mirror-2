@@ -102,9 +102,7 @@ const runOneInterval = (
   
 
 describe('getContext', () => {
-    
-  beforeEach(() => jest.clearAllMocks())  
-  
+      
   it('creates a new AudioContext when passed null', () => {  
     getContext(null)  
     expect(MockAudioContext).toHaveBeenCalledTimes(1)  
@@ -135,10 +133,10 @@ describe('stopOne', () => {
     expect(voice2.isActive).toBe(false);
   });
 })  
-  
-// ── firstInterval / runInterval / makeSound / oscillate ─────────────────────  
-  
+
+
 describe('firstInterval', () => {  
+
   beforeEach(() => {  
     jest.clearAllMocks()  
     jest.useFakeTimers()  
