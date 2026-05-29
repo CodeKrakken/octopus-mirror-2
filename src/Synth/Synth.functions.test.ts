@@ -49,7 +49,7 @@ const createMockContext = (state = 'running', currentTime = 0) => ({
   
 const MockAudioContext = jest.fn().mockImplementation(() => createMockContext())  
 global.AudioContext = MockAudioContext as typeof AudioContext  
-global.Audio = jest.fn().mockImplementation(() => ({ play: jest.fn() })) as any  
+global.Audio = jest.fn().mockImplementation(() => ({ play: jest.fn() })) as typeof Audio 
   
 // ── Voice factory ────────────────────────────────────────────────────────────  
   
