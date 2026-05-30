@@ -155,7 +155,7 @@ describe('firstInterval', () => {
 
   it('schedules note end when noteLength is shorter than intervalLength', () => {
 
-    const voice = customVoice({ minLength: 50, maxLength: 50 })
+    const voice = {...setUpVoice(), minLength: 50, maxLength: 50 }
     const context = createMockContext('running', 10)
 
     runOneInterval(voice, context)
