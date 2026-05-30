@@ -52,7 +52,7 @@ const MockAudioContext = jest.fn().mockImplementation(() => createMockContext())
 global.AudioContext = MockAudioContext as typeof AudioContext  
 global.Audio = jest.fn().mockImplementation(() => ({ play: jest.fn() })) as typeof Audio 
     
-const bespokeVoice = (overrides: Partial<VoiceType> = {}): VoiceType => ({  
+const customVoice = (overrides: Partial<VoiceType> = {}): VoiceType => ({  
   isActive        : false,  
   label           : 1,  
   nextInterval    : 0,  
@@ -120,8 +120,8 @@ describe('stopOne', () => {
 
   it('stops multiple voices independently', () => {
 
-    const voice1 = bespokeVoice({isActive: true});
-    const voice2 = bespokeVoice({isActive: true});
+    const voice1 = customVoice({isActive: true});
+    const voice2 = customVoice({isActive: true});
 
     stopOne(voice1);
 
@@ -142,8 +142,8 @@ describe('firstInterval', () => {
   afterAll(() => jest.useRealTimers())  
     
   it('plays a sample', () => {  
-    
-    const voice = bespokeVoice({ activeSounds: ['snare'] })  
+
+    const voice = customVoice({ activeSounds: ['snare'] })  
     const context = createMockContext('running', 10)
 
     runOneInterval(voice, context)  
@@ -151,18 +151,18 @@ describe('firstInterval', () => {
     expect(global.Audio).toHaveBeenCalledWith('snare.wav')  
   })  
     
-  it('schedules note end when noteLength is shorter than intervalLength', () => {  
-    const voice = bespokeVoice({ minLength: 50, maxLength: 50 })  
-    const context   = createMockContext('running', 10)  
-    runOneInterval(voice, context)  
-    // scheduleNoteEnd calls gain.setValueAtTime inside a setTimeout;  
-    // after runAllTimers it should have been called at least twice  
-    // (once from oscillate setup, once from scheduleNoteEnd)  
-    expect(mockGain.gain.setValueAtTime).toHaveBeenCalled()  
+  it('schedules note end when noteLength is shorter than intervalLength', () => {
+
+    const voice = customVoice({ minLength: 50, maxLength: 50 })
+    const context   = createMockContext('running', 10)
+
+    runOneInterval(voice, context)
+
+    expect(mockGain.gain.setValueAtTime).toHaveBeenCalled()
   })  
   
   it('applies detune when cents are non-zero', () => {  
-    const voice = bespokeVoice({ minDetune: 50, maxDetune: 50 })  
+    const voice = customVoice({ minDetune: 50, maxDetune: 50 })  
     const context   = createMockContext('running', 10)  
     runOneInterval(voice, context)  
     // detuned frequency differs from the base 261.63  
@@ -172,7 +172,7 @@ describe('firstInterval', () => {
   
   it('uses non-overlapping fade envelope when fade percentages are small', () => {  
     // fadeIn=20%, fadeOut=20% → endOfFadeIn < startOfFadeOut → overlap=false  
-    const voice = bespokeVoice({ minFadeIn: 20, maxFadeIn: 20, minFadeOut: 20, maxFadeOut: 20 })  
+    const voice = customVoice({ minFadeIn: 20, maxFadeIn: 20, minFadeOut: 20, maxFadeOut: 20 })  
     const context   = createMockContext('running', 10)  
     runOneInterval(voice, context)  
     // linearRampToValueAtTime is called in both overlap and non-overlap paths  
@@ -181,7 +181,7 @@ describe('firstInterval', () => {
 })
 
 it('logs the error message when an exception is thrown inside runInterval', () => {  
-  const voice = bespokeVoice()  
+  const voice = customVoice()  
   const context   = createMockContext('running', 10)  
   Object.defineProperty(context, 'currentTime', {  
     get: () => { throw new Error('simulated context error') }  
@@ -203,7 +203,7 @@ it('calls runInterval again from the nextInterval setTimeout when voice is still
     return 0 as any  
   })  
   
-  const voice = bespokeVoice()  
+  const voice = customVoice()  
   const context   = createMockContext('running', 0)  
   
   firstInterval(voice, 0, { current: true }, { current: [voice] }, ['sine'] as any, context as unknown as AudioContext)  
