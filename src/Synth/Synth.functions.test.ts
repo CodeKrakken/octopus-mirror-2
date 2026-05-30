@@ -232,8 +232,17 @@ describe('nextInterval', () => {
     const voicesRef = { current: [voice] };
     const mockContext = { currentTime: 0 } as Partial<AudioContext>;
 
-    nextInterval(voice, mockContext as AudioContext, runningRef, voicesRef, ['sine'] as Waveform[]);
+    const setTimeoutSpy = jest.spyOn(global, 'setTimeout');
 
+    nextInterval(
+      voice,
+      mockContext as AudioContext,
+      runningRef,
+      voicesRef,
+      ['sine'] as Waveform[]
+    );
+
+    expect(setTimeoutSpy).not.toHaveBeenCalled();
     expect(jest.getTimerCount()).toBe(0);
   });
 });
