@@ -119,6 +119,7 @@ describe('getContext', () => {
 describe('stopOne', () => {  
 
   it('stops multiple voices independently', () => {
+
     const voice1 = bespokeVoice({isActive: true});
     const voice2 = bespokeVoice({isActive: true});
 
@@ -140,15 +141,17 @@ describe('firstInterval', () => {
   beforeAll(() => jest.useFakeTimers())  
   afterAll(() => jest.useRealTimers())  
     
-  it('plays a sample when the sound is not a waveform', () => {  
+  it('plays a sample', () => {  
+    
     const voice = bespokeVoice({ activeSounds: ['snare'] })  
-    const context   = createMockContext('running', 10)  
-    runOneInterval(voice, context, { waveforms: ['sine'] })  
+    const context = createMockContext('running', 10)
+
+    runOneInterval(voice, context)  
+
     expect(global.Audio).toHaveBeenCalledWith('snare.wav')  
   })  
     
   it('schedules note end when noteLength is shorter than intervalLength', () => {  
-    // minLength=50 → noteLength = intervalLength * 0.5 < intervalLength  
     const voice = bespokeVoice({ minLength: 50, maxLength: 50 })  
     const context   = createMockContext('running', 10)  
     runOneInterval(voice, context)  
