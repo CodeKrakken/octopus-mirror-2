@@ -137,11 +137,8 @@ describe('stopOne', () => {
 
 describe('firstInterval', () => {  
 
-  beforeEach(() => {  
-    jest.clearAllMocks()  
-    jest.useFakeTimers()  
-  })  
-  afterEach(() => jest.useRealTimers())  
+  beforeAll(() => jest.useFakeTimers())  
+  afterAll(() => jest.useRealTimers())  
     
   it('plays a sample when the sound is not a waveform', () => {  
     const voice = bespokeVoice({ activeSounds: ['snare'] })  
