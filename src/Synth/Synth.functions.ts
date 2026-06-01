@@ -202,6 +202,15 @@ const randomOneFrom = (array: (OscillatorType | String)[]) => {
   return array[Math.floor(Math.random() * array.length)]
 }
 
+const getRandomFrequency = (voice: VoiceType) => {
+    
+  const activeFrequencies = getActiveFrequencies(voice) 
+  const randomIndex = Math.floor(Math.random()*activeFrequencies.length)
+  const randomFrequency = activeFrequencies[randomIndex]
+  
+  return randomFrequency
+}
+
 const generateLevel = (voice: VoiceType, voices: VoiceType[]) => {
   const { minLevel, maxLevel } = voice
   const balancedLevel = ((minLevel + Math.random() * (maxLevel - minLevel))/100)/voices.length
@@ -257,14 +266,7 @@ const detune = (frequency: number, voice: VoiceType) => {
   return detunedFrequency
 }
 
-const getRandomFrequency = (voice: VoiceType) => {
-    
-  const activeFrequencies = getActiveFrequencies(voice) 
-  const randomIndex = Math.floor(Math.random()*activeFrequencies.length)
-  const randomFrequency = activeFrequencies[randomIndex]
-  
-  return randomFrequency
-}
+
 
 const getActiveFrequencies = (voice: VoiceType) => {
     

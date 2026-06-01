@@ -121,7 +121,7 @@ describe('firstInterval', () => {
 
   it('plays a sample', () => {
 
-    const voice = {...setUpVoice(), activeSounds: ['snare'] }
+    const voice = { ...setUpVoice(), activeSounds: ['snare'] }
     const context = createMockContext('running', 10)
 
     runOneInterval(voice, context)
@@ -131,7 +131,7 @@ describe('firstInterval', () => {
 
   it('schedules note end when noteLength is shorter than intervalLength', () => {
 
-    const voice = {...setUpVoice(), minLength: 50, maxLength: 50 }
+    const voice = { ...setUpVoice(), minLength: 50, maxLength: 50 }
     const context = createMockContext('running', 10)
 
     runOneInterval(voice, context)
@@ -141,7 +141,7 @@ describe('firstInterval', () => {
 
   it('applies detune when cents are non-zero', () => {
 
-    const voice = {...setUpVoice(), minDetune: 50, maxDetune: 50 }
+    const voice = { ...setUpVoice(), minDetune: 50, maxDetune: 50 }
     const context = createMockContext('running', 10)
 
     runOneInterval(voice, context)
@@ -156,10 +156,10 @@ describe('firstInterval', () => {
     const context = createMockContext('running', 10)
 
     const voice = {
-      ...setUpVoice(), 
+      ...setUpVoice(),
       activeOctaves: ['0'],
-      minFadeIn : 20,
-      maxFadeIn : 20,
+      minFadeIn: 20,
+      maxFadeIn: 20,
       minFadeOut: 20,
       maxFadeOut: 20,
     }
@@ -169,25 +169,56 @@ describe('firstInterval', () => {
     expect(mockGain.gain.linearRampToValueAtTime).toHaveBeenCalled()
   })
 
-  it('uses "0" as interval when activeIntervals is empty', () => {
-
-    const voice = { 
-      ...setUpVoice(), 
-      activeIntervals: [], 
-      restChance: 100 
+  it('calls makeSound when isRest returns false', () => {
+    const voice = {
+      ...setUpVoice(),
+      restChance: 0
     };
-    
     const runningRef = { current: true };
     const voicesRef = { current: [voice] };
-    const mockContext = createMockContext() as unknown as AudioContext;
+    const mockContext = createMockContext('running', 0) as unknown as AudioContext;
 
     firstInterval(voice, 0, runningRef, voicesRef, ['sine'] as any, mockContext);
 
     runningRef.current = false;
-
     jest.runAllTimers();
 
-    expect(voice.isActive).toBe(true);
+    expect(mockContext.createOscillator).toHaveBeenCalled();
+  });
+
+  it('uses "0" as fallback interval when activeIntervals is empty', () => {
+    const voice = {
+      ...setUpVoice(),
+      activeIntervals: [],
+      restChance: 0
+    };
+    const runningRef = { current: true };
+    const voicesRef = { current: [voice] };
+    const mockContext = createMockContext('running', 0) as unknown as AudioContext;
+
+    firstInterval(voice, 0, runningRef, voicesRef, ['sine'] as any, mockContext);
+
+    runningRef.current = false;
+    jest.runAllTimers();
+
+    expect(mockContext.createOscillator).toHaveBeenCalled();
+  });
+
+  it('skips makeSound when isRest returns true', () => {
+    const voice = {
+      ...setUpVoice(),
+      restChance: 100
+    };
+    const runningRef = { current: true };
+    const voicesRef = { current: [voice] };
+    const mockContext = createMockContext('running', 0) as unknown as AudioContext;
+
+    firstInterval(voice, 0, runningRef, voicesRef, ['sine'] as any, mockContext);
+
+    runningRef.current = false;
+    jest.runAllTimers();
+
+    expect(mockContext.createOscillator).not.toHaveBeenCalled();
   });
 
   it('logs "Unknown error" when a non-Error is thrown inside makeSound', () => {
@@ -237,13 +268,13 @@ describe('firstInterval', () => {
     Object.defineProperty(context, 'currentTime', {
       get: () => { throw new Error('simulated context error') }
     })
-    
+
     firstInterval(
-      voice, 
-      0, 
-      { current: true }, 
-      { current: [voice] }, 
-      ['sine'] as Waveform[], 
+      voice,
+      0,
+      { current: true },
+      { current: [voice] },
+      ['sine'] as Waveform[],
       context as unknown as AudioContext
     )
 
@@ -264,11 +295,11 @@ describe('firstInterval', () => {
     const context = createMockContext('running', 0)
 
     firstInterval(
-      voice, 
-      0, 
-      { current: true }, 
-      { current: [voice] }, 
-      ['sine'] as Waveform[], 
+      voice,
+      0,
+      { current: true },
+      { current: [voice] },
+      ['sine'] as Waveform[],
       context as unknown as AudioContext
     )
 
