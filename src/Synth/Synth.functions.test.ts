@@ -204,13 +204,10 @@ describe('firstInterval', () => {
       ...setUpVoice(),
       restChance: 100
     };
-    const runningRef = { current: true };
-    const voicesRef = { current: [voice] };
-    const mockContext = createMockContext('running', 0) as unknown as AudioContext;
 
-    firstInterval(voice, 0, runningRef, voicesRef, ['sine'] as any, mockContext);
-
-    runningRef.current = false;
+    const mockContext = createMockContext('running', 0) as ReturnType<typeof createMockContext>
+    
+    runOneInterval(voice, mockContext)
     jest.runAllTimers();
 
     expect(mockContext.createOscillator).not.toHaveBeenCalled();
