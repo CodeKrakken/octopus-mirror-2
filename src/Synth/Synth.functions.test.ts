@@ -55,6 +55,28 @@ global.AudioContext = MockAudioContext as typeof AudioContext
 
 global.Audio = jest.fn().mockImplementation(() => ({ play: jest.fn() })) as typeof Audio
 
+const runOneInterval = (
+  voice: VoiceType,
+  context: ReturnType<typeof createMockContext>,
+  overrides: { nextInterval?: number; waveforms?: string[] } = {}
+) => {
+
+  const runningRef = { current: true }
+  const voicesRef = { current: [voice] }
+  const waveforms = (overrides.waveforms ?? ['sine']) as Waveform[]
+
+  firstInterval(
+    voice,
+    overrides.nextInterval ?? 0,
+    runningRef,
+    voicesRef,
+    waveforms,
+    context as unknown as AudioContext
+  )
+
+  voice.isActive = false
+  jest.runAllTimers()
+}
 
 describe('getContext', () => {
 
@@ -92,29 +114,6 @@ describe('stopOne', () => {
 
 
 describe('firstInterval', () => {
-
-  const runOneInterval = (
-    voice: VoiceType,
-    context: ReturnType<typeof createMockContext>,
-    overrides: { nextInterval?: number; waveforms?: string[] } = {}
-  ) => {
-
-    const runningRef = { current: true }
-    const voicesRef = { current: [voice] }
-    const waveforms = (overrides.waveforms ?? ['sine']) as Waveform[]
-
-    firstInterval(
-      voice,
-      overrides.nextInterval ?? 0,
-      runningRef,
-      voicesRef,
-      waveforms,
-      context as unknown as AudioContext
-    )
-
-    voice.isActive = false
-    jest.runAllTimers()
-  }
 
   beforeAll(() => jest.useFakeTimers())
   afterAll(() => jest.useRealTimers())
@@ -170,17 +169,15 @@ describe('firstInterval', () => {
   })
 
   it('calls makeSound when isRest returns false', () => {
+
     const voice = {
       ...setUpVoice(),
       restChance: 0
     };
-    const runningRef = { current: true };
-    const voicesRef = { current: [voice] };
-    const mockContext = createMockContext('running', 0) as unknown as AudioContext;
-
-    firstInterval(voice, 0, runningRef, voicesRef, ['sine'] as any, mockContext);
-
-    runningRef.current = false;
+    
+    const mockContext = createMockContext('running', 0) as ReturnType<typeof createMockContext>;
+    
+    runOneInterval(voice, mockContext)
     jest.runAllTimers();
 
     expect(mockContext.createOscillator).toHaveBeenCalled();
