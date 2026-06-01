@@ -218,14 +218,11 @@ describe('firstInterval', () => {
     const throwingContext = {
       ...createMockContext(),
       createOscillator: jest.fn(() => { throw 'string error'; }),
-    } as unknown as AudioContext;
+    } as ReturnType<typeof createMockContext>;
 
     const voice = { ...setUpVoice(), restChance: 0, activeSounds: ['sine'] };
-    const runningRef = { current: true };
-    const voicesRef = { current: [voice] };
 
-    firstInterval(voice, 0, runningRef, voicesRef, ['sine'] as any, throwingContext);
-    runningRef.current = false;
+    runOneInterval(voice, throwingContext)
     jest.runAllTimers();
 
     expect(consoleSpy).toHaveBeenCalledWith('Unknown error', 'string error');
@@ -245,6 +242,7 @@ describe('firstInterval', () => {
 
     firstInterval(voice, 0, runningRef, voicesRef, ['sine'] as any, mockContext);
     runningRef.current = false;
+    
     jest.runAllTimers();
 
     expect(mockContext.createOscillator).toHaveBeenCalled();
@@ -261,14 +259,7 @@ describe('firstInterval', () => {
       get: () => { throw new Error('simulated context error') }
     })
 
-    firstInterval(
-      voice,
-      0,
-      { current: true },
-      { current: [voice] },
-      ['sine'] as Waveform[],
-      context as unknown as AudioContext
-    )
+    runOneInterval(voice, context)
 
     expect(consoleSpy).toHaveBeenCalledWith('simulated context error')
 
