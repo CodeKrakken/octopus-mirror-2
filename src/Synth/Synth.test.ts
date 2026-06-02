@@ -12,6 +12,7 @@ jest.mock('./Synth.functions', () => ({
 }));  
 
 describe('Synth', () => {
+
   beforeEach(() => {
     Synth.voices = [];
     jest.clearAllMocks();
@@ -31,7 +32,48 @@ describe('Synth', () => {
     });
   });
 
+
+  describe('start', () => {  
+    
+    it('calls firstInterval for each voice with correct arguments', () => {  
+
+      const mockVoice1: VoiceType = setUpVoice()
+      const mockVoice2: VoiceType = setUpVoice(mockVoice1)  
+      const runningRef = { current: true };  
+      const voicesRef = { current: [mockVoice1, mockVoice2] };  
+      const mockContext = { currentTime: 1.5 };  
+    
+      (getContext as jest.Mock).mockReturnValue(mockContext);  
+    
+      // Initialize context by calling Synth.add (which calls getContext internally)  
+      Synth.add(mockVoice1, false, runningRef, voicesRef);  
+      Synth.add(mockVoice2, false, runningRef, voicesRef);  
+        
+      // Clear the firstInterval calls from add()  
+      (firstInterval as jest.Mock).mockClear();  
+        
+      // Act  
+      Synth.start(runningRef, voicesRef);  
+    
+      // Assert  
+      expect(firstInterval).toHaveBeenCalledTimes(2);  
+
+      const args = [ 
+        mockContext.currentTime,  
+        runningRef,  
+        voicesRef,  
+        waveforms,  
+        mockContext 
+      ] 
+        
+      expect(firstInterval).toHaveBeenCalledWith(mockVoice1, ...args);  
+      expect(firstInterval).toHaveBeenCalledWith(mockVoice2, ...args);  
+    });  
+  });
+
+
   describe('integration', () => {
+    
     it('adds, updates, and deletes voices', () => {
 
       const voice1 = setUpVoice();
@@ -54,51 +96,9 @@ describe('Synth', () => {
       expect(Synth.voices.length).toBe(1);
       expect(Synth.voices[0]).toBe(voice2);
 
-      // test stop remaining
+      // test stop
       Synth.stop();
       expect(stopOne).toHaveBeenCalled();
     });
   });
-});
-  
-describe('Synth.start', () => {  
-  beforeEach(() => {  
-    jest.clearAllMocks();  
-    Synth.voices = [];  
-  });  
-  
-  it('calls firstInterval for each voice with correct arguments', () => {  
-
-    const mockVoice1: VoiceType = setUpVoice()
-    const mockVoice2: VoiceType = setUpVoice(mockVoice1)  
-    const runningRef = { current: true };  
-    const voicesRef = { current: [mockVoice1, mockVoice2] };  
-    const mockContext = { currentTime: 1.5 };  
-  
-    (getContext as jest.Mock).mockReturnValue(mockContext);  
-  
-    // Initialize context by calling Synth.add (which calls getContext internally)  
-    Synth.add(mockVoice1, false, runningRef, voicesRef);  
-    Synth.add(mockVoice2, false, runningRef, voicesRef);  
-      
-    // Clear the firstInterval calls from add()  
-    (firstInterval as jest.Mock).mockClear();  
-      
-    // Act  
-    Synth.start(runningRef, voicesRef);  
-  
-    // Assert  
-    expect(firstInterval).toHaveBeenCalledTimes(2);  
-
-    const args = [ 
-      mockContext.currentTime,  
-      runningRef,  
-      voicesRef,  
-      waveforms,  
-      mockContext 
-    ] 
-      
-    expect(firstInterval).toHaveBeenCalledWith(mockVoice1, ...args);  
-    expect(firstInterval).toHaveBeenCalledWith(mockVoice2, ...args);  
-  });  
 });
