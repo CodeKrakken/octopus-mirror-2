@@ -264,7 +264,7 @@ describe('firstInterval', () => {
       
     runOneInterval(voice, mockContext)  
       
-    const mockOscillator = mockContext.createOscillator() // Get the oscillator mock from the context  
+    const mockOscillator = mockContext.createOscillator()
     const frequency = mockOscillator.frequency.value  
       
     expect(frequency).not.toBe(261.63)  
@@ -284,7 +284,7 @@ describe('firstInterval', () => {
 
     runOneInterval(voice, mockContext);
 
-    const mockOscillator = mockContext.createOscillator() // Get the oscillator mock from the context  
+    const mockOscillator = mockContext.createOscillator()
     const frequency = mockOscillator.frequency.value  
 
     expect(frequency).toBeLessThan(293.66);
