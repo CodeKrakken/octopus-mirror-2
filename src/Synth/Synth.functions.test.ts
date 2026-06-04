@@ -1,7 +1,6 @@
 import { getContext, firstInterval, stopOne, nextInterval } from './Synth.functions';
 import { setUpVoice } from '../components/Interface/Interface.functions';
-import { VoiceType } from '../components/Voice/Voice.types';
-import { createMockContext } from './Synth.test.functions';
+import { createMockContext, runOneInterval } from './Synth.test.functions';
 
 
 jest.mock('../content/data', () => ({
@@ -23,29 +22,6 @@ global.AudioContext = MockAudioContext
 
 global.Audio = jest.fn().mockImplementation(() => ({ play: jest.fn() }))
 
-const runOneInterval = (
-  voice: VoiceType,
-  context: Partial<AudioContext>,
-  overrides: { nextInterval?: number; waveforms?: string[] } = {}
-) => {
-
-  const nextInterval = overrides.nextInterval ?? 0
-  const running = true
-  const voicesRef = { current: [voice] }
-  const waveforms = (overrides.waveforms ?? ['sine'])
-
-  firstInterval(
-    voice,
-    nextInterval,
-    running,
-    voicesRef,
-    waveforms,
-    context as AudioContext
-  )
-
-  voice.isActive = false
-  jest.runAllTimers()
-}
 
 describe('getContext', () => {
 

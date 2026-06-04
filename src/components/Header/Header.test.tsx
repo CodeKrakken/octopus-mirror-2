@@ -6,12 +6,14 @@ describe('Header', () => {
   const mockHandleAddVoice = jest.fn();
   const mockHandleStartStop = jest.fn();
 
-  const header = (state: Boolean) => <Header
-    handleAddVoice={mockHandleAddVoice}
-    handleStartStop={mockHandleStartStop}
-    showStart={true}
-    running={state}
-  />
+  const header = (state: Boolean) => (
+      <Header
+      handleAddVoice={mockHandleAddVoice}
+      handleStartStop={mockHandleStartStop}
+      showStart={true}
+      running={state}
+    />
+  )
 
   beforeEach(() => { jest.clearAllMocks(); });
 
