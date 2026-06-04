@@ -1,5 +1,5 @@
 import { VoiceType } from "../components/Voice/Voice.types";
-import { firstInterval } from "./Synth.functions";
+import { runInterval } from "./Synth.functions";
 
 const createMockContext = (state = 'running', currentTime = 0) => (
   {
@@ -37,7 +37,7 @@ const runOneInterval = (
   const voicesRef = { current: [voice] }
   const waveforms = (overrides.waveforms ?? ['sine'])
 
-  firstInterval(
+  runInterval(
     voice,
     running,
     voicesRef,

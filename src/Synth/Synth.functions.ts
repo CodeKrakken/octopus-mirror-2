@@ -10,18 +10,6 @@ const getContext = (context: AudioContext | null) => {
   return context
 }
 
-const firstInterval = (
-  voice: VoiceType, 
-  running: boolean, 
-  voicesRef: VoicesRef, 
-  waveforms: Waveform[], 
-  context: AudioContext
-) => {
-  voice.isActive = true
-
-  runInterval(voice, running, voicesRef, waveforms, context)
-}
-
 const stopOne = (voice: VoiceType) => voice.isActive = false
 
 const runInterval = (
@@ -32,8 +20,9 @@ const runInterval = (
   context: AudioContext
 ) => {  
   if (running) {
-    const thisInterval = voice.nextInterval
     voice.thisInterval = voice.nextInterval
+    const thisInterval = voice.thisInterval
+
 
     if (isTimeFor(thisInterval, context)) {
       const intervalLength = getIntervalLength(voice)
@@ -59,7 +48,6 @@ const nextInterval = (
   if (!voice.isActive) return
 
   setTimeout(() => {
-    if (!voice.isActive) return
     runInterval(voice, running, voicesRef, waveforms, context)
   }, (voice.nextInterval - context.currentTime)*1000)    
 }
@@ -295,7 +283,6 @@ const getRangeValue = (key: string, voice: VoiceType) => {
 
 export {
   getContext,
-  firstInterval,
   runInterval,
   nextInterval,
   stopOne

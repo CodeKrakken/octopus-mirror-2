@@ -1,13 +1,13 @@
 import { Synth } from './Synth';
 import { setUpVoice } from '../components/Interface/Interface.functions';
 import { VoiceType } from '../components/Voice/Voice.types';
-import { firstInterval, getContext, stopOne } from './Synth.functions';
+import { runInterval, getContext, stopOne } from './Synth.functions';
 import { waveforms } from '../content/data';
 import { createMockContext } from './Synth.test.functions';
 
 
 jest.mock('./Synth.functions', () => ({
-  firstInterval: jest.fn(),
+  runInterval: jest.fn(),
   getContext: jest.fn(() => ({ currentTime: 0 })),
   stopOne: jest.fn(),
 }));
@@ -21,7 +21,7 @@ describe('Synth', () => {
 
   describe('add', () => {
 
-    it('calls firstInterval when running is true', () => {
+    it('calls runInterval when running is true', () => {
 
       const voice = setUpVoice();
       const running = true;
@@ -29,14 +29,14 @@ describe('Synth', () => {
 
       Synth.add(voice, running, voicesRef);
 
-      expect(firstInterval).toHaveBeenCalled();
+      expect(runInterval).toHaveBeenCalled();
     });
   });
 
 
   describe('start', () => {
 
-    it('calls firstInterval for each voice with correct arguments', () => {
+    it('calls runInterval for each voice with correct arguments', () => {
 
       const voice1: VoiceType = setUpVoice()
       const voice2: VoiceType = setUpVoice(voice1)
@@ -44,7 +44,6 @@ describe('Synth', () => {
       const voicesRef = { current: [voice1, voice2] };
       const mockContext = createMockContext();
       (getContext as jest.Mock).mockReturnValue(mockContext);
-      const nextInterval = mockContext.currentTime
 
       const args = [
         running,
@@ -57,9 +56,9 @@ describe('Synth', () => {
       Synth.add(voice2, running, voicesRef);
       Synth.start(running, voicesRef);
 
-      expect(firstInterval).toHaveBeenCalledTimes(2);
-      expect(firstInterval).toHaveBeenCalledWith(voice1, ...args);
-      expect(firstInterval).toHaveBeenCalledWith(voice2, ...args);
+      expect(runInterval).toHaveBeenCalledTimes(2);
+      expect(runInterval).toHaveBeenCalledWith(voice1, ...args);
+      expect(runInterval).toHaveBeenCalledWith(voice2, ...args);
     });
   });
 
