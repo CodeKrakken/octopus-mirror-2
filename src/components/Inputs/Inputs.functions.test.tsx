@@ -1,6 +1,7 @@
 import { updateField, updateCheckbox } from './Inputs.functions';
 import { setUpVoice } from '../Interface/Interface.functions';
 import { VoiceType } from '../Voice/Voice.types';
+import { ChangeEvent } from 'react';
 
 
 describe('Inputs.functions', () => {
@@ -20,7 +21,7 @@ describe('Inputs.functions', () => {
   describe('updateField', () => {
 
     it('handles range field updates (maxLevel)', () => {
-      const mockEvent = { target: { value: '99' }} as any;
+      const mockEvent = { target: { value: '99' }} as ChangeEvent<HTMLInputElement, Element>;
 
       updateField(mockEvent, 'maxLevel', voices, 0, setVoices);
 

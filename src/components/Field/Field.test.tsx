@@ -19,6 +19,7 @@ jest.mock('../Inputs/Inputs.functions', () => ({
 }));
 
 describe('Field', () => {
+
   const mockSetVoices = jest.fn();
   const voices: VoiceType[] = [setUpVoice()];
 
@@ -39,6 +40,7 @@ describe('Field', () => {
     );
 
     const maxInput = screen.getByDisplayValue('80');
+    
     fireEvent.change(maxInput, { target: { value: '90' } });
 
     expect(updateField).toHaveBeenCalledWith(

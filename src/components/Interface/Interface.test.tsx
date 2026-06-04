@@ -35,11 +35,12 @@ jest.mock('../Voice/Voice', () => ({
 
 
 describe('Interface', () => {
-  beforeEach(() => { jest.clearAllMocks(); });
+  beforeEach(() => { 
+    jest.clearAllMocks(); 
+    render(<Interface />);
+  });
 
   it('deletes voice when handleDelete is called', async () => {
-    render(<Interface />);
-
     await act(async () => { fireEvent.click(screen.getByTestId('add-voice')); });
     await act(async () => { fireEvent.click(screen.getByTestId('delete-voice-0')); });
 
@@ -47,8 +48,6 @@ describe('Interface', () => {
   });
 
   it('calls toggleRunning(false) and Synth.stop when stop is triggered', async () => {
-    render(<Interface />);
-
     await act(async () => { fireEvent.click(screen.getByTestId('add-voice')); });
 
     const startStopButton = screen.getByTestId('start-stop');

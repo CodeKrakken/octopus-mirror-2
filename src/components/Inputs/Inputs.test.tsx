@@ -14,7 +14,6 @@ jest.mock('./Inputs.functions', () => ({
 describe('Inputs', () => {
 
   const setVoices = jest.fn();
-
   const voices: VoiceType[] = [setUpVoice()]
 
   const renderInputs = () => render(
@@ -29,6 +28,7 @@ describe('Inputs', () => {
 
   beforeEach(() => { jest.clearAllMocks();});
 
+  
   it('calls updateField when a numeric field changes', () => {
 
     renderInputs();
