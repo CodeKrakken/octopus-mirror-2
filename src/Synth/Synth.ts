@@ -1,6 +1,5 @@
-import { VoiceType }                          from '../components/Voice/Voice.types'
-import { waveforms }                          from '../content/data'
-import { VoicesRef, Waveform }                from './Synth.types'
+import { VoiceType }                        from '../components/Voice/Voice.types'
+import { VoicesRef }                        from './Synth.types'
 import { getContext, runInterval, stopOne } from './Synth.functions'
 
 let context: AudioContext

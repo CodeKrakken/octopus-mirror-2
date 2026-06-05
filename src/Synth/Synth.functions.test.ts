@@ -209,7 +209,6 @@ describe('runInterval', () => {
 
     const running = true
     const voicesRef = { current: [voice] }
-    const waveforms = ['sine']
     const context = createMockContext('running', 0)
 
     runInterval(
