@@ -35,13 +35,11 @@ const runOneInterval = (
 
   const running = true
   const voicesRef = { current: [voice] }
-  const waveforms = (overrides.waveforms ?? ['sine'])
 
   runInterval(
     voice,
     running,
     voicesRef,
-    waveforms,
     context as AudioContext
   )
 

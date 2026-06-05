@@ -188,7 +188,6 @@ describe('runInterval', () => {
       voice,
       running,
       voicesRef,
-      ['sine'],
       mockContext
     );
 
@@ -221,7 +220,6 @@ describe('runInterval', () => {
       voice,
       running,
       voicesRef,
-      waveforms,
       context as unknown as AudioContext
     )
 

@@ -2,7 +2,6 @@ import { Synth } from './Synth';
 import { setUpVoice } from '../components/Interface/Interface.functions';
 import { VoiceType } from '../components/Voice/Voice.types';
 import { runInterval, getContext, stopOne } from './Synth.functions';
-import { waveforms } from '../content/data';
 import { createMockContext } from './Synth.test.functions';
 
 
@@ -48,7 +47,6 @@ describe('Synth', () => {
       const args = [
         running,
         voicesRef,
-        waveforms,
         mockContext
       ];
 

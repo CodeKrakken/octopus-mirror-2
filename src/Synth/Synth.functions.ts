@@ -1,6 +1,6 @@
 import { VoiceType }                                    from '../components/Voice/Voice.types'
 import { OscGain, VoicesRef, Waveform }     from './Synth.types'
-import { allFrequencies, extrema, oneMinute, samples }  from '../content/data';
+import { allFrequencies, extrema, oneMinute, samples, waveforms }  from '../content/data';
 
 const getContext = (context: AudioContext | null) => {
   
@@ -16,7 +16,6 @@ const runInterval = (
   voice: VoiceType, 
   running: boolean, 
   voicesRef: VoicesRef, 
-  waveforms: Waveform[], 
   context: AudioContext
 ) => {
 
@@ -28,13 +27,13 @@ const runInterval = (
       const intervalLength = getIntervalLength(voice)
       voice.nextInterval += intervalLength
     
-      if (!isRest(voice)) makeSound(voice, intervalLength, voicesRef, waveforms, context)
+      if (!isRest(voice)) makeSound(voice, intervalLength, voicesRef, context)
     } 
 
     if (!voice.isActive) return
 
     setTimeout(() => {
-      runInterval(voice, running, voicesRef, waveforms, context)
+      runInterval(voice, running, voicesRef, context)
     }, (voice.nextInterval - context.currentTime)*1000)    
   }
 }
@@ -61,7 +60,6 @@ const makeSound = (
   voice: VoiceType, 
   length: number, 
   voicesRef: VoicesRef, 
-  waveforms: string[], 
   context: AudioContext
 ) => {
 

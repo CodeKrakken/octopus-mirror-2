@@ -13,7 +13,7 @@ export const Synth = {
     Synth.voices.forEach(voice => {
       voice.nextInterval = context.currentTime
       voice.isActive = true
-      runInterval(voice, running, voicesRef, waveforms as Waveform[], context)
+      runInterval(voice, running, voicesRef, context)
     })
   },
 
@@ -24,7 +24,7 @@ export const Synth = {
     context = getContext(context)
     if (running) {
       voice.isActive = true
-      runInterval(voice, running, voicesRef, waveforms as Waveform[], context)
+      runInterval(voice, running, voicesRef, context)
     }
   },
   
