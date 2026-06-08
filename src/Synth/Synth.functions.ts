@@ -11,8 +11,6 @@ const getContext = (context: AudioContext = new AudioContext()) => {
   return context
 }
 
-const stopOne = (voice: VoiceType) => voice.isActive = false
-
 const runInterval = (
   voice: VoiceType, 
   running: boolean, 
@@ -256,6 +254,5 @@ const getRangeValue = (key: string, voice: VoiceType) => {
 
 export {
   getContext,
-  runInterval,
-  stopOne
+  runInterval
 }

@@ -1,6 +1,6 @@
 import { VoiceType }                        from '../components/Voice/Voice.types'
 import { VoicesRef }                        from './Synth.types'
-import { getContext, runInterval, stopOne } from './Synth.functions'
+import { getContext, runInterval } from './Synth.functions'
 
 let context: AudioContext
 
@@ -34,5 +34,5 @@ export const Synth = {
     })
   },
 
-  stop: () => Synth.voices.forEach(voice => stopOne(voice))
+  stop: () => Synth.voices.forEach(voice => voice.isActive = false)
 }
