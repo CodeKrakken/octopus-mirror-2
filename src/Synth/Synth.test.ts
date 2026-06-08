@@ -1,7 +1,7 @@
 import { Synth } from './Synth';
 import { setUpVoice } from '../components/Interface/Interface.functions';
 import { VoiceType } from '../components/Voice/Voice.types';
-import { runInterval, getContext, stopOne } from './Synth.functions';
+import { runInterval, getContext } from './Synth.functions';
 import { createMockContext } from './Synth.test.functions';
 
 
@@ -67,7 +67,7 @@ describe('Synth', () => {
 
       const voice1 = setUpVoice();
       const voice2 = setUpVoice();
-      const running = false;
+      let running = false;
       const voicesRef = { current: [] };
 
       // test add
@@ -85,9 +85,10 @@ describe('Synth', () => {
       expect(Synth.voices.length).toBe(1);
       expect(Synth.voices[0]).toBe(voice2);
 
-      // test stop
-      Synth.stop();
-      expect(stopOne).toHaveBeenCalled();
+       // test stop  
+      Synth.voices[0].isActive = true; // Set active before stopping  
+      Synth.stop();  
+      expect(Synth.voices[0].isActive).toBe(false);  
     });
   });
 });

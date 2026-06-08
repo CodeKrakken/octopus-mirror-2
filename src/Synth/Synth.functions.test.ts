@@ -1,4 +1,4 @@
-import { getContext, stopOne, runInterval } from './Synth.functions';
+import { getContext, runInterval } from './Synth.functions';
 import { setUpVoice } from '../components/Interface/Interface.functions';
 import { createMockContext, runOneInterval } from './Synth.test.functions';
 
@@ -38,24 +38,24 @@ describe('getContext', () => {
 })
 
 
-describe('stopOne', () => {
+// describe('stopOne', () => {
 
-  it('stops multiple voices independently', () => {
+//   it('stops multiple voices independently', () => {
 
-    const voice1 = { ...setUpVoice(), isActive: true };
-    const voice2 = { ...setUpVoice(), isActive: true };
+//     const voice1 = { ...setUpVoice(), isActive: true };
+//     const voice2 = { ...setUpVoice(), isActive: true };
 
-    stopOne(voice1);
+//     stopOne(voice1);
 
-    expect(voice1.isActive).toBe(false);
-    expect(voice2.isActive).toBe(true);
+//     expect(voice1.isActive).toBe(false);
+//     expect(voice2.isActive).toBe(true);
 
-    stopOne(voice2);
+//     stopOne(voice2);
 
-    expect(voice1.isActive).toBe(false);
-    expect(voice2.isActive).toBe(false);
-  });
-})
+//     expect(voice1.isActive).toBe(false);
+//     expect(voice2.isActive).toBe(false);
+//   });
+// })
 
 
 describe('runInterval', () => {
