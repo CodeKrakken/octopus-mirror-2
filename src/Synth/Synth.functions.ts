@@ -78,7 +78,8 @@ const makeSound = (
         const oscGain = setUpOscillator()
         oscGain.oscillator.type = randomSound
         const noteLength = generateNoteLength(voice, intervalLength)
-        oscillate(voice, noteLength, offsetTime, level, oscGain)
+        voice.offsetInterval = voice.thisInterval! + offsetTime
+        oscillate(voice, noteLength, level, oscGain)
         setTimeout(() => removeOscillator(oscGain), intervalLength*1000)
       } else {
         playSample(randomSound, level)
@@ -121,7 +122,6 @@ const playSample = (
 const oscillate = (
   voice: VoiceType, 
   noteLength: number, 
-  offsetTime: number, 
   level: number, 
   oscGain: OscGain,
 ) => {
@@ -129,7 +129,7 @@ const oscillate = (
   oscGain.oscillator.frequency.value = generateFrequency(voice)
 
   const gain         = oscGain.gain!.gain
-  const thisInterval = voice.thisInterval! + offsetTime
+  const thisInterval = voice.offsetInterval!
 
   const fadeInPercentage  = getRangeValue('FadeIn', voice)
   const fadeOutPercentage = getRangeValue('FadeOut', voice)

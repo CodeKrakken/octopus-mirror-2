@@ -8,26 +8,31 @@ export const Synth = {
 
   voices: [] as VoiceType[],
 
-  start: (running: boolean, voicesRef: VoicesRef) => {
-    Synth.voices.forEach(voice => {
-      voice.nextInterval = context.currentTime
-      voice.isActive = true
-      runInterval(voice, running, voicesRef, context)
-    })
-  },
-
-  stop: () => Synth.voices.forEach(voice => stopOne(voice)),
-
   add: (voice: VoiceType, running: boolean, voicesRef: VoicesRef) => {
+
     Synth.voices.push(voice)
     context = getContext(context)
+
     if (running) {
       voice.isActive = true
       runInterval(voice, running, voicesRef, context)
     }
   },
-  
-  delete: (i: number) => {Synth.voices = Synth.voices.filter((voice, j) => j !== i)},
 
-  update: (voice: VoiceType, i: number) => Synth.voices[i] = voice
+  delete: (i: number) => Synth.voices.splice(i, 1),
+
+  update: (voice: VoiceType, i: number) => Synth.voices[i] = voice,
+
+  start: (running: boolean, voicesRef: VoicesRef) => {
+
+    Synth.voices.forEach(voice => {
+
+      voice.nextInterval = context.currentTime
+      voice.isActive = true
+
+      runInterval(voice, running, voicesRef, context)
+    })
+  },
+
+  stop: () => Synth.voices.forEach(voice => stopOne(voice))
 }
