@@ -1,6 +1,6 @@
-import { VoiceType }                                    from '../components/Voice/Voice.types'
-import { OscGain, VoicesRef }     from './Synth.types'
-import { allFrequencies, extrema, oneMinute, samples, waveforms }  from '../content/data';
+import { VoiceType }                                              from '../components/Voice/Voice.types'
+import { OscGain, VoicesRef }                                     from './Synth.types'
+import { allFrequencies, extrema, oneMinute, samples, waveforms } from '../content/data';
 
 
 const getContext = (context: AudioContext = new AudioContext()) => {
@@ -18,10 +18,12 @@ const runInterval = (
 ) => {
 
   if (running) {
+
     voice.thisInterval = voice.nextInterval
     const thisInterval = voice.thisInterval
 
     if (isTimeFor(thisInterval, context)) {
+      
       const intervalLength = getIntervalLength(voice)
       voice.nextInterval += intervalLength
     
@@ -41,16 +43,20 @@ const runInterval = (
 const isTimeFor = (timeCode: number, context: AudioContext) => context.currentTime >= timeCode
 
 const getIntervalLength = (voice: VoiceType) => {
+
   const {activeIntervals, bpm} = voice
   const interval = (randomOneFrom(activeIntervals) || '0') as string
   const intervalLength  = oneMinute / bpm * parseFloat(interval)
+
   return intervalLength
 }
 
 const isRest = (voice: VoiceType) => {
+
   const restChance  = voice.restChance/100
   const diceRoll = Math.random()
   const result = diceRoll < restChance
+
   return result
 }
 
@@ -61,20 +67,21 @@ const makeSound = (
   context: AudioContext
 ) => {
 
-  const offsetTime = getOffsetTime(voice, intervalLength)
+  const { activeSounds, thisInterval } = voice
+
+  const offsetTime = getRangeValue('Offset', voice) / 100 * intervalLength
 
   setTimeout(() => {
 
     try {
-      const activeSounds = voice.activeSounds
       const randomSound = randomOneFrom(activeSounds) as OscillatorType
-      const level = generateLevel(voice, voicesRef.current)
+      const level = calculateLevel(voice, voicesRef.current)
 
       if (waveforms.includes(randomSound)) {
         const oscGain = setUpOscillator(context)
         oscGain.oscillator.type = randomSound
         const noteLength = generateNoteLength(voice, intervalLength)
-        voice.offsetInterval = voice.thisInterval! + offsetTime
+        voice.offsetInterval = thisInterval! + offsetTime
         oscillate(voice, noteLength, level, oscGain)
         setTimeout(() => removeOscillator(oscGain), intervalLength*1000)
       } else {
@@ -160,7 +167,7 @@ const getRandomFrequency = (voice: VoiceType) => {
   return randomFrequency
 }
 
-const generateLevel = (voice: VoiceType, voices: VoiceType[]) => {
+const calculateLevel = (voice: VoiceType, voices: VoiceType[]) => {
   const { minLevel, maxLevel } = voice
   const balancedLevel = ((minLevel + Math.random() * (maxLevel - minLevel))/100)/voices.length
   return balancedLevel
@@ -232,10 +239,6 @@ const getActiveFrequencies = (voice: VoiceType) => {
   return activeFrequencies.flat(Infinity)
 }
 
-const getOffsetTime = (
-  voice: VoiceType, 
-  intervalLength: number
-) => getRangeValue('Offset', voice) / 100 * intervalLength
 
 const getRangeValue = (key: string, voice: VoiceType) => {
     
