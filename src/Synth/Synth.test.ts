@@ -8,7 +8,6 @@ import { createMockContext } from './Synth.test.functions';
 jest.mock('./Synth.functions', () => ({
   runInterval: jest.fn(),
   getContext: jest.fn(() => ({ currentTime: 0 })),
-  stopOne: jest.fn(),
 }));
 
 describe('Synth', () => {
