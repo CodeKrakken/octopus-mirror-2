@@ -193,7 +193,7 @@ const setUpSample = (
 const generateNoteLength = (voice: VoiceType, intervalLength: number) => {
 
   const { minLength, maxLength } = voice
-  const noteLengthPercentage  = (minLength + Math.random() * (maxLength - minLength))
+  const noteLengthPercentage  = getRangeValue('Length', voice)
   const noteLength = intervalLength / 100 * noteLengthPercentage
 
   return noteLength
