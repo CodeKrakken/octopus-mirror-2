@@ -152,26 +152,6 @@ describe('runInterval', () => {
     expect(consoleSpy).toHaveBeenCalledWith('Unknown error', 'string error');
   });
 
-  it('does not schedule intervals when running is false', () => {
-
-    const voice = setUpVoice();
-    const mockContext = createMockContext('running') as AudioContext;
-    const running = false;
-    const voicesRef = { current: [voice] };
-    const setTimeoutSpy = jest.spyOn(global, 'setTimeout');
-
-    runInterval(
-      voice,
-      running,
-      voicesRef,
-      mockContext
-    );
-
-    expect(setTimeoutSpy).not.toHaveBeenCalled();
-    expect(mockContext.createOscillator).not.toHaveBeenCalled();
-
-    setTimeoutSpy.mockRestore();
-  });
 
   it('calls runInterval again when voice is still active', () => {
 

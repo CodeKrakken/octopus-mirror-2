@@ -19,25 +19,22 @@ const runInterval = (
   context: AudioContext
 ) => {
 
-  if (running) {
+  voice.thisInterval = voice.nextInterval
+  const thisInterval = voice.thisInterval
 
-    voice.thisInterval = voice.nextInterval
-    const thisInterval = voice.thisInterval
-
-    if (isTimeFor(thisInterval, context)) {
-      
-      const intervalLength = getIntervalLength(voice)
-      voice.nextInterval += intervalLength
+  if (isTimeFor(thisInterval, context)) {
     
-      if (!isRest(voice)) makeSound(voice, intervalLength, voicesRef, context)
-    } 
+    const intervalLength = getIntervalLength(voice)
+    voice.nextInterval += intervalLength
+  
+    if (!isRest(voice)) makeSound(voice, intervalLength, voicesRef, context)
+  } 
 
-    if (!voice.isActive) return
+  if (!voice.isActive) return
 
-    setTimeout(() => {
-      runInterval(voice, running, voicesRef, context)
-    }, (voice.nextInterval - context.currentTime)*1000)    
-  }
+  setTimeout(() => {
+    runInterval(voice, running, voicesRef, context)
+  }, (voice.nextInterval - context.currentTime)*1000)    
 }
 
 // private functions
@@ -205,7 +202,7 @@ const getFadeLength = (percentage: number, noteLength: number) => noteLength * p
 const generateFrequency = (voice: VoiceType) => {
 
   const randomFrequency = randomOneFrom(getActiveFrequencies(voice) as number[])
-  
+
   return detune(randomFrequency as number, voice)
 }
 
