@@ -4,8 +4,6 @@ import { allFrequencies, extrema, oneMinute, samples, waveforms } from '../conte
 
 let freqArray: number[] | undefined  
 
-const getFreqArray = (): number[] => freqArray ??= [...new Set(allFrequencies.flat())]
-
 const getContext = (context: AudioContext = new AudioContext()) => {
 
   if (context.state === 'suspended') { context.resume() }
@@ -42,6 +40,8 @@ const runInterval = (
 }
 
 // private functions
+
+const getFreqArray = (): number[] => freqArray ??= [...new Set(allFrequencies.flat())]
 
 const isTimeFor = (timeCode: number, context: AudioContext) => context.currentTime >= timeCode
 
