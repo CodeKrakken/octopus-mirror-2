@@ -15,7 +15,7 @@ export const Synth = {
 
     if (running) {
       voice.isActive = true
-      runInterval(voice, running, voicesRef, context)
+      runInterval(voice, voicesRef, context)
     }
   },
 
@@ -23,14 +23,14 @@ export const Synth = {
 
   update: (voice: VoiceType, i: number) => Synth.voices[i] = voice,
 
-  start: (running: boolean, voicesRef: VoicesRef) => {
+  start: (voicesRef: VoicesRef) => {
 
     Synth.voices.forEach(voice => {
 
       voice.nextInterval = context.currentTime
       voice.isActive = true
 
-      runInterval(voice, running, voicesRef, context)
+      runInterval(voice, voicesRef, context)
     })
   },
 

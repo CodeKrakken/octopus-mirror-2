@@ -44,14 +44,13 @@ describe('Synth', () => {
       (getContext as jest.Mock).mockReturnValue(mockContext);
 
       const args = [
-        running,
         voicesRef,
         mockContext
       ];
 
       Synth.add(voice1, running, voicesRef);
       Synth.add(voice2, running, voicesRef);
-      Synth.start(running, voicesRef);
+      Synth.start(voicesRef);
 
       expect(runInterval).toHaveBeenCalledTimes(2);
       expect(runInterval).toHaveBeenCalledWith(voice1, ...args);

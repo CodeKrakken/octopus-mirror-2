@@ -167,13 +167,11 @@ describe('runInterval', () => {
       isActive: true
     }
 
-    const running = true
     const voicesRef = { current: [voice] }
     const context = createMockContext('running', 0)
 
     runInterval(
       voice,
-      running,
       voicesRef,
       context as unknown as AudioContext
     )

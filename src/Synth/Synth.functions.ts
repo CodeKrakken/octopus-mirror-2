@@ -14,7 +14,6 @@ const getContext = (context: AudioContext = new AudioContext()) => {
 
 const runInterval = (
   voice: VoiceType, 
-  running: boolean, 
   voicesRef: VoicesRef, 
   context: AudioContext
 ) => {
@@ -33,7 +32,7 @@ const runInterval = (
   if (!voice.isActive) return
 
   setTimeout(() => {
-    runInterval(voice, running, voicesRef, context)
+    runInterval(voice, voicesRef, context)
   }, (voice.nextInterval - context.currentTime)*1000)    
 }
 
