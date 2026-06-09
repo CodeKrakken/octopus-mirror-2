@@ -196,9 +196,8 @@ const setUpSample = (
 const generateNoteLength = (voice: VoiceType, intervalLength: number) => {
 
   const noteLengthPercentage  = getRangeValue('Length', voice)
-  const noteLength = intervalLength / 100 * noteLengthPercentage
 
-  return noteLength
+  return intervalLength / 100 * noteLengthPercentage
 }
 
 const getFadeLength = (percentage: number, noteLength: number) => noteLength * percentage / 100
