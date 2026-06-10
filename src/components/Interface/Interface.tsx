@@ -44,7 +44,7 @@ function Interface() {
 
   const handleStartStop = () => running ? stopAll() : start()
 
-  const start = async () => {
+  const start = () => {
     toggleRunning(true)
     Synth.start(voicesRef)
   }
