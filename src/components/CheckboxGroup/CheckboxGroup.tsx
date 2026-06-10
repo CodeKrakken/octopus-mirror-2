@@ -36,7 +36,7 @@ export default function CheckboxGroup({
             onChange: (e: React.ChangeEvent<HTMLInputElement>) => updateCheckbox(e, `active${groupName as CheckboxGroupType}`, voices, i, setVoices)
           };
 
-          return <input {...props} />
+          return <input {...props} key = {checkbox} />
         })
       }
     </div>

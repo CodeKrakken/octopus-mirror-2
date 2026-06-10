@@ -1,4 +1,7 @@
+import { UUID } from "crypto"
+
 type VoiceType = {
+  id              : string
   isActive        : boolean
   label           : number
   thisInterval?   : number

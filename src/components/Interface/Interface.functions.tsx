@@ -2,6 +2,7 @@ import { VoiceType } from "../Voice/Voice.types"
 
 const setUpVoice = (template: VoiceType | null = null) => {
   return {
+    id              : crypto.randomUUID(),
     isActive        : false,
     label           : template?.label!+1        ||  1,
     nextInterval    : template?.nextInterval    ||  0,
@@ -22,7 +23,7 @@ const setUpVoice = (template: VoiceType | null = null) => {
     minFadeIn       : template?.minFadeIn       ??  100,
     maxFadeIn       : template?.maxFadeIn       ??  100,
     minFadeOut      : template?.minFadeOut      ??  100,
-    maxFadeOut      : template?.maxFadeOut      ??  100,
+    maxFadeOut      : template?.maxFadeOut      ??  100
   }
 }
 

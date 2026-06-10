@@ -8,6 +8,7 @@ type InputProps = {
   value             : string | number
   onChange          : ChangeEventHandler
   checked?          : boolean
+  key?              : string
 }
 
 export type { 

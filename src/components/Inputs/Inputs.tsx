@@ -21,6 +21,7 @@ export default function Inputs(
                 i={i}
                 voices={voices}
                 setVoices={setVoices}
+                key={field}
               />            
             )
           }
@@ -35,6 +36,7 @@ export default function Inputs(
                 voices={voices}
                 i={i}
                 setVoices={setVoices}
+                key={checkboxGroup}
               />
             )
           }

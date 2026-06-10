@@ -71,17 +71,18 @@ function Interface() {
     <br />
     <br />
     {
-      voices.map((voice, i) => 
-        <div>
+      voices.map((voice) => {
+        console.log(voice.id)
+        return <div key = {voice.id}>
           <Voice
-            i             = {i} 
+            i             = {voices.indexOf(voice)} 
             setVoices     = {setVoices} 
             voices        = {voices}
             handleDelete  = {handleDelete}
             dataAttribute = "Voices"
           />
         </div>
-      )
+      })
     }
   </>
 }
