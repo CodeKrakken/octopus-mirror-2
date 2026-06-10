@@ -32,8 +32,7 @@ export default function Field ({
 
     return <>
       <div 
-        className="row" 
-        key={i}
+        className="row"
       >
         <div className="label">{f.label}</div>
         {
@@ -49,11 +48,9 @@ export default function Field ({
                 }
 
                 
-                return <>
-                  <div key={ex}>
-                    <input {...rangeProps} />
-                  </div>
-                </>
+                return <div key={ex}>
+                  <input {...rangeProps} />
+                </div>
               })
             }
           </> : <>

@@ -72,7 +72,7 @@ function Interface() {
     <br />
     {
       voices.map((voice, i) => 
-        <div key={i}>
+        <div>
           <Voice
             i             = {i} 
             setVoices     = {setVoices} 
