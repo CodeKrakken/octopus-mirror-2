@@ -68,15 +68,11 @@ describe('runInterval', () => {
 
   it('logs errors thrown during sound creation', () => {
 
-    const consoleSpy = jest
-      .spyOn(console, 'error')
-      .mockImplementation(() => {})
+    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
 
     const throwingContext = {
       ...createMockContext(),
-      createOscillator: jest.fn(() => {
-        throw new Error('oscillator failed')
-      }),
+      createOscillator: jest.fn(() => { throw new Error('oscillator failed') }),
     }
 
     const voice = {
@@ -87,17 +83,14 @@ describe('runInterval', () => {
 
     runOneInterval(voice, throwingContext)
 
-    expect(consoleSpy).toHaveBeenCalledWith(
-      'oscillator failed',
-      expect.any(Error)
-    )
+    expect(consoleSpy).toHaveBeenCalledWith('oscillator failed', expect.any(Error))
 
     consoleSpy.mockRestore()
   })
 
   it('logs "Unknown error" when a non-Error is thrown inside makeSound', () => {
 
-    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => { });
+    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 
     const throwingContext = {
       ...createMockContext(),
