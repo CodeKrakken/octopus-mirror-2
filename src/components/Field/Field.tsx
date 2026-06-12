@@ -1,4 +1,4 @@
-import { extrema, fields } from "../../content/data";
+import { fields } from "../../content/data";
 import { InputProps } from "../Input/Input.types";
 import { updateField } from "../Inputs/Inputs.functions";
 import RangeSlider from "../RangeSlider/RangeSlider";
@@ -22,44 +22,20 @@ export default function Field ({
   const voice = voices[i]
 
   const f = fields[fieldName as keyof typeof fields]
+  
     const props: InputProps = {
       className: 'textbox',
       'data-voice': i,
       'data-attribute': `${f.value}`,
       type: 'number',
       value: voice[f.value as Atom],
-      onChange: (e: React.ChangeEvent<HTMLInputElement>) => updateField(e, f.value as Atom, voices, i, setVoices)
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) => updateField(e, f.value as Atom, voices, i, setVoices),
+      min: 0,
+      max: 0
     }
 
-    return <>
-      <div 
-        className="row"
-      >
-        <div className="label">{f.label}</div>
-        {
-          f.input === 'range' ? <>
-            <RangeSlider min={0} max={100} />
-
-            {/* {
-              extrema.map((ex) => {
-
-                const rangeProps = {
-                  ...props,
-                  'data-attribute': `${ex}${f.value}`,
-                  value: voice[`${ex}${f.value}` as Atom],
-                  onChange: (e: React.ChangeEvent<HTMLInputElement>) => updateField(e, `${ex}${f.value}` as Atom, voices, i, setVoices)
-                }
-
-                
-                return <div key={ex}>
-                  <input {...rangeProps} />
-                </div>
-              })
-            } */}
-          </> : <>
-            <input {...props} />
-          </>
-        }
-      </div>
-    </>
+    return <div className="row">
+      <div className="label">{f.label}</div>
+      <RangeSlider {...props} />
+    </div>
 }

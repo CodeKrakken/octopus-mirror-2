@@ -9,6 +9,8 @@ type InputProps = {
   onChange          : ChangeEventHandler
   checked?          : boolean
   key?              : string
+  min?              : number
+  max?              : number
 }
 
 export type { 
