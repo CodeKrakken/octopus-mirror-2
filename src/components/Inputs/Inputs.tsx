@@ -2,6 +2,7 @@ import { checkboxGroups, fields }  from "../../content/data";
 import { InputsProps } from "./Inputs.types";
 import CheckboxGroup               from "../CheckboxGroup/CheckboxGroup";
 import Slider from "../Slider/Slider";
+import "./Inputs.css";
 
 export default function Inputs(
   { 
@@ -17,17 +18,19 @@ export default function Inputs(
           {
             Object.keys(fields).map(field => {
               console.log(field)
-              return <Slider
-                defaultValue={[0, 100]}
-                // min={field.min}
-              // <Field
-              //   fieldName={field}
-              //   i={i}
-              //   voices={voices}
-              //   setVoices={setVoices}
-              //   key={field}
-              // />       
-              />     
+              return <div className="row">
+                <div className="label">{fields[field as keyof typeof fields].label}</div>
+                <Slider
+                  defaultValue={[0, 100]}
+                  // min={field.min}
+                  //   fieldName={field}
+                  //   i={i}
+                  //   voices={voices}
+                  //   setVoices={setVoices}
+                  //   key={field}
+                  // />       
+                /> 
+              </div>
             })
           }
         </div>

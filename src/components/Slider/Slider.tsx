@@ -6,5 +6,7 @@ export default function Slider (props: SliderProps) {
 
   const { min, max, defaultValue } = props
 
-  return <RangeSlider min={min} max={max} defaultValue={defaultValue} />
+  return <div className="slider">
+    <RangeSlider min={min} max={max} defaultValue={defaultValue} />
+  </div>
 }
