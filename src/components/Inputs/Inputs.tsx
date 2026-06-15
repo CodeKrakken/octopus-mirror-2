@@ -23,7 +23,11 @@ export default function Inputs(
                   attributes[attr as keyof typeof attributes].inputType === 'rangeSlider' 
                     ?
                   <Slider
-                    defaultValue={[0, 100]}
+                    defaultValue={
+                      [
+                        voices[i][`min${attr}`], 
+                        voices[i][`max${attr}`]
+                      ]}
                     attr={attr}
                     i={i}
                     voices={voices}
@@ -34,7 +38,12 @@ export default function Inputs(
                   attributes[attr as keyof typeof attributes].inputType === 'singleValueSlider'
                     ?
                   <Slider
-                    defaultValue={[0, 50]}
+                    defaultValue={
+                      [
+                        voices[i][`min${attr}`], 
+                        voices[i][`max${attr}`]
+                      ]
+                    }
                     attr={attr}
                     i={i}
                     voices={voices}
