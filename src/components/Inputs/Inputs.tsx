@@ -22,11 +22,10 @@ export default function Inputs(
                 <div className="label">{fields[field as keyof typeof fields].label}</div>
                 <Slider
                   defaultValue={[0, 100]}
-                  // min={field.min}
-                  //   fieldName={field}
-                  //   i={i}
-                  //   voices={voices}
-                  //   setVoices={setVoices}
+                  fieldName={field}
+                  i={i}
+                  voices={voices}
+                  setVoices={setVoices}
                   //   key={field}
                   // />       
                 /> 
