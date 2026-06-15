@@ -3,6 +3,7 @@ import { InputsProps } from "./Inputs.types";
 import CheckboxGroup               from "../CheckboxGroup/CheckboxGroup";
 import Slider from "../Slider/Slider";
 import "./Inputs.css";
+import { render } from "@testing-library/react";
 
 export default function Inputs(
   { 
@@ -16,19 +17,23 @@ export default function Inputs(
       <div className="row">
         <div className="column">
           {
-            Object.keys(attributes).map(attr => 
-              <div className="row">
-                <div className="label">{attributes[attr as keyof typeof attributes].label}</div>
-                <Slider
-                  defaultValue={[0, 100]}
-                  attr={attr}
-                  i={i}
-                  voices={voices}
-                  setVoices={setVoices}
-                  key={attr}
-                /> 
-              </div>
-            )
+            Object.keys(attributes).map(attr => <div className="row">
+              <div className="label">{attributes[attr as keyof typeof attributes].label}</div>
+                {  
+                  attributes[attr as keyof typeof attributes].inputType === 'rangeSlider' 
+                    ?
+                  <Slider
+                    defaultValue={[0, 100]}
+                    attr={attr}
+                    i={i}
+                    voices={voices}
+                    setVoices={setVoices}
+                    key={attr}
+                  />
+                    :
+                  <></>
+                }
+            </div>)
           }
         </div>
       </div>

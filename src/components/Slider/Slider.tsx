@@ -33,7 +33,7 @@ export default function Slider ({
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => updateField(e, a.value as Atom, voices, i, setVoices)  
   }  
   
-  const rangeValue = a.input === 'range'   
+  const rangeValue = a.inputType === 'rangeSlider'   
     ? [voice[`min${a.value}` as Atom], voice[`max${a.value}` as Atom]] as [number, number]  
     : undefined;  
   
@@ -44,18 +44,9 @@ export default function Slider ({
     setVoices(updatedVoices);  
   };  
   
-  return <>  
-    <div className="row">  
-      {  
-        a.input === 'range' ? <>  
-          <RangeSlider  
-            value={rangeValue}  
-            onInput={handleRangeInput}  
-          />  
-        </> : <>  
-          <input {...props} />  
-        </>  
-      }  
-    </div>  
-  </>  
+  return <RangeSlider  
+    value={rangeValue}  
+    onInput={handleRangeInput}  
+  />  
+ 
 }

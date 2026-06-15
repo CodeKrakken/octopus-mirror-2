@@ -55,47 +55,47 @@ const attributes = {
   label: {
     label: 'Name', 
     value: 'label',
-    input: 'single'
+    inputType: 'textBox'
   },
   bpm: {
     label: 'BPM',
     value: 'bpm', 
-    input: 'single'
+    inputType: 'singleNodeSlider'
   },
   restChance: {
     label: 'Rest Chance', 
     value: 'restChance',
-    input: 'single'
+    inputType: 'singleNodeSlider'
   },
   level: {
     label: 'Level',
     value: 'Level',  
-    input: 'range'
+    inputType: 'rangeSlider'
   },
   length: {
     label: 'Length',
     value: 'Length',   
-    input: 'range'
+    inputType: 'rangeSlider'
   },
   offset: {
     label: 'Offset',
     value: 'Offset',   
-    input: 'range'
+    inputType: 'rangeSlider'
   },
   detune: {
     label: 'Detune',
     value: 'Detune',   
-    input: 'range'
+    inputType: 'rangeSlider'
   },
   fadeIn: {
     label: 'FadeIn',
     value: 'FadeIn',   
-    input: 'range'
+    inputType: 'rangeSlider'
   },
   fadeOut: {
     label: 'FadeOut',
     value: 'FadeOut',   
-    input: 'range'
+    inputType: 'rangeSlider'
   }
 }
 
