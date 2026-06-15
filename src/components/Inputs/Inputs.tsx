@@ -42,13 +42,14 @@ export default function Inputs(
                     key={attr}
                   />
                     :
-                  attributes[attr as keyof typeof attributes].inputType === 'textField'
+                  attributes[attr as keyof typeof attributes].inputType === 'textbox'
                     ?
                   <Field
-                    fieldName="Name"
-                    i={0}
+                    fieldName={attr}
+                    i={i}
                     voices={voices}
                     setVoices={setVoices}
+                    key={attr}
                   />
                     :
                   <></>

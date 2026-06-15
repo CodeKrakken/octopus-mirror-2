@@ -55,17 +55,17 @@ const attributes = {
   label: {
     label: 'Name', 
     value: 'label',
-    inputType: 'textBox'
+    inputType: 'textbox'
   },
   bpm: {
     label: 'BPM',
     value: 'bpm', 
-    inputType: 'singleNodeSlider'
+    inputType: 'singleValueSlider'
   },
   restChance: {
     label: 'Rest Chance', 
     value: 'restChance',
-    inputType: 'singleNodeSlider'
+    inputType: 'singleValueSlider'
   },
   level: {
     label: 'Level',
