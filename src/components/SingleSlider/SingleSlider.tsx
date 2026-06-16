@@ -39,7 +39,7 @@ export default function SingleSlider ({
     setVal(values[1])  
   };  
   
-  return <div className="slider">    
+  return <div className="single slider">    
     <RangeSlider  
       min={0}  
       max={100}  

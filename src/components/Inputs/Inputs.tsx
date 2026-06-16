@@ -6,6 +6,7 @@ import "./Inputs.css";
 import Field from "../Field/Field";
 import { Atom } from "../shared.types";
 import { useState } from "react";
+import DoubleSlider from "../DoubleSlider/DoubleSlider";
 
 export default function Inputs(
   { 
@@ -25,13 +26,13 @@ export default function Inputs(
                 {  
                   attributes[attr as keyof typeof attributes].inputType === 'rangeSlider' 
                     ?
-                  <SingleSlider
-                    thumbsDisabled={[false, false]}
-                    attr={attr}
+                  <DoubleSlider
+                    defaultValue={[0, 100]}
+                    fieldName={attr}
                     i={i}
                     voices={voices}
                     setVoices={setVoices}
-                    key={attr}
+                    key={attr}      
                   />
                     :
                   attributes[attr as keyof typeof attributes].inputType === 'singleValueSlider'
