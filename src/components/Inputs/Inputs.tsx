@@ -18,39 +18,38 @@ export default function Inputs(
       <div className="row">
         <div className="column">
           {
-            Object.keys(attributes).map(attr => <div className="row">
-              <div className="label">{attributes[attr as keyof typeof attributes].label}</div>
+            Object.keys(attributes).map(attrName => <div className="row">
+              <div className="label">{attributes[attrName as keyof typeof attributes].label}</div>
                 {  
-                  attributes[attr as keyof typeof attributes].inputType === 'rangeSlider' 
+                  attributes[attrName as keyof typeof attributes].inputType === 'rangeSlider' 
                     ?
-                  <DoubleSlider
-                    fieldName={attr}
-                    i={i}
-                    voices={voices}
-                    setVoices={setVoices}
-                    key={attr}      
-                  />
+                      <DoubleSlider
+                        attrName={attrName}
+                        i={i}
+                        voices={voices}
+                        setVoices={setVoices}
+                        key={attrName}      
+                      />
                     :
-                  attributes[attr as keyof typeof attributes].inputType === 'singleValueSlider'
+                  attributes[attrName as keyof typeof attributes].inputType === 'singleValueSlider'
                     ?
-                  <SingleSlider
-                    thumbsDisabled={[true, false]}
-                    attr={attr}
-                    i={i}
-                    voices={voices}
-                    setVoices={setVoices}
-                    key={attr}
-                  />
+                      <SingleSlider
+                        attrName={attrName}
+                        i={i}
+                        voices={voices}
+                        setVoices={setVoices}
+                        key={attrName}
+                      />
                     :
-                  attributes[attr as keyof typeof attributes].inputType === 'textbox'
+                  attributes[attrName as keyof typeof attributes].inputType === 'textbox'
                     ?
-                  <Field
-                    fieldName={attr}
-                    i={i}
-                    voices={voices}
-                    setVoices={setVoices}
-                    key={attr}
-                  />
+                      <Field
+                        attrName={attrName}
+                        i={i}
+                        voices={voices}
+                        setVoices={setVoices}
+                        key={attrName}
+                      />
                     :
                   <></>
                 }

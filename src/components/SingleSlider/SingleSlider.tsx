@@ -7,33 +7,24 @@ import { useState } from "react";
 import "./SingleSlider.css";
   
 type SingleSliderProps = {  
-  attr: string,  
+  attrName: string,  
   i: number,  
   voices: VoiceType[],  
   setVoices: React.Dispatch<React.SetStateAction<VoiceType[]>>,
-  thumbsDisabled: [boolean, boolean]
 }  
   
 export default function SingleSlider ({  
-  attr,  
+  attrName,  
   i,    
   voices,  
   setVoices,
-  thumbsDisabled
 }: SingleSliderProps) {  
   
-  const [val, setVal] = useState(voices[i][attr as Atom]);
-  
-  const voice = voices[i]  
-  const a = attributes[attr as keyof typeof attributes]  
-    
-  const rangeValue = a.inputType === 'rangeSlider'   
-    ? [voice[`min${a.value}` as Atom], voice[`max${a.value}` as Atom]] as [number, number]  
-    : undefined;  
-  
+  const [val, setVal] = useState(voices[i][attrName as Atom]);
+        
   const handleInput = (values: [number, number]) => {  
     const updatedVoices = [...voices];  
-    updatedVoices[i][attr as Atom] = values[1];  
+    updatedVoices[i][attrName as Atom] = values[1];  
     setVoices(updatedVoices);
     setVal(values[1])  
   };  
@@ -43,7 +34,7 @@ export default function SingleSlider ({
       min={0}  
       max={100}  
       value={[0, val]}  
-      thumbsDisabled={thumbsDisabled}  
+      thumbsDisabled={[true, false]}  
       rangeSlideDisabled={true}  
       onInput={handleInput}  
     />

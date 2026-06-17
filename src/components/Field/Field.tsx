@@ -5,14 +5,14 @@ import { Atom } from "../shared.types";
 import { VoiceType } from "../Voice/Voice.types";
 
 type FieldProps = {
-  fieldName: string,
+  attrName: string,
   i: number,
   voices: VoiceType[],
   setVoices: React.Dispatch<React.SetStateAction<VoiceType[]>>
 }
 
 export default function Field ({
-  fieldName,
+  attrName,
   i,
   voices,
   setVoices
@@ -20,15 +20,15 @@ export default function Field ({
 
   const voice = voices[i]
 
-  const f = attributes[fieldName as keyof typeof attributes]
+  const attr = attributes[attrName as keyof typeof attributes]
   
   const props: InputProps = {
     className: 'textbox',
     'data-voice': i,
-    'data-attribute': `${f.value}`,
+    'data-attribute': `${attr.value}`,
     type: 'number',
-    value: voice[f.value as Atom],
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => updateField(e, f.value as Atom, voices, i, setVoices)
+    value: voice[attr.value as Atom],
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => updateField(e, attr.value as Atom, voices, i, setVoices)
   }
 
   return <div className="row">
