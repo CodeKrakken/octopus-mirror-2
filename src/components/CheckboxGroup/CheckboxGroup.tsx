@@ -1,5 +1,5 @@
 import { checkboxGroups } from "../../content/data";
-import { InputProps } from "../Input/Input.types";
+import { CheckboxProps } from "../Input/Input.types";
 import { updateCheckbox } from "../Inputs/Inputs.functions";
 import { CheckboxGroupType } from "../shared.types";
 import { VoiceType } from "../Voice/Voice.types";
@@ -26,7 +26,7 @@ export default function CheckboxGroup({
       {
         checkboxGroups[groupName as CheckboxGroupType].map((checkbox: string) => {
 
-          const props: InputProps = {
+          const props: CheckboxProps = {
             className: 'checkbox',
             'data-attribute': groupName,
             'data-voice': i,

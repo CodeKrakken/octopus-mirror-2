@@ -1,6 +1,6 @@
 import { ChangeEventHandler } from "react"
 
-type InputProps = {
+type CheckboxProps = {
   className         : string  
   'data-voice'      : number
   'data-attribute'  : string
@@ -27,6 +27,6 @@ type SliderProps = {
 }
 
 export type { 
-  InputProps,
+  CheckboxProps,
   SliderProps
 }
