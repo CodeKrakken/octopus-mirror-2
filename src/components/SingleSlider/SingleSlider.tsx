@@ -5,20 +5,18 @@ import RangeSlider from 'react-range-slider-input';
 import 'react-range-slider-input/dist/style.css';  
 import { useState } from "react";
 import "./SingleSlider.css";
-  
-type SingleSliderProps = {  
-  attrName: string,  
-  i: number,  
-  voices: VoiceType[],  
-  setVoices: React.Dispatch<React.SetStateAction<VoiceType[]>>,
-}  
-  
+    
 export default function SingleSlider ({  
   attrName,  
   i,    
   voices,  
   setVoices,
-}: SingleSliderProps) {  
+} : {  
+  attrName: string,  
+  i: number,  
+  voices: VoiceType[],  
+  setVoices: React.Dispatch<React.SetStateAction<VoiceType[]>>,
+}) {  
   
   const [val, setVal] = useState(voices[i][attrName as Atom]);
         

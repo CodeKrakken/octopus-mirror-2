@@ -4,19 +4,17 @@ import { updateField } from "../Inputs/Inputs.functions";
 import { Atom } from "../shared.types";
 import { VoiceType } from "../Voice/Voice.types";
 
-type FieldProps = {
-  attrName: string,
-  i: number,
-  voices: VoiceType[],
-  setVoices: React.Dispatch<React.SetStateAction<VoiceType[]>>
-}
-
 export default function Field ({
   attrName,
   i,
   voices,
   setVoices
-}: FieldProps) {
+} : {
+  attrName: string,
+  i: number,
+  voices: VoiceType[],
+  setVoices: React.Dispatch<React.SetStateAction<VoiceType[]>>
+}) {
 
   const voice = voices[i]
 
