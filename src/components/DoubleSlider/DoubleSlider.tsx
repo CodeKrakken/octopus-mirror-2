@@ -5,29 +5,29 @@ import RangeSlider from 'react-range-slider-input';
 import 'react-range-slider-input/dist/style.css';  
     
 export default function DoubleSlider ({  
-  fieldName,  
+  attrName,  
   i,  
   voices,  
   setVoices  
 }: {  
-  fieldName: string,  
+  attrName: string,  
   i: number,  
   voices: VoiceType[],  
   setVoices: React.Dispatch<React.SetStateAction<VoiceType[]>>,
 }) {  
   
   const voice = voices[i]  
-  const a = attributes[fieldName as keyof typeof attributes]  
+  const attr = attributes[attrName as keyof typeof attributes]  
     
   const rangeValue = [
-    voice[`min${a.value}` as Atom], 
-    voice[`max${a.value}` as Atom]
+    voice[`min${attr.value}` as Atom], 
+    voice[`max${attr.value}` as Atom]
   ] as [number, number]  
     
   const handleRangeInput = (values: [number, number]) => {  
     const updatedVoices = [...voices];  
-    updatedVoices[i][`min${a.value}` as Atom] = values[0];  
-    updatedVoices[i][`max${a.value}` as Atom] = values[1];  
+    updatedVoices[i][`min${attr.value}` as Atom] = values[0];  
+    updatedVoices[i][`max${attr.value}` as Atom] = values[1];  
     setVoices(updatedVoices);  
   };  
   
