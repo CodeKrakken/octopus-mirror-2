@@ -1,9 +1,8 @@
-import { attributes } from "../../content/data";  
 import { Atom } from "../shared.types";  
 import { VoiceType } from "../Voice/Voice.types";  
-import RangeSlider from 'react-range-slider-input';  
+import RangeSlider, { ReactRangeSliderInputRef } from 'react-range-slider-input';  
 import 'react-range-slider-input/dist/style.css';  
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./SingleSlider.css";
     
 export default function SingleSlider ({  
@@ -19,6 +18,13 @@ export default function SingleSlider ({
 }) {  
   
   const [val, setVal] = useState(voices[i][attrName as Atom]);
+  const sliderRef = useRef<ReactRangeSliderInputRef>(null);  
+
+  useEffect(() => {  
+    if (sliderRef.current) {  
+      sliderRef.current.thumb.upper.dataset.label = String(val);  
+    }  
+  }, []);
         
   const handleInput = (values: [number, number]) => {  
     const updatedVoices = [...voices];  
@@ -27,14 +33,26 @@ export default function SingleSlider ({
     setVal(values[1])  
   };  
   
-  return <div className="single slider">    
-    <RangeSlider  
-      min={0}  
-      max={100}  
-      value={[0, val]}  
-      thumbsDisabled={[true, false]}  
-      rangeSlideDisabled={true}  
-      onInput={handleInput}  
-    />
-  </div>
+  return (
+    <div className="single slider">    
+      <RangeSlider 
+        ref={sliderRef}   
+        min={0}  
+        max={100}  
+        value={[0, val]}  
+        thumbsDisabled={[true, false]}  
+        rangeSlideDisabled={true}  
+        onInput={([lo, hi]) => {  
+          if (sliderRef.current) {  
+            sliderRef.current.thumb.lower.dataset.label = `${lo}`;  
+            sliderRef.current.thumb.upper.dataset.label = `${hi}`;  
+          }
+          const updatedVoices = [...voices];  
+          updatedVoices[i][attrName as Atom] = hi;  
+          setVoices(updatedVoices);
+          setVal(hi)    
+        }}  
+      />
+    </div>
+  )
 }

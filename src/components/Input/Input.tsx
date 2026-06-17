@@ -16,8 +16,6 @@ export default function Input({
   setVoices: React.Dispatch<React.SetStateAction<VoiceType[]>>
 }) {
 
-  let input = <></>
-
   const props = {
     attrName: attrName,
     i: i,
@@ -27,6 +25,8 @@ export default function Input({
   }
 
   const inputType = attributes[attrName as keyof typeof attributes].inputType
+
+  let input = <></>
 
   if (inputType === 'rangeSlider') { 
     input = <DoubleSlider {...props} />
