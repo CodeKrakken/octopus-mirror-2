@@ -24,7 +24,6 @@ export default function Inputs(
                   attributes[attr as keyof typeof attributes].inputType === 'rangeSlider' 
                     ?
                   <DoubleSlider
-                    defaultValue={[0, 100]}
                     fieldName={attr}
                     i={i}
                     voices={voices}

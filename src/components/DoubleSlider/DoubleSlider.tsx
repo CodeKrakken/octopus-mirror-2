@@ -3,21 +3,18 @@ import { Atom } from "../shared.types";
 import { VoiceType } from "../Voice/Voice.types";  
 import RangeSlider from 'react-range-slider-input';  
 import 'react-range-slider-input/dist/style.css';  
-  
-type FieldProps = {  
-  fieldName: string,  
-  i: number,  
-  voices: VoiceType[],  
-  setVoices: React.Dispatch<React.SetStateAction<VoiceType[]>>,
-  defaultValue: [number, number]  
-}  
-  
+    
 export default function Slider ({  
   fieldName,  
   i,  
   voices,  
   setVoices  
-}: FieldProps) {  
+}: {  
+  fieldName: string,  
+  i: number,  
+  voices: VoiceType[],  
+  setVoices: React.Dispatch<React.SetStateAction<VoiceType[]>>,
+}) {  
   
   const voice = voices[i]  
   const a = attributes[fieldName as keyof typeof attributes]  
