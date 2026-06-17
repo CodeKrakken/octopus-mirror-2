@@ -29,9 +29,7 @@ export default function Field ({
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => updateField(e, attrName as Atom, voices, i, setVoices)
   }
 
-  return (
-    <div className="row">
-      <input {...props} />
-    </div>
-  )
+  return <div className="row">
+    <input {...props} />
+  </div>
 }
