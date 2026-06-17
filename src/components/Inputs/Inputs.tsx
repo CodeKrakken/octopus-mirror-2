@@ -4,7 +4,6 @@ import CheckboxGroup               from "../CheckboxGroup/CheckboxGroup";
 import SingleSlider from "../SingleSlider/SingleSlider";
 import "./Inputs.css";
 import Field from "../Field/Field";
-import { Atom } from "../shared.types";
 import DoubleSlider from "../DoubleSlider/DoubleSlider";
 
 export default function Inputs(

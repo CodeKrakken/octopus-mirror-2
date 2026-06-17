@@ -1,6 +1,4 @@
 import { attributes } from "../../content/data";  
-import { InputProps } from "../Input/Input.types";  
-import { updateField } from "../Inputs/Inputs.functions";  
 import { Atom } from "../shared.types";  
 import { VoiceType } from "../Voice/Voice.types";  
 import RangeSlider from 'react-range-slider-input';  
