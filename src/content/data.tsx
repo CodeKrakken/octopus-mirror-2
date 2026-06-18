@@ -50,53 +50,80 @@ const checkboxGroups = {
   Intervals: ['1','0.5','0.25','0.125','0.0625']
 }
 
-
-const attributes = {
+const fieldInputs = {
   label: {
     label: 'Name', 
     value: 'label',
     inputType: 'textbox'
-  },
+  }
+}
+
+const singleSliders = {
   bpm: {
     label: 'BPM',
     value: 'bpm', 
-    inputType: 'singleValueSlider'
+    inputType: 'singleValueSlider',
+    min: 1,
+    max: 480
   },
   restChance: {
     label: 'Rest Chance', 
     value: 'restChance',
-    inputType: 'singleValueSlider'
-  },
+    inputType: 'singleValueSlider',
+    min: 0,
+    max: 100
+  }
+}
+
+const doubleSliders = {
   level: {
     label: 'Level',
     value: 'Level',  
-    inputType: 'rangeSlider'
+    inputType: 'rangeSlider',
+    min: 0,
+    max: 100
   },
   length: {
     label: 'Length',
     value: 'Length',   
-    inputType: 'rangeSlider'
+    inputType: 'rangeSlider',
+    min: 0,
+    max: 100
   },
   offset: {
     label: 'Offset',
     value: 'Offset',   
-    inputType: 'rangeSlider'
+    inputType: 'rangeSlider',
+    min: -100,
+    max: 100
   },
   detune: {
     label: 'Detune',
     value: 'Detune',   
-    inputType: 'rangeSlider'
+    inputType: 'rangeSlider',
+    min: -100,
+    max: 100
   },
   fadeIn: {
     label: 'FadeIn',
     value: 'FadeIn',   
-    inputType: 'rangeSlider'
+    inputType: 'rangeSlider',
+    min: 0,
+    max: 100
   },
   fadeOut: {
     label: 'FadeOut',
     value: 'FadeOut',   
-    inputType: 'rangeSlider'
+    inputType: 'rangeSlider',
+    min: 0,
+    max: 100
   }
+}
+
+const attributes = {
+  ...fieldInputs,
+  ...singleSliders,
+  ...doubleSliders
 }
 
 const extrema = ['min', 'max']
@@ -110,6 +137,7 @@ export {
   waveforms,
   ranges,
   checkboxGroups,
+  singleSliders,
   attributes,
   extrema,
   oneMinute,

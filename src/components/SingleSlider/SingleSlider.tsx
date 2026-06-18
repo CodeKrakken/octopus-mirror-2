@@ -4,6 +4,7 @@ import RangeSlider, { ReactRangeSliderInputRef } from 'react-range-slider-input'
 import 'react-range-slider-input/dist/style.css';  
 import { useEffect, useRef, useState } from "react";
 import "./SingleSlider.css";
+import { singleSliders } from "../../content/data";
     
 export default function SingleSlider ({  
   attrName,  
@@ -24,7 +25,9 @@ export default function SingleSlider ({
     if (sliderRef.current) {  
       sliderRef.current.thumb.upper.dataset.label = String(val);  
     }  
-  }, []);
+  });
+
+  const {min, max} = singleSliders[attrName as keyof typeof singleSliders]
         
   const handleInput = ([lo, hi]: [number, number]) => {  
     if (sliderRef.current) {  
@@ -41,8 +44,8 @@ export default function SingleSlider ({
     <div className="single slider">    
       <RangeSlider 
         ref={sliderRef}   
-        min={0}  
-        max={100}  
+        min={min}  
+        max={max}  
         value={[0, val]}  
         thumbsDisabled={[true, false]}  
         rangeSlideDisabled={true}  
