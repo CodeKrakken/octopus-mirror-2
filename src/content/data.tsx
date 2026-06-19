@@ -94,7 +94,7 @@ const doubleSliders = {
     label: 'Offset',
     value: 'Offset',   
     inputType: 'rangeSlider',
-    min: -100,
+    min: 0,
     max: 100
   },
   detune: {
