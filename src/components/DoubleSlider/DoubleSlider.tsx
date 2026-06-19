@@ -25,11 +25,8 @@ export default function DoubleSlider ({
   const sliderRef = useRef<ReactRangeSliderInputRef>(null);
 
   useEffect(() => {     
-
-    const lowerThumb = sliderRef.current!.thumb.lower;  
-    const upperThumb = sliderRef.current!.thumb.upper;  
-    lowerThumb.dataset.label = String(rangeValue[0]);  
-    upperThumb.dataset.label = String(rangeValue[1]);  
+    sliderRef.current!.thumb.lower.dataset.label = String(rangeValue[0]);  
+    sliderRef.current!.thumb.upper.dataset.label = String(rangeValue[1]);  
   });
   
   const voice = voices[i]  
