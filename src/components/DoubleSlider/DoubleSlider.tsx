@@ -43,23 +43,14 @@ export default function DoubleSlider ({
   const {min, max} = doubleSliders[attrName as keyof typeof doubleSliders]
 
   const handleRangeInput = ([lo, hi]: [number, number]) => {    
-  if (sliderRef.current) {    
-    const lowerThumb = sliderRef.current.thumb.lower;  
-    const upperThumb = sliderRef.current.thumb.upper;  
-      
-    if (lowerThumb.hasAttribute('data-lower')) {  
-
-      lowerThumb.dataset.label = lo.toString();  
-      upperThumb.dataset.label = hi.toString();  
-
-    } else {  
-
-      lowerThumb.dataset.label = hi.toString();  
-      upperThumb.dataset.label = lo.toString();  
-    }  
-  }    
     
-  const updatedVoices = [...voices];   
+    const lowerThumb = sliderRef.current!.thumb.lower;  
+    const upperThumb = sliderRef.current!.thumb.upper;  
+    lowerThumb.dataset.label = String(lo);  
+    upperThumb.dataset.label = String(hi);  
+    
+    const updatedVoices = [...voices];   
+
     updatedVoices[i][`min${attr.value}` as Atom] = lo;    
     updatedVoices[i][`max${attr.value}` as Atom] = hi;    
     setVoices(updatedVoices);    
