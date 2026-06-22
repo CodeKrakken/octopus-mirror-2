@@ -1,7 +1,7 @@
 body {
   background-color: black;
   color: white;
-  text-align: center;
+  /* text-align: center; */
 }
 
 .row {
@@ -18,7 +18,7 @@ body {
   border: 1px dotted red;
   padding: 5px;
   width: 560px;
-  margin: auto
+  /* margin: auto */
 }
 
 .textbox {
@@ -28,7 +28,7 @@ body {
 .label {
   width: 100px;
   padding: 5px;
-  height: 19px;
+  height: 15px;
   text-align: right
 }
 
