@@ -12,19 +12,18 @@ export default function Inputs(
   }: InputsProps) {
 
   return <>
-    <div className="column">
+    {/* <div className="column"> */}
       <div className="row">
         <div className="column">
           {
             Object.keys(attributes).map(attrName => (
-            <Input 
-              attrName={attrName}
-              i={i}
-              voices={voices}
-              setVoices={setVoices}
-            />
-          )
-            )
+              <Input 
+                attrName={attrName}
+                i={i}
+                voices={voices}
+                setVoices={setVoices}
+              />
+            ))
           }
         </div>
       </div>
@@ -43,6 +42,6 @@ export default function Inputs(
           }
         </div>
       </div>
-    </div>
+    {/* </div> */}
   </>
 }
