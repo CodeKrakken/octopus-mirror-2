@@ -22,7 +22,7 @@ export default function TextField ({
     className: 'text-field',
     'data-voice': i,
     'data-attribute': {attrName},
-    type: 'number',
+    type: 'text',
     value: voices[i][attrName as Atom],
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => updateTextField(e, attrName as Atom, voices, i, setVoices)
   }
