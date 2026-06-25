@@ -1,20 +1,20 @@
 import { useEffect, useRef } from "react";
 import { doubleSliders } from "../../content/data";  
-import { NumericAttribute } from "../shared.types";  
+import { NumericAttribute, Slider } from "../shared.types";  
 import { VoiceType } from "../Voice/Voice.types";  
 import RangeSlider, { ReactRangeSliderInputRef } from 'react-range-slider-input';  
 import 'react-range-slider-input/dist/style.css';  
 
 export default function DoubleSlider ({  
   
-  attrName,  
+  slider,  
   i,  
   voices,  
   setVoices  
 
 }: {  
 
-  attrName: string,  
+  slider: Slider,  
   i: number,  
   voices: VoiceType[],  
   setVoices: React.Dispatch<React.SetStateAction<VoiceType[]>>,
@@ -28,12 +28,12 @@ export default function DoubleSlider ({
     sliderRef.current!.thumb.upper.dataset.label = String(rangeValue[1]);  
   });
   
-  const {min, max} = doubleSliders[attrName as keyof typeof doubleSliders]
-  const attr = doubleSliders[attrName as keyof typeof doubleSliders]  
+  const {min, max} = slider
+  const attr = slider.key
 
   const rangeValue = [
-    voices[i][`min${attr.value}` as NumericAttribute], 
-    voices[i][`max${attr.value}` as NumericAttribute]
+    voices[i][`min${slider.value}` as NumericAttribute], 
+    voices[i][`max${slider.value}` as NumericAttribute]
   ] as [number, number]
   
   const handleRangeInput = ([lo, hi]: [number, number]) => {    
@@ -43,8 +43,8 @@ export default function DoubleSlider ({
     
     const updatedVoices = [...voices] as VoiceType[];   
 
-    updatedVoices[i][`min${attr.value}` as NumericAttribute] = lo;    
-    updatedVoices[i][`max${attr.value}` as NumericAttribute] = hi;    
+    updatedVoices[i][`min${slider.value}` as NumericAttribute] = lo;    
+    updatedVoices[i][`max${slider.value}` as NumericAttribute] = hi;    
     setVoices(updatedVoices);    
   };
 
@@ -54,7 +54,7 @@ export default function DoubleSlider ({
     max: max,    
     value: rangeValue,  
     onInput: handleRangeInput,
-    'data-attribute': attrName
+    'data-attribute': slider.key
   }
   
   return (  

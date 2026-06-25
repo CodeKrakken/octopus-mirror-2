@@ -15,116 +15,116 @@ export default function Voice(
 ) {
   
   return (
-<div className="voice">
+    <div className="voice">
 
-  <div className="row">
-    <div className="label box">
-      <TextField 
-        attrName  = {'label'}
-        i         = {i}
-        voices    = {voices}
-        setVoices = {setVoices}
-      />
-    </div>
-
-    {
-      Object.keys(singleSliders).map(sliderName => (
-        <div className="slider box">
-          <Input 
-            attrName={sliderName}
-            i={i}
-            voices={voices}
-            setVoices={setVoices}
+      <div className="row">
+        <div className="label box">
+          <TextField 
+            attrName  = {'label'}
+            i         = {i}
+            voices    = {voices}
+            setVoices = {setVoices}
           />
         </div>
-      ))
-    }
 
-    <div className="delete box">
-      <DeleteButton
-        handleDelete={handleDelete}
-        i={i}
-      />
+        {
+          singleSliders.map(slider => (
+            <div className="slider box">
+              <Input 
+                slider={slider}
+                i={i}
+                voices={voices}
+                setVoices={setVoices}
+              />
+            </div>
+          ))
+        }
+
+        <div className="delete box">
+          <DeleteButton
+            handleDelete={handleDelete}
+            i={i}
+          />
+        </div>
+      </div>
+
+
+      <div className="row">
+
+        {
+          doubleSliders.map(slider => (
+            <Input 
+              slider={slider}
+              i={i}
+              voices={voices}
+              setVoices={setVoices}
+            />
+          ))
+        }
+        
+        <div className="slider box">
+          Double slider
+          <br />
+          Length
+        </div>
+
+        <div className="slider box">
+          Double slider
+          <br />
+          Offset
+        </div>
+
+        <div className="slider box">
+          Double slider
+          <br />
+          Detune
+        </div>
+      </div>
+
+
+      <div className="row">
+        <div className="slider box">
+          Double slider
+          <br />
+          Level
+        </div>
+
+        <div className="slider box">
+          Double slider
+          <br />
+          Attack
+        </div>
+
+        <div className="slider box">
+          Double slider
+          <br />
+          Decay
+        </div>
+      </div>
+
+
+      <div className="notes box">
+        Notes
+      </div>
+
+      <div className="octaves box">
+        Octaves
+      </div>
+
+
+      <div className="bottom">
+
+        <div className="sounds box">
+          Sounds
+        </div>
+
+        <div className="intervals box">
+          Intervals
+        </div>
+
+      </div>
+
     </div>
-  </div>
-
-
-  <div className="row">
-
-    {
-      Object.keys(doubleSliders).map(sliderName => (
-        <Input 
-          attrName={sliderName}
-          i={i}
-          voices={voices}
-          setVoices={setVoices}
-        />
-      ))
-    }
-    
-    <div className="slider box">
-      Double slider
-      <br />
-      Length
-    </div>
-
-    <div className="slider box">
-      Double slider
-      <br />
-      Offset
-    </div>
-
-    <div className="slider box">
-      Double slider
-      <br />
-      Detune
-    </div>
-  </div>
-
-
-  <div className="row">
-    <div className="slider box">
-      Double slider
-      <br />
-      Level
-    </div>
-
-    <div className="slider box">
-      Double slider
-      <br />
-      Attack
-    </div>
-
-    <div className="slider box">
-      Double slider
-      <br />
-      Decay
-    </div>
-  </div>
-
-
-  <div className="notes box">
-    Notes
-  </div>
-
-  <div className="octaves box">
-    Octaves
-  </div>
-
-
-  <div className="bottom">
-
-    <div className="sounds box">
-      Sounds
-    </div>
-
-    <div className="intervals box">
-      Intervals
-    </div>
-
-  </div>
-
-</div>
     // <div 
     //   className="voice" 
     //   data-voice={i}

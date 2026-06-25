@@ -12,10 +12,21 @@ type CheckboxGroupType =
   'Notes' 
 | 'Octaves' 
 | 'Intervals'
-| 'Sounds' 
+| 'Sounds'
+
+type Slider = {
+  label: string,
+  value: string,    
+  key: string,
+  inputType: string,
+  min: number,
+  max: number,
+  row?: number
+}
 
 export type {
   NumericAttribute,
   Range,
-  CheckboxGroupType
+  CheckboxGroupType,
+  Slider
 }

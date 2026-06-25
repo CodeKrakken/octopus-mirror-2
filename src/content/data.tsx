@@ -50,72 +50,86 @@ const checkboxGroups = {
   Intervals: ['1','0.5','0.25','0.125','0.0625']
 }
 
-const singleSliders = {
-  bpm: { // used
+const singleSliders = [
+  { // used
     label: 'BPM',
-    value: 'bpm', 
-    inputType: 'SingleSlider', // used
+    value: 'bpm',
+    key: 'bpm', 
+    inputType: 'singleSlider', // used
     min: 1, // used
     max: 480 // used
   },
-  restChance: {
+  {
     label: 'Rest', 
     value: 'restChance',
-    inputType: 'SingleSlider',
+    key: 'bpm',
+    inputType: 'singleSlider',
     min: 0,
     max: 100
   }
-}
+]
 
-const doubleSliders = {
-  level: {
+const doubleSliders = [
+  {
     label: 'Level',
     value: 'Level',  
+    key: 'level',
     inputType: 'doubleSlider',
     min: 0,
-    max: 100
+    max: 100,
+    row: 1
   },
-  length: {
+  {
     label: 'Length',
-    value: 'Length',   
+    value: 'Length',  
+    key: 'length',  
     inputType: 'doubleSlider',
     min: 0,
-    max: 100
+    max: 100,
+    row: 2
   },
-  offset: {
+  {
     label: 'Offset',
-    value: 'Offset',   
+    value: 'Offset',    
+    key: 'offset',
     inputType: 'doubleSlider',
     min: 0,
-    max: 100
+    max: 100,
+    row: 2
   },
-  detune: {
+  {
     label: 'Detune',
-    value: 'Detune',   
+    value: 'Detune',    
+    key: 'detune',
     inputType: 'doubleSlider',
     min: -100,
-    max: 100
+    max: 100,
+    row: 2
   },
-  attack: {
+  {
     label: 'Attack',
     value: 'Attack',   
+    key: 'attack', 
     inputType: 'doubleSlider',
     min: 0,
-    max: 100
+    max: 100,
+    row: 1
   },
-  decay: {
+  {
     label: 'Decay',
-    value: 'Decay',   
+    value: 'Decay',    
+    key: 'decay',
     inputType: 'doubleSlider',
     min: 0,
-    max: 100
+    max: 100,
+    row: 1
   }
-}
+]
 
-const attributes = {
-  ...singleSliders,
-  ...doubleSliders
-}
+const attributes = [
+  singleSliders,
+  doubleSliders
+].flat()
 
 const extrema = ['min', 'max']
 

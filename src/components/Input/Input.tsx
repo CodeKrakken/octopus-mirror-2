@@ -1,18 +1,19 @@
 import { attributes } from "../../content/data"
 import DoubleSlider from "../DoubleSlider/DoubleSlider"
+import { Slider } from "../shared.types"
 import SingleSlider from "../SingleSlider/SingleSlider"
 import { VoiceType } from "../Voice/Voice.types"
 
 export default function Input({
 
-  attrName,
+  slider,
   i,
   voices,
   setVoices
 
 }: {
 
-  attrName: string,
+  slider: Slider,
   i: number,
   voices: VoiceType[],
   setVoices: React.Dispatch<React.SetStateAction<VoiceType[]>>
@@ -20,22 +21,21 @@ export default function Input({
 }) {
 
   const props = {
-    attrName: attrName,
+    slider: slider,
     i: i,
     voices: voices,
     setVoices: setVoices,
-    key: attrName
   }
 
-  const label = attributes[attrName as keyof typeof attributes].label
+  const label = slider.label
 
-  const inputType = attributes[attrName as keyof typeof attributes].inputType
+  const inputType = slider.inputType
 
   let input
 
   switch(inputType) {
     case 'doubleSlider' : input = <DoubleSlider {...props} />; break;
-    case 'SingleSlider' : input = <SingleSlider {...props} />; break;
+    case 'singleSlider' : input = <SingleSlider {...props} />; break;
     default: <></>
   }
 
