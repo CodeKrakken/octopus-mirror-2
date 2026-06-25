@@ -1,9 +1,10 @@
 import { VoiceProps } from './Voice.types'
 import DeleteButton   from '../DeleteButton/DeleteButton'
 import TextField from '../TextField/TextField'
-import { doubleSliders, singleSliders } from '../../content/data'
+import { checkboxGroups, doubleSliders, singleSliders } from '../../content/data'
 import DoubleSlider from '../DoubleSlider/DoubleSlider'
 import SingleSlider from '../SingleSlider/SingleSlider'
+import CheckboxGroup from '../CheckboxGroup/CheckboxGroup'
 
 export default function Voice(
   {
@@ -70,6 +71,21 @@ export default function Voice(
                 </div>
               ))
             }
+          </div>
+        )
+      }
+
+      {
+        checkboxGroups.map(group =>
+          <div className="row">
+            <div className="label">{group.label}</div>
+            <CheckboxGroup 
+              group={group}
+              voices={voices}
+              i={i}
+              setVoices={setVoices}
+              key={group.label}
+            />
           </div>
         )
       }

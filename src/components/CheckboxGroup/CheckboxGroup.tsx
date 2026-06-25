@@ -5,14 +5,14 @@ import { CheckboxGroupType } from "../shared.types";
 import { VoiceType } from "../Voice/Voice.types";
 
 type CheckboxGroupProps = {
-  groupName: string
+  group: {label: string, boxes: string[]}
   voices: VoiceType[]
   i: number
   setVoices: React.Dispatch<React.SetStateAction<VoiceType[]>>
 }
 
 export default function CheckboxGroup({
-  groupName,
+  group,
   voices,
   i,
   setVoices
@@ -21,24 +21,21 @@ export default function CheckboxGroup({
   const voice = voices[i]
 
   return <>
-    <div className="row">
-      <div className="label">{groupName}</div>
-      {
-        checkboxGroups[groupName as CheckboxGroupType].map((checkbox: string) => {
+    {
+      group.boxes.map(checkbox => {
 
-          const props: CheckboxProps = {
-            className: 'checkbox',
-            'data-attribute': groupName,
-            'data-voice': i,
-            type: "checkbox",
-            value: checkbox,
-            checked: voice[`active${groupName as CheckboxGroupType}`].includes(checkbox),
-            onChange: (e: React.ChangeEvent<HTMLInputElement>) => updateCheckbox(e, `active${groupName as CheckboxGroupType}`, voices, i, setVoices)
-          };
+        const props: CheckboxProps = {
+          className: 'checkbox',
+          'data-attribute': group.label,
+          'data-voice': i,
+          type: "checkbox",
+          value: checkbox,
+          checked: voice[`active${group.label as CheckboxGroupType}`].includes(checkbox),
+          onChange: (e: React.ChangeEvent<HTMLInputElement>) => updateCheckbox(e, `active${group.label as CheckboxGroupType}`, voices, i, setVoices)
+        };
 
-          return <input {...props} key = {checkbox} />
-        })
-      }
-    </div>
+        return <input {...props} key = {checkbox} />
+      })
+    }
   </>
 }
