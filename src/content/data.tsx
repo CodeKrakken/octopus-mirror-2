@@ -62,7 +62,7 @@ const singleSliders = [
   {
     label: 'Rest', 
     value: 'restChance',
-    key: 'bpm',
+    key: 'restChance',
     inputType: 'singleSlider',
     min: 0,
     max: 100

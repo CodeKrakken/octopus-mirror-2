@@ -7,14 +7,17 @@ body {
   width: 60px
 }
 
+.column {
+  column-width: auto;
+  flex-direction: column
+}
+
 /* .row {
   display: flex;
   flex-direction: row;
 }
 
-.column {
-  column-width: auto;
-}
+
 
 .voice {
   border: 1px dotted red;

@@ -27,8 +27,6 @@ export default function Input({
     setVoices: setVoices,
   }
 
-  const label = slider.label
-
   const inputType = slider.inputType
 
   let input
@@ -39,9 +37,5 @@ export default function Input({
     default: <></>
   }
 
-  return <>
-    {label}
-    <br /> 
-    {input}
-  </>
+  return <>{input}</>
 }

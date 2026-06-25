@@ -2,7 +2,8 @@ import { VoiceProps } from './Voice.types'
 import DeleteButton   from '../DeleteButton/DeleteButton'
 import TextField from '../TextField/TextField'
 import { doubleSliders, singleSliders } from '../../content/data'
-import Input from '../Input/Input'
+import DoubleSlider from '../DoubleSlider/DoubleSlider'
+import SingleSlider from '../SingleSlider/SingleSlider'
 
 export default function Voice(
   {
@@ -29,13 +30,16 @@ export default function Voice(
 
         {
           singleSliders.map(slider => (
-            <div className="slider box">
-              <Input 
-                slider={slider}
-                i={i}
-                voices={voices}
-                setVoices={setVoices}
-              />
+            <div className="slider box column">
+              <div className="label">{slider.label}</div>
+              <div className="row">
+                <SingleSlider
+                  slider={slider}
+                  i={i}
+                  voices={voices}
+                  setVoices={setVoices}
+                />
+              </div>
             </div>
           ))
         }
@@ -48,60 +52,27 @@ export default function Voice(
         </div>
       </div>
 
-
-      <div className="row">
-
-        {
-          doubleSliders.map(slider => (
-            <Input 
-              slider={slider}
-              i={i}
-              voices={voices}
-              setVoices={setVoices}
-            />
-          ))
-        }
-        
-        <div className="slider box">
-          Double slider
-          <br />
-          Length
-        </div>
-
-        <div className="slider box">
-          Double slider
-          <br />
-          Offset
-        </div>
-
-        <div className="slider box">
-          Double slider
-          <br />
-          Detune
-        </div>
-      </div>
-
-
-      <div className="row">
-        <div className="slider box">
-          Double slider
-          <br />
-          Level
-        </div>
-
-        <div className="slider box">
-          Double slider
-          <br />
-          Attack
-        </div>
-
-        <div className="slider box">
-          Double slider
-          <br />
-          Decay
-        </div>
-      </div>
-
+      {
+        [1,2].map(row => 
+          <div className="row">
+            {
+              doubleSliders.filter(slider => slider.row === row).map(slider => (
+                <div className="slider box column">
+                  <div className="label row">{slider.label}</div>
+                  <div className="row">
+                    <DoubleSlider 
+                      slider={slider}
+                      i={i}
+                      voices={voices}
+                      setVoices={setVoices}
+                    />
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        )
+      }
 
       <div className="notes box">
         Notes
@@ -110,7 +81,6 @@ export default function Voice(
       <div className="octaves box">
         Octaves
       </div>
-
 
       <div className="bottom">
 
@@ -125,6 +95,7 @@ export default function Voice(
       </div>
 
     </div>
+    
     // <div 
     //   className="voice" 
     //   data-voice={i}
