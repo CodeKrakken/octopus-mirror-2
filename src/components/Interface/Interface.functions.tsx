@@ -35,16 +35,19 @@ const setUpVoice = (voices: VoiceType[]) => {
 }
 
 const generateNewLabel = (template: VoiceType | null, voices: VoiceType[]) => {
-
-  console.log(template?.label)
   
   let newLabel: string
 
-  if (!template) newLabel = '1'
+  if (!template) {
 
-  if (template?.label && +template.label) {
+    newLabel = '1'
+
+  } else if (+template.label) {
+
     newLabel = String(+template.label+1)
+    
   } else {
+
     newLabel = String(
       voices.map(voice => +voice.label).filter(
         label => !Number.isNaN(label)

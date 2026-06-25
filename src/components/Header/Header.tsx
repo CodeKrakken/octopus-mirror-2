@@ -16,7 +16,6 @@ export default function Header ({
   running           : Boolean
 
 }) {
-  console.log(disableStartStop)
 
   return <div className="header">
     {title}{" "}
