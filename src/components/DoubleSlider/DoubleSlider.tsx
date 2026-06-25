@@ -42,7 +42,7 @@ export default function DoubleSlider ({
     sliderRef.current!.thumb.lower.dataset.label = String(lo);  
     sliderRef.current!.thumb.upper.dataset.label = String(hi);  
     
-    const updatedVoices = [...voices];   
+    const updatedVoices = [...voices] as VoiceType[];   
 
     updatedVoices[i][`min${attr.value}` as Atom] = lo;    
     updatedVoices[i][`max${attr.value}` as Atom] = hi;    
