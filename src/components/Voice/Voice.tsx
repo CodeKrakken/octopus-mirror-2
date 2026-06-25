@@ -41,12 +41,16 @@ export default function Voice(
     }
 
     <div className="delete box">
-      X
+      <DeleteButton
+        handleDelete={handleDelete}
+        i={i}
+      />
     </div>
   </div>
 
 
   <div className="row">
+    
     <div className="slider box">
       Double slider
       <br />
