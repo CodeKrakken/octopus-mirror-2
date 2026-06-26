@@ -44,12 +44,14 @@ const checkboxGroups = [
   { 
     label: 'Notes', 
     boxes: ['1','2','3','4','5','6','7','8','9','10','11','12','13'],
-    row: 1
+    row: 1,
+    className: "notes"
   },
   {
     label: 'Octaves',
     boxes: ['0','1','2','3','4','5','6','7','8','9','10'],
-    row: 2
+    row: 2,
+    className: "octaves"
   },
   {
     label: 'Sounds', 
@@ -57,12 +59,14 @@ const checkboxGroups = [
       ...waveforms,
       ...Object.keys(samples)
     ],
-    row: 3
+    row: 3,
+    className: "sounds"
   },
   {
     label: 'Intervals',
     boxes: ['1','0.5','0.25','0.125','0.0625'],
-    row: 3
+    row: 4,
+    className: "intervals"
   }
 ]
 

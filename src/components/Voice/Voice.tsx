@@ -17,7 +17,11 @@ export default function Voice(
 ) {
   
   return (
-    <div className="voice">
+    <div 
+      className="voice"
+      data-voice={i}
+      data-attribute={dataAttribute}
+    >
 
       <div className="row">
         <div className="name box">
@@ -76,12 +80,12 @@ export default function Voice(
       }
 
       {
-        [1,2,3].map(row => 
+        [1,2,3,4].map(row => 
           <div className="row">
             {
               checkboxGroups.filter(group => group.row === row).map(group =>
-                <div className="row">
-                  <div className="label">{group.label}</div>
+                <div className={`row box ${group.className}`}>
+                  <div className="checkbox-label">{group.label}</div>
                   <CheckboxGroup 
                     group={group}
                     voices={voices}
@@ -95,73 +99,6 @@ export default function Voice(
           </div>
         )
       }
-
-      <div className="notes box">
-        Notes
-      </div>
-
-      <div className="octaves box">
-        Octaves
-      </div>
-
-      <div className="bottom">
-
-        <div className="sounds box">
-          Sounds
-        </div>
-
-        <div className="intervals box">
-          Intervals
-        </div>
-
-      </div>
-
     </div>
-    
-    // <div 
-    //   className="voice" 
-    //   data-voice={i}
-    //   data-attribute={dataAttribute}
-    // >
-    //   <div className="row">
-    //     <DeleteButton
-    //       handleDelete={handleDelete}
-    //       i={i}
-    //     />
-
-    //     <TextField 
-    //       attrName  = {'label'}
-    //       i         = {i}
-    //       voices    = {voices}
-    //       setVoices = {setVoices}
-    //     />
-
-    //     {
-    //       Object.keys(singleSliders).map(attrName => (
-    //         <Input 
-    //           attrName={attrName}
-    //           i={i}
-    //           voices={voices}
-    //           setVoices={setVoices}
-    //         />
-    //       ))
-    //     }
-    //   </div>
-
-    //   <div className="row">
-    //     <div className="column">
-    //       {
-    //         Object.keys(doubleSliders).map(attrName => (
-    //           <Input 
-    //             attrName={attrName}
-    //             i={i}
-    //             voices={voices}
-    //             setVoices={setVoices}
-    //           />
-    //         ))
-    //       }
-    //     </div>
-    //   </div>
-    // </div>
   )
 }
