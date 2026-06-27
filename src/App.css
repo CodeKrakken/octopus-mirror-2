@@ -50,7 +50,7 @@ body {
   justify-content: space-between;
 }
 
-.name,
+#name,
 .slider,
 .delete,
 .notes,
@@ -74,7 +74,7 @@ body {
 
 /* row 1 */
 
-.name {
+#name {
   width: var(--name-w);
   /* aspect-ratio: 2 / 1; */
 }
@@ -133,6 +133,6 @@ body {
   margin: 10px;
 }
 
-slider-label {
+.slider-label {
   text-align: center;
 }

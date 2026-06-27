@@ -24,7 +24,7 @@ export default function Voice(
     >
       <div>
         <div className="row">
-          <div className="name box">
+          <div id="name">
             <TextField 
               attrName  = {'label'}
               i         = {i}
@@ -35,7 +35,7 @@ export default function Voice(
 
           {
             singleSliders.map(slider => (
-              <div className="slider-box column">
+              <div className="column">
                 <div className="slider-label">{slider.label}</div>
                 <div className="row">
                   <SingleSlider
@@ -49,7 +49,7 @@ export default function Voice(
             ))
           }
 
-          <div className="delete box">
+          <div className="delete">
             <DeleteButton
               handleDelete={handleDelete}
               i={i}
@@ -62,7 +62,7 @@ export default function Voice(
             <div className="row">
               {
                 doubleSliders.filter(slider => slider.row === row).map(slider => (
-                  <div className="slider slider-box column">
+                  <div className="slider column">
                     <div className="slider-label row">{slider.label}</div>
                     <div className="row">
                       <DoubleSlider 
@@ -86,7 +86,7 @@ export default function Voice(
             <div className="row">
               {
                 checkboxGroups.filter(group => group.row === row).map(group =>
-                  <div className={`row box ${group.className}`}>
+                  <div className={`row ${group.className}`}>
                     <div className="checkbox-label">{group.label}</div>
                     <CheckboxGroup 
                       group={group}
