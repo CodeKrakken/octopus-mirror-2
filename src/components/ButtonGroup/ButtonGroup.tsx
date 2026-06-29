@@ -39,15 +39,15 @@ export default function ButtonGroup({
         let imgSrc
 
         try {
-          imgSrc = require(`./${button}.png`) || ""
+          imgSrc = require(`./images/${button}.png`) || ""
 
         } catch (error) {
           console.log(error.message)
         }
 
         return (
-          <button {...props}>
-            <img src={imgSrc} height="24" />
+          <button {...props} style={{height: "28px", width: "28px"}}>
+            <img src={imgSrc} width="100%" height="100%" />
           </button>
         )       
       })
