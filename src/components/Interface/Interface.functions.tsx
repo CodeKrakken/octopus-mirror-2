@@ -13,7 +13,7 @@ const setUpVoice = (voices: VoiceType[]) => {
     isActive        : false,
     label           : generateNewLabel(template, voices),
     nextInterval    : template?.nextInterval    ||  0,
-    bpm             : template?.bpm             ??  60,
+    bpm             : template?.bpm             ??  120,
     minLevel        : template?.minLevel        ??  100,
     maxLevel        : template?.maxLevel        ??  100,
     activeNotes     : template?.activeNotes     ??  ['1','3','5','6','8','10','12','13'],
