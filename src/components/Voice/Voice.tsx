@@ -35,19 +35,17 @@ export default function Voice(
           </div>
 
           {
-            singleSliders.map(slider => (
-              <div>
-                <div className="slider-label">{slider.label}</div>
-                <div className="single slider">    
-                  <SingleSlider
-                    slider={slider}
-                    i={i}
-                    voices={voices}
-                    setVoices={setVoices}
-                  />
-                </div>
+            singleSliders.map(slider => <div>
+              <div className="slider-label">{slider.label}</div>
+              <div className="single slider">    
+                <SingleSlider
+                  slider={slider}
+                  i={i}
+                  voices={voices}
+                  setVoices={setVoices}
+                />
               </div>
-            ))
+            </div>)
           }
 
           <div>
@@ -59,70 +57,64 @@ export default function Voice(
         </div>
 
         {
-          [1,2].map(row => 
+          [1, 2].map(row => 
             <div className="row">
               {
-                doubleSliders.filter(slider => slider.row === row).map(slider => (
-                  <div>
-                    <div className="slider-label">{slider.label}</div>
-                    <div className="slider">
-                      <DoubleSlider 
-                        slider={slider}
-                        i={i}
-                        voices={voices}
-                        setVoices={setVoices}
-                      />
-                    </div>
+                doubleSliders.filter(slider => slider.row === row).map(slider => <div>
+                  <div className="slider-label">{slider.label}</div>
+                  <div className="slider">
+                    <DoubleSlider 
+                      slider={slider}
+                      i={i}
+                      voices={voices}
+                      setVoices={setVoices}
+                    />
                   </div>
-                ))
+                </div>)
               }
             </div>
           )
         }
       </div>
 
-      <div>
-        <div className="row">
-            <Piano 
-              voices={voices}
-              i={i}
-              setVoices={setVoices}
-            />
-            
-            <div className="column">
-              {
-                buttonGroups.filter(group => group.row === 1).map(group =>
-                  <div className="button-group">
-                    <ButtonGroup 
-                      group={group}
-                      voices={voices}
-                      i={i}
-                      setVoices={setVoices}
-                      key={group.label}
-                    />
-                  </div>
-                )
-              }
-            </div>
-          </div>
+      <div className="row">
+        <Piano 
+          voices={voices}
+          i={i}
+          setVoices={setVoices}
+        />
+          
+        <div className="column">
+          {
+            buttonGroups.filter(group => group.row === 1).map(group =>
+              <div className="button-group">
+                <ButtonGroup 
+                  group={group}
+                  voices={voices}
+                  i={i}
+                  setVoices={setVoices}
+                  key={group.label}
+                />
+              </div>
+            )
+          }
+        </div>
       </div>
       
-      <div>
-            <div className="row">
-              {
-                buttonGroups.filter(group => group.row === 2).map(group =>
-                  <div className="button-group">
-                    <ButtonGroup 
-                      group={group}
-                      voices={voices}
-                      i={i}
-                      setVoices={setVoices}
-                      key={group.label}
-                    />
-                  </div>
-                )
-              }
+      <div className="row">
+        {
+          buttonGroups.filter(group => group.row === 2).map(group =>
+            <div className="button-group">
+              <ButtonGroup 
+                group={group}
+                voices={voices}
+                i={i}
+                setVoices={setVoices}
+                key={group.label}
+              />
             </div>
+          )
+        }
       </div>
     </div>
   )
