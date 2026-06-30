@@ -78,3 +78,7 @@ body {
 button img {
   pointer-events: none;
 }
+
+.button-group {
+  height: 28px;
+}
