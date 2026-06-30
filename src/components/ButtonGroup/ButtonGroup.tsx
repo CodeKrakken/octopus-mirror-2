@@ -42,7 +42,7 @@ export default function ButtonGroup({
           imgSrc = require(`./images/${button}.png`) || ""
 
         } catch (error) {
-          console.log(error.message)
+          console.error(error instanceof Error ? error.message : "Unknown error", error)
         }
 
         return (
