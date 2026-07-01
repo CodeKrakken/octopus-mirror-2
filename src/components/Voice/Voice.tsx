@@ -24,7 +24,7 @@ export default function Voice(
       data-attribute={dataAttribute}
     >
       <div id="sliders">
-        <div className="row">
+        <div className="justified row">
           <div>
             <TextField 
               attrName  = {'label'}
@@ -58,7 +58,7 @@ export default function Voice(
 
         {
           [1, 2].map(row => 
-            <div className="row">
+            <div className="justified row">
               {
                 doubleSliders.filter(slider => slider.row === row).map(slider => <div>
                   <div className="slider-label">{slider.label}</div>
@@ -77,7 +77,7 @@ export default function Voice(
         }
       </div>
 
-      <div className="row">
+      <div className="justified row">
         <Piano 
           voices={voices}
           i={i}

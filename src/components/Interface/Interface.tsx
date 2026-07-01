@@ -69,20 +69,21 @@ function Interface() {
       handleAddVoice    = {handleAddVoice}
       disableStartStop  = {disableStartStop}
     />
-
-    {
-      voices.map((voice) => (
-        <div key = {voice.id}>
-          <Voice
-            i             = {voices.indexOf(voice)} 
-            setVoices     = {setVoices} 
-            voices        = {voices}
-            handleDelete  = {handleDelete}
-            dataAttribute = "Voices"
-          />
-        </div>
-      ))
-    }
+    <div className="row">
+      {
+        voices.map((voice) => (
+          <div key = {voice.id}>
+            <Voice
+              i             = {voices.indexOf(voice)} 
+              setVoices     = {setVoices} 
+              voices        = {voices}
+              handleDelete  = {handleDelete}
+              dataAttribute = "Voices"
+            />
+          </div>
+        ))
+      }
+    </div>
   </>
 }
 

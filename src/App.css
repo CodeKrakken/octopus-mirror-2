@@ -29,6 +29,9 @@ body {
 
 .row {
   display: flex;
+}
+
+.justified {
   justify-content: space-between;
 }
 

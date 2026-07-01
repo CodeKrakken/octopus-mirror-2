@@ -12,7 +12,7 @@ export default function Inputs(
   }: InputsProps) {
 
   return <>
-    <div className="row">
+    <div className="justified row">
       <div className="column">
         {
           Object.keys(attributes).map(attrName => (
@@ -26,7 +26,7 @@ export default function Inputs(
         }
       </div>
     </div>
-    <div className="row">
+    <div className="justified row">
       <div className="column">
         {
           Object.keys(buttonGroups).map(buttonGroup =>
