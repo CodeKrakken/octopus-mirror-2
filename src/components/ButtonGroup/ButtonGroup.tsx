@@ -54,7 +54,7 @@ export default function ButtonGroup({
     {
       hidden ? <></>
         :
-      <>
+      <div className="column">
         {
           group.boxes.map(button => {
 
@@ -70,8 +70,6 @@ export default function ButtonGroup({
               onClick: (e: React.MouseEvent<HTMLButtonElement>) => updateButton(e, `active${group.label as ButtonGroupType}`, voices, i, setVoices),
               key: button
             };
-
-            console.log(group)
 
             let imgSrc
 
@@ -92,7 +90,7 @@ export default function ButtonGroup({
             )       
           })
         }
-      </>
+      </div>
     }
   </>
 }
