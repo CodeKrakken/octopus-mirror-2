@@ -26,10 +26,31 @@ const waveforms = [
   'square',
 ]
 
-const samples = {
-  kick: kickFile,
-  snare: snareFile
-}
+const context = (
+  require as {
+    context: (
+      path: string,
+      recursive?: boolean,
+      match?: RegExp
+    ) => {
+      keys(): string[];
+      (id: string): string;
+    };
+  }
+).context(
+  './sounds',
+  false,
+  /\.wav$/
+);
+
+const samples = Object.fromEntries(
+  context.keys().map((path) => [
+    path
+      .replace('./', '')
+      .replace('.wav', ''),
+    context(path),
+  ])
+);
 
 const ranges = [
   'Level',
