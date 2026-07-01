@@ -25,7 +25,7 @@ export default function Header ({
 
   useEffect(() => {
     loadVoices()
-  })
+  }, [])
 
   const loadVoices = () => {
     voices = JSON.parse(localStorage.voices)
