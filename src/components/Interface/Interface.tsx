@@ -27,10 +27,9 @@ function Interface() {
 
   }, [voices])
 
-  useEffect(() => {
-    loadVoices()
-    Synth.resumeContext()
-  }, [])
+  // useEffect(() => {
+  //   loadVoices()
+  // }, [])
   
 
   // functions
