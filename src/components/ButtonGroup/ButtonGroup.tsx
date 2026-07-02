@@ -8,7 +8,6 @@ type ButtonGroupProps = {
   group: {
     label: string
     boxes: string[]
-    row: number
     className: string
   }
   voices: VoiceType[]
@@ -38,6 +37,9 @@ export default function ButtonGroup({
   const handleClick = () => {
     setHidden((prev) => !prev)
   }
+
+  const gridLength = Math.floor(Math.sqrt(group.boxes.length))
+  console.log(gridLength)
 
   return <>
 
