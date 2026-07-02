@@ -38,8 +38,8 @@ export default function ButtonGroup({
     setHidden((prev) => !prev)
   }
 
-  const gridLength = Math.floor(Math.sqrt(group.boxes.length))
-  console.log(gridLength)
+  const columns = Math.floor(Math.sqrt(group.boxes.length));  
+
 
   return <>
 
@@ -57,41 +57,50 @@ export default function ButtonGroup({
       hidden ? <></>
         :
       <div className="column">
-        {
-          group.boxes.map(button => {
 
-            const props = {
-              className: `
-                key
-                ${voice[`active${group.label as ButtonGroupType}`].includes(button) ? 'active' : ''}
-              `,
-              'data-attribute': group.label,
-              'data-voice': i,
-              value: button,
-              checked: voice[`active${group.label as ButtonGroupType}`].includes(button),
-              onClick: (e: React.MouseEvent<HTMLButtonElement>) => updateButton(e, `active${group.label as ButtonGroupType}`, voices, i, setVoices),
-              key: button
-            };
+        <div
+          className="button-grid"
+          style={{
+            gridTemplateColumns: `repeat(${columns}, 1fr)`,
+          }}
+        >
+          {
+            group.boxes.map(button => {
 
-            let imgSrc
+              const props = {
+                className: `
+                  key
+                  ${voice[`active${group.label as ButtonGroupType}`].includes(button) ? 'active' : ''}
+                `,
+                'data-attribute': group.label,
+                'data-voice': i,
+                value: button,
+                checked: voice[`active${group.label as ButtonGroupType}`].includes(button),
+                onClick: (e: React.MouseEvent<HTMLButtonElement>) => updateButton(e, `active${group.label as ButtonGroupType}`, voices, i, setVoices),
+                key: button
+              };
 
-            try {
-              imgSrc = require(`./images/${group.className}/${button}.png`) || ""
+              let imgSrc
 
-            } catch (error) {
-              // console.error(error instanceof Error ? error.message : "Unknown error", error)
-            }
+              try {
+                imgSrc = require(`./images/${group.className}/${button}.png`) || ""
 
-            return (
-              <button {...props} style={{height: "28px", width: "28px"}}>
-                {
-                  imgSrc ? <img src={imgSrc} width="100%" height="100%" />
-                  : <>{button}</>
-                }
-              </button>
-            )       
-          })
-        }
+              } catch (error) {
+                // console.error(error instanceof Error ? error.message : "Unknown error", error)
+              }
+
+              return (
+                <button {...props} style={{height: "28px", width: "28px"}}>
+                  {
+                    imgSrc ? <img src={imgSrc} width="100%" height="100%" />
+                    : <>{button}</>
+                  }
+                </button>
+              )       
+            })
+            
+          }
+        </div>
       </div>
     }
   </>
