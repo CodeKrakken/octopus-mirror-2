@@ -4,7 +4,6 @@ import RangeSlider, { ReactRangeSliderInputRef } from 'react-range-slider-input'
 import 'react-range-slider-input/dist/style.css';  
 import { useEffect, useRef } from "react";
 import "./SingleSlider.css";
-import { singleSliders } from "../../content/data";
     
 export default function SingleSlider ({  
 

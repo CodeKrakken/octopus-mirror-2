@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { ButtonGroupType } from "../shared.types";
-import { Compound, VoiceType } from "../Voice/Voice.types";
-import { updateVoice } from "../shared.functions";
+import { VoiceType } from "../Voice/Voice.types";
 import { updateButton } from "./ButtonGroup.functions";
 
 
@@ -50,7 +49,7 @@ export default function ButtonGroup({
       onClick={handleClick}
     >
       {
-        imgSrc ? <img src={imgSrc} width="100%" height="100%" />
+        imgSrc ? <img alt="" src={imgSrc} width="100%" height="100%" />
         : <>{group.label}</>
       }
     </button>
@@ -94,7 +93,7 @@ export default function ButtonGroup({
               return (
                 <button {...props} style={{height: "28px", width: "28px"}}>
                   {
-                    imgSrc ? <img src={imgSrc} width="100%" height="100%" />
+                    imgSrc ? <img src={imgSrc} alt="" width="100%" height="100%" />
                     : <>{button}</>
                   }
                 </button>

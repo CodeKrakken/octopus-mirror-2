@@ -1,6 +1,3 @@
-import snareFile  from './sounds/snare.wav';
-import kickFile   from './sounds/kick.wav';
-
 const title = "OCTOPUS"
 
 const addLabel = "Add Voice"
