@@ -93,4 +93,18 @@ button img {
 
 .button-grid {
   display: grid;
+  position: absolute;
+  top: 0;
+}
+
+.left {
+  left: 0;
+}
+
+.right {
+  right: 0;
+}
+
+.parent {
+  position: relative;
 }

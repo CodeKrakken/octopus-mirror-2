@@ -4,23 +4,23 @@ import { updateButton } from "../Inputs/Inputs.functions";
 import { ButtonGroupType } from "../shared.types";
 import { VoiceType } from "../Voice/Voice.types";
 
-type ButtonGroupProps = {
-  group: {
-    label: string
-    boxes: string[]
-    className: string
-  }
-  voices: VoiceType[]
-  i: number
-  setVoices: React.Dispatch<React.SetStateAction<VoiceType[]>>
-}
 
 export default function ButtonGroup({
   group,
   voices,
   i,
   setVoices
-}: ButtonGroupProps) {
+} : {
+  group: {
+    label: string
+    boxes: string[]
+    imgSrc: string
+    className: string
+  }
+  voices: VoiceType[]
+  i: number
+  setVoices: React.Dispatch<React.SetStateAction<VoiceType[]>>
+}) {
 
   const [hidden, setHidden] = useState(true)
 
@@ -29,7 +29,7 @@ export default function ButtonGroup({
   let imgSrc
 
   try {
-    imgSrc = require(`./images/${group.className}/${group.className}.png`) || ""
+    imgSrc = require(`./images/${group.imgSrc}/${group.imgSrc}.png`) || ""
   } catch (error) {
     // console.error(error instanceof Error ? error.message : "Unknown error", error)
   }
@@ -56,10 +56,10 @@ export default function ButtonGroup({
     {
       hidden ? <></>
         :
-      <div className="column">
+      <div className="parent">
 
         <div
-          className="button-grid"
+          className={`button-grid ${group.className}`}
           style={{
             gridTemplateColumns: `repeat(${columns}, 1fr)`,
           }}
@@ -83,7 +83,7 @@ export default function ButtonGroup({
               let imgSrc
 
               try {
-                imgSrc = require(`./images/${group.className}/${button}.png`) || ""
+                imgSrc = require(`./images/${group.imgSrc}/${button}.png`) || ""
 
               } catch (error) {
                 // console.error(error instanceof Error ? error.message : "Unknown error", error)
