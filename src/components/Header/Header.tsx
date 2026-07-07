@@ -34,45 +34,60 @@ export default function Header ({
   }, [])
 
   const font = (string: string, height: string = "40px") => {
-    const imageArray = string.split('').map(letter => require(`../../content/font-images/${letter.toUpperCase()}.png`))
 
-    return <div className="row">{imageArray.map(letter => <img alt="" src={letter} height={height} />)}</div>
+    const imageArray = string.split('').map(letter => 
+      /^[A-Z0-9]*$/.test(letter.toUpperCase()) ? require(`../../content/font-images/${letter.toUpperCase()}.png`) : letter
+    )
+
+    return (
+      <div>
+        {
+          imageArray.map(image => 
+            <img alt="" src={image} height={height} />
+          )
+        }
+      </div>
+    )
   }
 
   const handleSave = () => {
     localStorage.voices = JSON.stringify(voices)
   }
 
+  const buttonLabelHeight = "20px"
+
   return (
-    <div className="header">
       <div className="column">
+        <div className="header">
+
         {font(title, '50px')}
-        <div className="row">
+        <div>
           <button 
             value={addLabel}
             onClick={handleAddVoice}
           >
-            {addLabel}
+            {font(addLabel, buttonLabelHeight)}
           </button>
               
           <button 
             onClick={handleStartStop}
             disabled={disableButtons as boolean}
           >
-            {running ? 'Stop' : 'Start'}
+            {font(running ? 'Stop' : 'Start', buttonLabelHeight)}
           </button>
 
           <button
             onClick={handleSave}
             disabled={disableButtons as boolean}
           >
-            {'Save'}
+            <div style={{"margin": "auto auto;"}}></div>
+            {font('Save', buttonLabelHeight)}
           </button>
           <button
             onClick={loadVoices}
             disabled={disableLoad as boolean}
           >
-            {'Load'}
+            {font('Load', buttonLabelHeight)}
           </button>
         </div>
         

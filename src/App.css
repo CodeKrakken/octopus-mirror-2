@@ -3,6 +3,10 @@ body {
   color: white;
 }
 
+button {
+  border: 1px solid black;
+}
+
 
 :root {
   --u: 40px;
