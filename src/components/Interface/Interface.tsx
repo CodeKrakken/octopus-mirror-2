@@ -4,13 +4,14 @@ import { VoiceType }                    from '../Voice/Voice.types'
 import Header                           from '../Header/Header';
 import { setUpVoice }                   from './Interface.functions';
 import { Synth }                        from '../../Synth/Synth';
+import { demoVoices }                   from '../../content/data';
 
 
 function Interface() {
 
   // state
 
-  const [voices,  setVoices] = useState<VoiceType[]>([])
+  const [voices,  setVoices] = useState<VoiceType[]>(demoVoices)
   const [running, setRunning] = useState<boolean>(false)
 
   // refs
@@ -27,9 +28,11 @@ function Interface() {
 
   }, [voices])
 
-  // useEffect(() => {
-  //   loadVoices()
-  // }, [])
+  useEffect(() => {
+    voices.forEach((voice: VoiceType) => {
+      Synth.add(voice, running, voicesRef)
+    })
+  }, [])
   
 
   // functions

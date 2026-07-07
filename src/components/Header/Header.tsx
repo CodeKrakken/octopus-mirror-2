@@ -33,39 +33,50 @@ export default function Header ({
     }
   }, [])
 
-  
+  const font = (string: string, height: string = "40px") => {
+    const imageArray = string.split('').map(letter => require(`../../content/font-images/${letter.toUpperCase()}.png`))
+
+    return <div className="row">{imageArray.map(letter => <img alt="" src={letter} height={height} />)}</div>
+  }
 
   const handleSave = () => {
     localStorage.voices = JSON.stringify(voices)
   }
 
-  return <div className="header">
-    {title}{" "}
-    <button 
-      value={addLabel}
-      onClick={handleAddVoice}
-    >
-      {addLabel}
-    </button>
-        
-    <button 
-      onClick={handleStartStop}
-      disabled={disableButtons as boolean}
-    >
-      {running ? 'Stop' : 'Start'}
-    </button>
+  return (
+    <div className="header">
+      <div className="column">
+        {font(title, '50px')}
+        <div className="row">
+          <button 
+            value={addLabel}
+            onClick={handleAddVoice}
+          >
+            {addLabel}
+          </button>
+              
+          <button 
+            onClick={handleStartStop}
+            disabled={disableButtons as boolean}
+          >
+            {running ? 'Stop' : 'Start'}
+          </button>
 
-    <button
-      onClick={handleSave}
-      disabled={disableButtons as boolean}
-    >
-      {'Save'}
-    </button>
-    <button
-      onClick={loadVoices}
-      disabled={disableLoad as boolean}
-    >
-      {'Load'}
-    </button>
-  </div>
+          <button
+            onClick={handleSave}
+            disabled={disableButtons as boolean}
+          >
+            {'Save'}
+          </button>
+          <button
+            onClick={loadVoices}
+            disabled={disableLoad as boolean}
+          >
+            {'Load'}
+          </button>
+        </div>
+        
+      </div>
+    </div>
+  )
 }
