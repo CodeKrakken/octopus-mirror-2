@@ -25,7 +25,6 @@ export default function Header ({
   const [disableLoad, setDisableLoad] = useState(false)
 
   useEffect(() => {
-    console.log('using effect')
     if (localStorage.voices) {
       setDisableLoad(false)
     } else {
@@ -57,40 +56,38 @@ export default function Header ({
   const buttonLabelHeight = "20px"
 
   return (
-      <div className="column">
-        <div className="header">
-
+    <div className="column" id="header">
+      <div className="section">
         {font(title, '50px')}
-        <div>
-          <button 
-            value={addLabel}
-            onClick={handleAddVoice}
-          >
-            {font(addLabel, buttonLabelHeight)}
-          </button>
-              
-          <button 
-            onClick={handleStartStop}
-            disabled={disableButtons as boolean}
-          >
-            {font(running ? 'Stop' : 'Start', buttonLabelHeight)}
-          </button>
+      </div>
+      <div className="section">
+        <button 
+          value={addLabel}
+          onClick={handleAddVoice}
+        >
+          {font(addLabel, buttonLabelHeight)}
+        </button>
+            
+        <button 
+          onClick={handleStartStop}
+          disabled={disableButtons as boolean}
+        >
+          {font(running ? 'Stop' : 'Start', buttonLabelHeight)}
+        </button>
 
-          <button
-            onClick={handleSave}
-            disabled={disableButtons as boolean}
-          >
-            <div style={{"margin": "auto auto;"}}></div>
-            {font('Save', buttonLabelHeight)}
-          </button>
-          <button
-            onClick={loadVoices}
-            disabled={disableLoad as boolean}
-          >
-            {font('Load', buttonLabelHeight)}
-          </button>
-        </div>
-        
+        <button
+          onClick={handleSave}
+          disabled={disableButtons as boolean}
+        >
+          <div style={{"margin": "auto auto;"}}></div>
+          {font('Save', buttonLabelHeight)}
+        </button>
+        <button
+          onClick={loadVoices}
+          disabled={disableLoad as boolean}
+        >
+          {font('Load', buttonLabelHeight)}
+        </button>
       </div>
     </div>
   )

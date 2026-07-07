@@ -7,6 +7,9 @@ button {
   border: 1px solid black;
 }
 
+.section {
+  padding: 5px;
+}
 
 :root {
   --u: 40px;

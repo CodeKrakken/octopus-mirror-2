@@ -29,9 +29,12 @@ function Interface() {
   }, [voices])
 
   useEffect(() => {
+    Synth.voices = []
+
     voices.forEach((voice: VoiceType) => {
       Synth.add(voice, running, voicesRef)
     })
+
   }, [])
   
 
@@ -81,7 +84,6 @@ function Interface() {
   const disableButtons = Boolean(voices.length === 0)
 
   return <>
-    <br />
     <Header 
       handleStartStop   = {handleStartStop}
       running           = {running}
@@ -90,7 +92,7 @@ function Interface() {
       voices            = {voices}
       loadVoices        = {loadVoices}
     />
-    <div className="row">
+    <div className="row section">
       {
         voices.map((voice) => (
           <div key = {voice.id}>
