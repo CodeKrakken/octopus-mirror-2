@@ -1,12 +1,13 @@
 import { VoiceType }                        from '../components/Voice/Voice.types'
 import { VoicesRef }                        from './Synth.types'
 import { getContext, runInterval } from './Synth.functions'
+import { demoVoices } from '../content/data'
 
 let context: AudioContext
 
 export const Synth = {
 
-  voices: [] as VoiceType[],
+  voices: demoVoices as VoiceType[],
 
   add: (voice: VoiceType, running: boolean, voicesRef: VoicesRef) => {
 
