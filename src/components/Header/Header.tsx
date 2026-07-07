@@ -35,18 +35,10 @@ export default function Header ({
   const font = (string: string, height: string = "40px") => {
 
     const imageArray = string.split('').map(letter => 
-      /^[A-Z0-9]*$/.test(letter.toUpperCase()) ? require(`../../content/font-images/${letter.toUpperCase()}.png`) : letter
+      /^[A-Z0-9]*$/.test(letter.toUpperCase()) ? <img alt="" src={require(`../../content/font-images/${letter.toUpperCase()}.png`)} height={height} />  : letter
     )
 
-    return (
-      <div>
-        {
-          imageArray.map(image => 
-            <img alt="" src={image} height={height} />
-          )
-        }
-      </div>
-    )
+    return <div>{imageArray.map(image => image)}</div>
   }
 
   const handleSave = () => {
