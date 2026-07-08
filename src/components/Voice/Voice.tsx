@@ -82,7 +82,7 @@ export default function Voice(
         }
       </div>
 
-      <div className="row">
+      <div className="centred row">
         <Piano 
           voices={voices}
           i={i}
