@@ -151,7 +151,7 @@ const oscillate = (
   const overlap        = endOfAttack >= startOfDecay
   const startOfPeak    = overlap ? peakPoint : endOfAttack
   const endOfPeak      = overlap ? peakPoint : startOfDecay
-  console.log(level)
+
   gain.setValueAtTime(0, thisInterval)
   gain.linearRampToValueAtTime(level, startOfPeak)
   gain.setValueAtTime(level, endOfPeak)
