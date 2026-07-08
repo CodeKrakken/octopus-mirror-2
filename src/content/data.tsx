@@ -64,13 +64,13 @@ const buttonGroups = [
   {
     label: 'Octaves',
     boxes: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
-    imgSrc: "octaves",
+    id: "octaves",
     className: "right"
   },
   {
     label: 'Intervals',
     boxes: ['4', '2', '1', '0.5', '0.25', '0.125'],
-    imgSrc: "intervals",
+    id: "intervals",
     className: "center"
   },
   {
@@ -79,8 +79,8 @@ const buttonGroups = [
       ...waveforms,
       ...Object.keys(samples)
     ],
-    imgSrc: "sounds",
-    className: "left"
+    id: "sounds",
+    className: "center"
   }
 ]
 

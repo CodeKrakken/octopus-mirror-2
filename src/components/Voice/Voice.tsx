@@ -89,7 +89,7 @@ export default function Voice(
           setVoices={setVoices}
         />
       </div>
-      <div className="row">
+      <div className="justified row">
         {
           buttonGroups.map(group =>
             <div>

@@ -13,7 +13,7 @@ export default function ButtonGroup({
   group: {
     label: string
     boxes: string[]
-    imgSrc: string
+    id: string
     className: string
   }
   voices: VoiceType[]
@@ -30,7 +30,7 @@ export default function ButtonGroup({
   let imgSrc
 
   try {
-    imgSrc = require(`./images/${group.imgSrc}/${group.imgSrc}.png`) || ""
+    imgSrc = require(`./images/${group.id}/${group.id}.png`) || ""
   } catch (error) {
     // console.error(error instanceof Error ? error.message : "Unknown error", error)
   }
@@ -84,7 +84,7 @@ export default function ButtonGroup({
               let imgSrc
 
               try {
-                imgSrc = require(`./images/${group.imgSrc}/${button}.png`) || ""
+                imgSrc = require(`./images/${group.id}/${button}.png`) || ""
 
               } catch (error) {
                 // console.error(error instanceof Error ? error.message : "Unknown error", error)
