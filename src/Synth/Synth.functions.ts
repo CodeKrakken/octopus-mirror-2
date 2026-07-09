@@ -175,7 +175,6 @@ const oscillate = (
   gain.linearRampToValueAtTime(level, startOfPeak)
   gain.setValueAtTime(level, endOfPeak)
   gain.linearRampToValueAtTime(0, thisInterval + noteLength)
-  gain.setValueAtTime(gain.value, thisInterval)  
 }
 
 const randomOneFrom = <T>(array: T[]): T => {
