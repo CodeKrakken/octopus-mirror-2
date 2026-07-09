@@ -91,30 +91,27 @@ const makeSound = (
 
   const offsetTime = getRangeValue('Offset', voice) / 100 * intervalLength
 
-  setTimeout(() => {
+  try {
+    const randomSound = randomOneFrom(activeSounds) as OscillatorType
+    const level = calculateLevel(voice, voicesRef.current)
+    voice.offsetInterval = thisInterval! + offsetTime
 
-    try {
-      const randomSound = randomOneFrom(activeSounds) as OscillatorType
-      const level = calculateLevel(voice, voicesRef.current)
+    if (waveforms.includes(randomSound)) {
 
-      if (waveforms.includes(randomSound)) {
+      const oscGain = setUpOscillator(context)
+      oscGain.oscillator.type = randomSound
+      const noteLength = generateNoteLength(voice, intervalLength)
+      console.log(context.currentTime)
+      oscillate(voice, noteLength, level, oscGain)
 
-        const oscGain = setUpOscillator(context)
-        oscGain.oscillator.type = randomSound
-        const noteLength = generateNoteLength(voice, intervalLength)
-        voice.offsetInterval = thisInterval! + offsetTime
+      setTimeout(() => removeOscillator(oscGain), ((intervalLength*1000)+offsetTime))
+    } else {
+      playSample(randomSound, level, context, voice.offsetInterval)
+    }
 
-        oscillate(voice, noteLength, level, oscGain)
-
-        setTimeout(() => removeOscillator(oscGain), intervalLength*1000)
-      } else {
-        playSample(randomSound, level, context)
-      }
-
-    } catch (error) {
-      console.error(error instanceof Error ? error.message : "Unknown error", error)
-    }            
-  }, offsetTime*1000)
+  } catch (error) {
+    console.error(error instanceof Error ? error.message : "Unknown error", error)
+  }            
 }
 
 const setUpOscillator = (context: AudioContext) => {
@@ -131,15 +128,13 @@ const setUpOscillator = (context: AudioContext) => {
 }
 
 const removeOscillator = (oscGain: OscGain) => {
-
   const { oscillator, gainNode } = oscGain
 
   oscillator.stop()
   oscillator.disconnect()
   gainNode.disconnect()
 }
-
-const playSample = (name: string, level: number, context: AudioContext) => {  
+const playSample = (name: string, level: number, context: AudioContext, time: number) => {  
   const buffer = buffers[name]  
   if (!buffer) {  
     console.warn('Buffer not ready for:', name)   // now you'll see if timing is the issue  
@@ -151,7 +146,7 @@ const playSample = (name: string, level: number, context: AudioContext) => {
   gain.gain.setValueAtTime(level, 0)  
   source.connect(gain)  
   gain.connect(context.destination)  
-  source.start()  
+  source.start(time)  
 }
 
 const oscillate = (
@@ -160,12 +155,9 @@ const oscillate = (
   level: number, 
   oscGain: OscGain,
 ) => {
-  
   oscGain.oscillator.frequency.value = generateFrequency(voice)
-
   const gain         = oscGain.gainNode.gain
   const thisInterval = voice.offsetInterval!
-
   const attackPercentage  = getRangeValue('Attack', voice)
   const decayPercentage = getRangeValue('Decay', voice)
 
@@ -173,7 +165,7 @@ const oscillate = (
   const decayLength = getFadeLength(decayPercentage, noteLength)
 
   const endOfAttack    = thisInterval + attackLength
-  const startOfDecay = thisInterval + noteLength - decayLength
+  const startOfDecay  = thisInterval + noteLength - decayLength
   const peakPoint      = thisInterval + noteLength * attackPercentage / (attackPercentage + decayPercentage)
   const overlap        = endOfAttack >= startOfDecay
   const startOfPeak    = overlap ? peakPoint : endOfAttack

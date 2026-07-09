@@ -29,7 +29,6 @@ function Interface() {
   }, [voices])
 
   useEffect(() => {
-    console.log('resuming context')
     Synth.resumeContext()
   }, [])
   
@@ -40,7 +39,6 @@ function Interface() {
     const newVoice = setUpVoice(voices)
     setVoices(voices => [voices, newVoice].flat())
     Synth.add(newVoice, running, voicesRef)
-    console.log(Synth.voices)
   }
 
   const handleDelete = (i: number) => {
@@ -72,6 +70,7 @@ function Interface() {
     if (localStorage.voices) {
       const loadedVoices = JSON.parse(localStorage.voices)
       setVoices(loadedVoices)
+      Synth.voices = []
       loadedVoices.forEach((voice: VoiceType) => {
         Synth.add(voice, running, voicesRef)
       })
