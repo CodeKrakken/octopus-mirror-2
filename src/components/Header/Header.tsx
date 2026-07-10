@@ -42,6 +42,7 @@ export default function Header ({
   }
 
   const handleSave = () => {
+    setDisableLoad(false)
     localStorage.voices = JSON.stringify(voices)
   }
 
