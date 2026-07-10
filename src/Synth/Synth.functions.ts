@@ -104,7 +104,7 @@ const makeSound = (
 
       setTimeout(() => removeOscillator(oscGain), (intervalLength+offsetTime)*1000)
     } else {
-      playSample(randomSound, level, context, voice.offsetInterval)
+      playSample(randomSound, level, context, voice.offsetInterval, voice)
     }
 
   } catch (error) {
@@ -132,7 +132,7 @@ const removeOscillator = (oscGain: OscGain) => {
   oscillator.disconnect()
   gainNode.disconnect()
 }
-const playSample = (name: string, level: number, context: AudioContext, time: number) => {  
+const playSample = (name: string, level: number, context: AudioContext, time: number, voice: VoiceType) => {  
   const buffer = buffers[name]  
   if (!buffer) {  
     console.warn('Buffer not ready for:', name)   // now you'll see if timing is the issue  
@@ -143,7 +143,9 @@ const playSample = (name: string, level: number, context: AudioContext, time: nu
   const gain = context.createGain()  
   gain.gain.setValueAtTime(level, 0)  
   source.connect(gain)  
-  gain.connect(context.destination)  
+  gain.connect(context.destination)
+  const pitch = Math.pow(Math.pow(2, 1/12), Math.random() * +randomOneFrom(voice.activeNotes as string[])-1)
+  source.playbackRate.value = pitch
   source.start(time)  
 
   source.onended = () => {  
