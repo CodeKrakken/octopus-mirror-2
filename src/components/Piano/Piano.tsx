@@ -37,10 +37,9 @@ export default function Piano ({
             value: note,
             checked: voice.activeNotes.includes(note),
             onClick: (e: React.MouseEvent<HTMLButtonElement>) => updateButton(e, 'activeNotes', voices, i, setVoices),
-            key: note
           };
 
-          return <button {...props} />
+          return <button {...props} key={note} />
         })
       }
     </div>
