@@ -140,12 +140,23 @@ const loadSamples = (ctx: AudioContext) => {
 }
 
 let freqArray: number[] | undefined  
-
-const getContext = (context: AudioContext = new AudioContext()) => {
-
-  if (context.state === 'suspended') { context.resume() }
-  loadSamples(context)
-  return context
+let masterCompressor: DynamicsCompressorNode | null = null  
+  
+const getContext = (context: AudioContext = new AudioContext()) => {  
+  if (context.state === 'suspended') { context.resume() }  
+  
+  if (!masterCompressor) {  
+    masterCompressor = context.createDynamicsCompressor()  
+    masterCompressor.threshold.value = -6   // dBFS — starts compressing at -6 dB  
+    masterCompressor.knee.value       = 3   // soft knee  
+    masterCompressor.ratio.value      = 20  // 20:1 ≈ hard limiter  
+    masterCompressor.attack.value     = 0.001  
+    masterCompressor.release.value    = 0.1  
+    masterCompressor.connect(context.destination)  
+  }  
+  
+  loadSamples(context)  
+  return context  
 }
 
 const runInterval = (
@@ -236,7 +247,7 @@ const setUpOscillator = (context: AudioContext) => {
 
   oscillator.connect(gain);
   gain.gain.setValueAtTime(0, 0)
-  gain.connect(context.destination);
+  gain.connect(masterCompressor!)  
   oscillator.start(0);
 
   return {oscillator, gainNode: gain}
@@ -261,8 +272,8 @@ const playSample = (name: string, level: number, context: AudioContext, time: nu
   const gain = context.createGain()  
   gain.gain.setValueAtTime(level, 0)  
   source.connect(gain)  
-  gain.connect(context.destination)
-
+  gain.connect(masterCompressor!)
+  
   if (voice.activeNotes.length > 0 && voice.activeOctaves.length > 0) {  
     const targetNote   = +randomOneFrom(voice.activeNotes)    // 1-based  
     const sampleNote   = buffers[name].note!                  // 1-based  
