@@ -3,7 +3,13 @@ import { OscGain, VoicesRef }                                     from './Synth.
 import { allFrequencies, extrema, oneMinute, samples, waveforms } from '../content/data';
 import { Range } from '../components/shared.types';
 
-const buffers: Record<string, { buffer: AudioBuffer; frequency: number | null }> = {}  
+const buffers: Record<string, { 
+  buffer: AudioBuffer; 
+  detectedFrequency: number | null 
+  nearestFrequency: number | null
+  octave: number | null
+  note: number | null
+}> = {}  
 
 let samplesLoading = false  
 
@@ -83,6 +89,29 @@ const detectPitchFFT = (slice: Float32Array, sampleRate: number): number | null 
   }  
   return bestFreq > 0 ? bestFreq : null  
 }
+
+const findNearestNote = (frequency: number): { octave: number; note: number; frequency: number } => {  
+  let bestOctave = 0  
+  let bestNote = 0  
+  let bestCentsDiff = Infinity  
+  
+  allFrequencies.forEach((octave, octaveIndex) => {  
+    octave.forEach((noteFreq, noteIndex) => {  
+      const centsDiff = Math.abs(1200 * Math.log2(frequency / noteFreq))  
+      if (centsDiff < bestCentsDiff) {  
+        bestCentsDiff = centsDiff  
+        bestOctave = octaveIndex  
+        bestNote = noteIndex  
+      }  
+    })  
+  })  
+  
+  return {  
+    octave: bestOctave,  
+    note: bestNote,  
+    frequency: allFrequencies[bestOctave][bestNote]  
+  }  
+}
   
 const loadSamples = (ctx: AudioContext) => {  
   if (samplesLoading) return  
@@ -93,9 +122,15 @@ const loadSamples = (ctx: AudioContext) => {
         const response = await fetch(url as string)  
         const arrayBuffer = await response.arrayBuffer()  
         const decoded = await ctx.decodeAudioData(arrayBuffer)  
+        const detected = detectPitch(decoded, ctx.sampleRate)  
+        const nearest = detected ? findNearestNote(detected) : null  
+  
         buffers[name] = {  
           buffer: decoded,  
-          frequency: detectPitch(decoded, ctx.sampleRate)  
+          detectedFrequency: detected,  
+          nearestFrequency: nearest?.frequency ?? null,  
+          octave: nearest?.octave ?? null,  
+          note: nearest?.note ?? null,  
         }
       } catch (e) {  
         console.error('Failed to load sample:', name, e)  
@@ -146,7 +181,7 @@ const isTimeFor = (timeCode: number, context: AudioContext) => context.currentTi
 const getIntervalLength = (voice: VoiceType) => {
 
   const {activeIntervals, bpm} = voice
-  const interval = (randomOneFrom(activeIntervals) || '0') as string
+  const interval = (randomOneFrom(activeIntervals) || '0.5') as string
   const intervalLength  = oneMinute / bpm * parseFloat(interval)
 
   return intervalLength
@@ -215,7 +250,7 @@ const removeOscillator = (oscGain: OscGain) => {
 }
 const playSample = (name: string, level: number, context: AudioContext, time: number, voice: VoiceType) => {  
   console.log(buffers)
-  const { buffer: audioBuffer, frequency } = buffers[name]  
+  const { buffer: audioBuffer } = buffers[name]  
   if (!audioBuffer) {  
     console.warn('Buffer not ready for:', name)  
     return  
@@ -227,7 +262,12 @@ const playSample = (name: string, level: number, context: AudioContext, time: nu
   source.connect(gain)  
   gain.connect(context.destination)
 
-  source.detune.value = ((+randomOneFrom(voice.activeNotes)-1) * 100)
+  if (voice.activeNotes.length > 0) {  
+    const targetNote = +randomOneFrom(voice.activeNotes)  // 1-based, no -1  
+    const sampleNote = buffers[name].note                 // must also be 1-based  
+    source.detune.value = (targetNote - sampleNote!) * 100
+  }
+  
   source.start(time)  
 
   source.onended = () => {  
