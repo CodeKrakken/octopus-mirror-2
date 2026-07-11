@@ -263,10 +263,15 @@ const playSample = (name: string, level: number, context: AudioContext, time: nu
   source.connect(gain)  
   gain.connect(context.destination)
 
-  if (voice.activeNotes.length > 0) {  
-    const targetNote = +randomOneFrom(voice.activeNotes)  // 1-based, no -1  
-    const sampleNote = buffers[name].note                 // must also be 1-based  
-    source.detune.value = (targetNote - sampleNote!) * 100
+  if (voice.activeNotes.length > 0 && voice.activeOctaves.length > 0) {  
+    const targetNote   = +randomOneFrom(voice.activeNotes)    // 1-based  
+    const sampleNote   = buffers[name].note!                  // 1-based  
+    const targetOctave = +randomOneFrom(voice.activeOctaves)  // 0-based  
+    const sampleOctave = buffers[name].octave!                // 0-based  
+    
+    source.detune.value = 
+      (targetNote - sampleNote) * 100 +  
+      (targetOctave - sampleOctave) * 1200  
   }
   
   source.start(time)  
