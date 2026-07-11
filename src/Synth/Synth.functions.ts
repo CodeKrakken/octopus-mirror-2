@@ -187,12 +187,13 @@ const getIntervalLength = (voice: VoiceType) => {
   return intervalLength
 }
 
-const isRest = (voice: VoiceType) => {
-
-  const restChance  = voice.restChance/100
-  const diceRoll = Math.random()
+const isRest = (voice: VoiceType) => {  
+  const { restChance, activeOctaves, activeNotes, activeSounds } = voice  
   
-  return diceRoll < restChance
+  if (!activeOctaves.length || !activeNotes.length || !activeSounds.length) return true  
+  
+  const diceRoll = Math.random()  
+  return diceRoll < restChance / 100  
 }
 
 const makeSound = (
