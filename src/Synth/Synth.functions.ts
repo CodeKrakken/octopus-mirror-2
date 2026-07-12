@@ -13,6 +13,20 @@ const buffers: Record<string, {
 
 let samplesLoading = false  
 
+const noteNameToIndex: Record<string, number> = {  
+  C:0, Db:1, D:2, Eb:3, E:4, F:5, Gb:6, G:7, Ab:8, A:9, Bb:10, B:11  
+}  
+  
+const parseNoteFromKey = (key: string): { octave: number; note: number; frequency: number } | null => {  
+  const match = key.match(/\/([A-G][b#]?)(\d+)$/)  
+  if (!match) return null  
+  const noteName = match[1]  
+  const octave   = parseInt(match[2], 10)  
+  const note     = noteNameToIndex[noteName]  
+  if (note === undefined || octave < 0 || octave >= allFrequencies.length) return null  
+  return { octave, note, frequency: allFrequencies[octave][note] }  
+}
+
 const detectPitch = (buffer: AudioBuffer, sampleRate: number): number | null => {  
   const data = buffer.getChannelData(0)  
   const SIZE = 4096  
@@ -173,8 +187,17 @@ const loadSamples = (ctx: AudioContext) => {
         const response = await fetch(url as string)  
         const arrayBuffer = await response.arrayBuffer()  
         const decoded = await ctx.decodeAudioData(arrayBuffer)  
-        const detected = detectPitch(decoded, ctx.sampleRate)  
-        const nearest = detected ? findNearestNote(detected) : null  
+        const parsed = parseNoteFromKey(name)  
+        let detected: number | null = null  
+        let nearest: { octave: number; note: number; frequency: number } | null = null  
+          
+        if (parsed) {  
+          detected = parsed.frequency  
+          nearest  = parsed  
+        } else {  
+          detected = detectPitch(decoded, ctx.sampleRate)  
+          nearest  = detected ? findNearestNote(detected) : null  
+        }
   
         buffers[name] = {  
           buffer: decoded,  
