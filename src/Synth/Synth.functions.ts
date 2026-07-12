@@ -57,7 +57,7 @@ const detectPitch = (buffer: AudioBuffer, sampleRate: number): number | null => 
   }  
     
   // Pass 2: find the FIRST local peak above the threshold  
-  const threshold = 0.87  // tune between 0.85–0.93 if needed  
+  const threshold = 0.5  // tune between 0.85–0.93 if needed  
   let bestOffset = -1  
   let bestCorrelation = 0  
   for (let offset = firstZeroCrossing; offset < searchEnd; offset++) {  
