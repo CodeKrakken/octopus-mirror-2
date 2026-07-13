@@ -76,6 +76,8 @@ export default function ButtonGroup({
                 value: button,
                 checked: voice[`active${group.label as ButtonGroupType}`].includes(button),
                 onClick: (e: React.MouseEvent<HTMLButtonElement>) => updateButton(e, `active${group.label as ButtonGroupType}`, voices, i, setVoices),
+                id: group.id,
+                title: button
               };
 
               let imgSrc
@@ -88,7 +90,7 @@ export default function ButtonGroup({
               }
 
               return (
-                <button {...props} key={button} id={group.id}>
+                <button {...props} key={button}>
                   {
                     imgSrc ? <img src={imgSrc} alt="" width="100%" height="100%" />
                     : <>{button}</>
