@@ -30,7 +30,7 @@ export default function ButtonGroup({
   try {
     imgSrc = require(`./images/${group.id}/${group.id}.png`) || ""
   } catch (error) {
-    // console.error(error instanceof Error ? error.message : "Unknown error", error)
+    console.error(error instanceof Error ? error.message : "Unknown error", error)
   }
 
   const handleClick = () => {
@@ -38,7 +38,8 @@ export default function ButtonGroup({
   }
 
   const columns = Math.floor(Math.sqrt(group.boxes.length));  
-
+  console.log(group.id)
+  console.log(imgSrc)
 
   return <>
 
