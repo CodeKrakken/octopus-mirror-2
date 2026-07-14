@@ -110,10 +110,17 @@ button img {
 
 .left {
   right: 0;
+  top: 28px;
 }
 
+.center {
+  top: 28px;
+}
+
+
 .right {
-  right: 100;
+  /* right: -112px; */
+  top: 28px;
 }
 
 .parent {
