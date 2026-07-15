@@ -87,7 +87,7 @@ const buttonGroups = [
     label: 'Intervals',
     boxes: ['4', '2', '1', '0.5', '0.25', '0.125'],
     id: "intervals",
-    className: ""
+    className: "center"
   },
   {
     label: 'Sounds',
