@@ -131,12 +131,14 @@ button img {
 .group-button {
   width: 56px;
   height: 56px;
-  padding: 0
+  padding: 0;
+  margin: 0;  
+  box-sizing: border-box;  
 }
 
 .group-button img {
-  width: 56px;
-  height: 56px;
+  width: 54px;
+  height: 54px;
 }
 
 #sounds {
