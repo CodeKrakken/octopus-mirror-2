@@ -5,11 +5,11 @@ body {
 }
 
 button {
-  border: 1px solid black;
+  border: calc(var(--u) * 0.025) solid black;
 }
 
 .section {
-  margin: 5px;
+  margin: calc(var(--u) * 0.125)
 }
 
 :root {
@@ -32,8 +32,8 @@ button {
   width: fit-content;
   height: fit-content;
   font-size: calc(var(--u) * 0.35);
-  padding: 5px;
-  border: 2px dotted red;
+  padding: calc(var(--u) * 0.125);
+  border: calc(var(--u) * 0.125) groove rgb(68, 14, 14);
   text-align: center;
 }
 
@@ -57,16 +57,12 @@ button {
 
 .range-slider__thumb::after {  
   content: attr(data-label);  
-  /* position: absolute;   */
-  /* bottom: calc(50%);    */
-  /* transform: translateX(50%);   */
-  font-size: 12px;  
+  font-size: c;  
   white-space: nowrap;  
-  /* margin: auto; */
 }
 
 #sliders {
-  padding-bottom:5px;
+  padding-bottom: calc(var(--u) * 0.125);
 }
 
 .button-label {
@@ -76,11 +72,7 @@ button {
 
 .slider {
   width: var(--slider-w);
-  /* margin-left: 5px; */
-  /* margin-right: 5px; */
-  /* margin-top: 20px; */
-  /* margin-bottom: 10px; */
-  margin: 10px 5px;
+  margin: calc(var(--u) * 0.25) calc(var(--u) * 0.125);
   text-align: center;
 }
 
@@ -99,7 +91,7 @@ button img {
 }
 
 .button-group {
-  height: 28px;
+  height: calc(var(--u) * 0.625);
 }
 
 .button-grid {
@@ -109,19 +101,13 @@ button img {
 }
 
 .left {
-  right: 0;
-  top: 28px;
+  right: 0px;
+  top: calc(var(--u) * 0.625);
 }
 
-.center {
-  top: 28px;
-  left: -56px;
-}
-
-
-.right {
-  left: -56px;
-  top: 28px;
+.center, .right {
+  top: calc(var(--u) * 0.625);
+  left: calc(var(--u) * (-1.25));
 }
 
 .parent {
@@ -129,21 +115,21 @@ button img {
 }
 
 .group-button {
-  width: 56px;
-  height: 56px;
+  width: calc(var(--u) * 1.25);
+  height: calc(var(--u) * 1.25);
   padding: 0;
   margin: 0;  
   box-sizing: border-box;  
 }
 
 .group-button img {
-  width: 54px;
-  height: 54px;
+  width: calc(var(--u) * 1.225);
+  height: calc(var(--u) * 1.225);
 }
 
 #intervals, #octaves, #sounds {
-  width: 28px;
-  height: 28px;
+  width: calc(var(--u) * 0.625);
+  height: calc(var(--u) * 0.625);
 }
 
 #header {
@@ -158,7 +144,7 @@ button img {
 }
 
 #title {
-  margin: 10px;
+  margin: calc(var(--u) * 0.25);
 }
 
 .centred {
@@ -170,10 +156,52 @@ button img {
 .header-button {
   background-color: black;
   width: 100px;
-  margin: 0px 10px;
+  margin: calc(var(--u) * 0.25);
 }
 
 button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.keyboard {
+  display: flex;
+
+  position: relative;
+
+  height: 56px;
+}
+
+.key {
+  cursor: pointer;
+
+  border: 1px solid black;
+}
+
+.white {
+  width: 28px;
+
+  background: white;
+}
+
+.black {
+  width: 18px;
+
+  height: 60%;
+
+  background: black;
+  color: white;
+
+  margin-left: -9px;
+  margin-right: -9px;
+
+  z-index: 1;
+}
+
+.active {
+  background: green;
+}
+
+.black.active {
+  background: darkgreen;
 }
