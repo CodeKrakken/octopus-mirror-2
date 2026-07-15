@@ -9,37 +9,37 @@ export default function ButtonGrid({
   setVoices
 }: ButtonGroupProps) {
 
-  const columns = Math.floor(Math.sqrt(group.boxes.length));  
+  const columns = Math.floor(Math.sqrt(group!.boxes.length));  
   const voice = voices[i]
   return <>
     <div className="parent">
       <div
-        className={`button-grid ${group.className}`}
+        className={`button-grid ${group!.className}`}
         style={{
           gridTemplateColumns: `repeat(${columns}, 1fr)`,
         }}
       >
         {
-          group.boxes.map(button => {
+          group!.boxes.map(button => {
 
             const props = {
               className: `
                 key
-                ${voice[`active${group.label as ButtonGroupType}`].includes(button) ? 'active' : ''}
+                ${voice[`active${group!.label as ButtonGroupType}`].includes(button) ? 'active' : ''}
               `,
-              'data-attribute': group.label,
+              'data-attribute': group!.label,
               'data-voice': i,
               value: button,
-              checked: voice[`active${group.label as ButtonGroupType}`].includes(button),
-              onClick: (e: React.MouseEvent<HTMLButtonElement>) => updateButton(e, `active${group.label as ButtonGroupType}`, voices, i, setVoices),
-              id: group.id,
+              checked: voice[`active${group!.label as ButtonGroupType}`].includes(button),
+              onClick: (e: React.MouseEvent<HTMLButtonElement>) => updateButton(e, `active${group!.label as ButtonGroupType}`, voices, i, setVoices),
+              id: group!.id,
               title: button
             };
 
             let imgSrc
 
             try {
-              imgSrc = require(`./images/${group.id}/${button}.png`) || ""
+              imgSrc = require(`./images/${group!.id}/${button}.png`) || ""
 
             } catch (error) {
               console.error(error instanceof Error ? error.message : "Unknown error", error)

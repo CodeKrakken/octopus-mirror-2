@@ -89,6 +89,15 @@ export default function Voice(
           i={i}
           setVoices={setVoices}
         />
+        <GroupButton
+          group={{label: 'Piano'}}
+          voices={voices}
+          i={i}
+          setVoices={setVoices}
+          key={`piano ${i}`}
+          component={Piano}
+        />
+          
       </div>
       <div className="centred row">
         {

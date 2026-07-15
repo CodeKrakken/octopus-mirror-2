@@ -20,7 +20,7 @@ export default function GroupButton({
   let imgSrc
 
   try {
-    imgSrc = require(`./images/${group.id}/${group.id}.png`) || ""
+    imgSrc = require(`./images/${group!.id}/${group!.id}.png`) || ""
   } catch (error) {
     console.error(error instanceof Error ? error.message : "Unknown error", error)
   }
@@ -39,7 +39,7 @@ export default function GroupButton({
     >
       {
         imgSrc ? <img alt="" src={imgSrc} width="100%" height="100%" />
-        : <>{group.label}</>
+        : <>{group.label || 'Piano'}</>
       }
     </button>
 

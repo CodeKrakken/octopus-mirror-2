@@ -34,7 +34,7 @@ type Group = {
 }
 
 type ButtonGroupProps = {
-  group: Group,
+  group?: Group,
   voices: VoiceType[],
   i: number,
   setVoices: React.Dispatch<React.SetStateAction<VoiceType[]>>
