@@ -23,25 +23,27 @@ export default function Piano ({
   ].sort((a, b) => +a - +b)
   
   return (
-    <div className="keyboard">
-      {
-        keys.map(note => {
-          const props = {
-            className: `
-              key
-              ${blackKeys.includes(note) ? 'black' : 'white'}
-              ${voice.activeNotes.includes(note) ? 'active' : ''}
-            `,
-            'data-attribute': 'Notes',
-            'data-voice': i,
-            value: note,
-            checked: voice.activeNotes.includes(note),
-            onClick: (e: React.MouseEvent<HTMLButtonElement>) => updateButton(e, 'activeNotes', voices, i, setVoices),
-          };
+    <div className="parent">
+      <div className="keyboard">
+        {
+          keys.map(note => {
+            const props = {
+              className: `
+                key
+                ${blackKeys.includes(note) ? 'black' : 'white'}
+                ${voice.activeNotes.includes(note) ? 'active' : ''}
+              `,
+              'data-attribute': 'Notes',
+              'data-voice': i,
+              value: note,
+              checked: voice.activeNotes.includes(note),
+              onClick: (e: React.MouseEvent<HTMLButtonElement>) => updateButton(e, 'activeNotes', voices, i, setVoices),
+            };
 
-          return <button {...props} key={note} />
-        })
-      }
+            return <button {...props} key={note} />
+          })
+        }
+      </div>
     </div>
   )
 }

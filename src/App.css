@@ -170,10 +170,10 @@ button:disabled {
 
 .keyboard {
   display: flex;
-
+  flex-direction: column;
   position: relative;
 
-  height: calc(var(--u) * 2);
+  width: calc(var(--u) * 1.25);
 }
 
 .key {
@@ -183,19 +183,19 @@ button:disabled {
 }
 
 .white {
-  width: calc(var(--u) * 0.625);
+  height: calc(var(--u) * 0.625);
   background: white;
 }
 
 .black {
-  width: calc(var(--u) * 0.375);
-  height: 60%;
+  height: calc(var(--u) * 0.375);
+  width: 60%;
 
   background: black;
   color: white;
 
-  margin-left: calc(var(--u) * (-0.2));
-  margin-right: calc(var(--u) * (-0.2));
+  margin-top: calc(var(--u) * (-0.2));
+  margin-bottom: calc(var(--u) * (-0.2));
 
   z-index: 1;
 }

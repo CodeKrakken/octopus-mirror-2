@@ -9,9 +9,6 @@ export default function GroupButton(props: GroupButtonProps) {
   const [hidden, setHidden] = useState(true)  
   const { group, component, voices, i, setVoices } = props  
   
-
-
-
   let imgSrc
 
   try {

@@ -84,11 +84,6 @@ export default function Voice(
       </div>
 
       <div className="centred row">
-        <Piano 
-          voices={voices}
-          i={i}
-          setVoices={setVoices}
-        />
         <GroupButton
           group={piano}
           voices={voices}
@@ -97,9 +92,7 @@ export default function Voice(
           key={`piano ${i}`}
           component={Piano}
         />
-          
-      </div>
-      <div className="centred row">
+
         {
           buttonGroups.map(group =>
             <GroupButton 
