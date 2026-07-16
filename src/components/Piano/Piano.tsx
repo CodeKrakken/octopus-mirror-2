@@ -24,7 +24,7 @@ export default function Piano ({
   
   return (
     <div className="parent">
-      <div className="keyboard">
+      <div className="button-grid keyboard">
         {
           keys.map(note => {
             const props = {

@@ -171,8 +171,9 @@ button:disabled {
 .keyboard {
   display: flex;
   flex-direction: column;
-  position: relative;
-
+  position: absolute;
+  right: 0px;
+  top: calc(var(--u) * 0.625);
   width: calc(var(--u) * 1.25);
 }
 
