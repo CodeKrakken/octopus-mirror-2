@@ -1,6 +1,5 @@
 import { updateButton } from "../GroupButton/GroupButton.functions";
 import { VoiceType } from "../Voice/Voice.types";
-import './Piano.css';
 
 export default function Piano ({
   voices,

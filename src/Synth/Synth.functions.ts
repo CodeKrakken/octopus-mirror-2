@@ -302,8 +302,9 @@ const makeSound = (
       const oscGain = setUpOscillator(context)
       oscGain.oscillator.type = randomSound
       const noteLength = generateNoteLength(voice, intervalLength)
-      oscillate(voice, noteLength, level, oscGain)
-
+      oscGain.oscillator.frequency.value = generateFrequency(voice)
+      
+      shapeNote(oscGain.gainNode, voice, noteLength, level)
       setTimeout(() => removeOscillator(oscGain), (intervalLength+offsetTime)*1000)
     } else {
       playSample(randomSound, level, context, voice.offsetInterval, voice)
@@ -341,12 +342,16 @@ const playSample = (
   time: number,  
   voice: VoiceType  
 ) => {  
+
   // Pick target note/octave first — needed for folder sample lookup  
   let targetNote: number | null = null  
-  let targetOctave: number | null = null  
-  if (voice.activeNotes.length > 0 && voice.activeOctaves.length > 0) {  
-    targetNote   = +randomOneFrom(voice.activeNotes)  
-    targetOctave = +randomOneFrom(voice.activeOctaves)  
+  let targetOctave: number | null = null
+  let targetInterval: number | null = null  
+  
+  if (voice.activeNotes.length > 0 && voice.activeOctaves.length > 0 && voice.activeIntervals.length > 0) {  
+    targetNote     = +randomOneFrom(voice.activeNotes)  
+    targetOctave   = +randomOneFrom(voice.activeOctaves)  
+    targetInterval = +randomOneFrom(voice.activeIntervals)
   }  
   
   // Resolve which buffer to actually play  
@@ -368,7 +373,8 @@ const playSample = (
   const source = context.createBufferSource()  
   source.buffer = buf.buffer  
   const gain = context.createGain()  
-  gain.gain.setValueAtTime(level, 0)  
+
+  shapeNote(gain, voice, targetInterval!, level)
   source.connect(gain)  
   gain.connect(masterCompressor!)  
   
@@ -391,14 +397,10 @@ const playSample = (
   }  
 }
 
-const oscillate = (
-  voice: VoiceType, 
-  noteLength: number, 
-  level: number, 
-  oscGain: OscGain,
-) => {
-  oscGain.oscillator.frequency.value = generateFrequency(voice)
-  const gain         = oscGain.gainNode.gain
+const shapeNote = (gainNode: GainNode, voice: VoiceType, intervalLength: number, level: number) => {
+  const gain         = gainNode.gain
+  const noteLength = generateNoteLength(voice, intervalLength)
+
   const thisInterval = voice.offsetInterval!
   const attackPercentage  = getRangeValue('Attack', voice)
   const decayPercentage = getRangeValue('Decay', voice)
@@ -410,6 +412,7 @@ const oscillate = (
   const startOfDecay  = thisInterval + noteLength - decayLength
   const peakPoint      = thisInterval + noteLength * attackPercentage / (attackPercentage + decayPercentage)
   const overlap        = endOfAttack >= startOfDecay
+  
   const startOfPeak    = overlap ? peakPoint : endOfAttack
   const endOfPeak      = overlap ? peakPoint : startOfDecay
 
