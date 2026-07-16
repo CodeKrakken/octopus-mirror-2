@@ -1,7 +1,7 @@
 import { VoiceProps } from './Voice.types'
 import DeleteButton   from '../DeleteButton/DeleteButton'
 import TextField from '../TextField/TextField'
-import { buttonGroups, doubleSliders, singleSliders } from '../../content/data'
+import { buttonGroups, piano, doubleSliders, singleSliders } from '../../content/data'
 import DoubleSlider from '../DoubleSlider/DoubleSlider'
 import SingleSlider from '../SingleSlider/SingleSlider'
 import GroupButton from '../GroupButton/GroupButton'
@@ -90,7 +90,7 @@ export default function Voice(
           setVoices={setVoices}
         />
         <GroupButton
-          group={{label: 'Piano'}}
+          group={piano}
           voices={voices}
           i={i}
           setVoices={setVoices}

@@ -26,19 +26,42 @@ type Slider = {
   row?: number
 }
 
-type Group = {
-  label: string
-  boxes: string[]
-  id: string
-  className: string
-}
+type Group = {  
+  label: string  
+  boxes: string[]  
+  id: string  
+  className: string  
+}  
+  
+type PianoGroup = {  
+  label: 'Piano'  
+  id: 'piano'  
+}  
+  
+type PianoProps = {  
+  group: PianoGroup  
+  voices: VoiceType[]  
+  i: number  
+  setVoices: React.Dispatch<React.SetStateAction<VoiceType[]>>  
+  component: typeof Piano  
+}  
+  
+type ButtonGroupProps = {  
+  group: Group  
+  voices: VoiceType[]  
+  i: number  
+  setVoices: React.Dispatch<React.SetStateAction<VoiceType[]>>  
+  component: typeof ButtonGrid  
+}  
+  
+type GroupButtonProps = PianoProps | ButtonGroupProps
 
-type ButtonGroupProps = {
-  group?: Group,
-  voices: VoiceType[],
-  i: number,
-  setVoices: React.Dispatch<React.SetStateAction<VoiceType[]>>
-  component?: typeof ButtonGrid | typeof Piano  }
+type ButtonGridProps = {  
+  group: Group  
+  voices: VoiceType[]  
+  i: number  
+  setVoices: React.Dispatch<React.SetStateAction<VoiceType[]>>  
+}
 
 export type {
   NumericAttribute,
@@ -46,5 +69,7 @@ export type {
   ButtonGroupType,
   Slider,
   Group,
-  ButtonGroupProps
+  GroupButtonProps,
+  PianoProps,
+  ButtonGridProps
 }

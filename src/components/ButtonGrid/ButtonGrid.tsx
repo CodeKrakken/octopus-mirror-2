@@ -1,5 +1,5 @@
 import { updateButton } from "../GroupButton/GroupButton.functions";
-import { ButtonGroupProps, ButtonGroupType, Group } from "../shared.types";
+import { ButtonGridProps, ButtonGroupType, Group } from "../shared.types";
 import { VoiceType } from "../Voice/Voice.types";
 
 export default function ButtonGrid({
@@ -7,7 +7,7 @@ export default function ButtonGrid({
   voices,
   i,
   setVoices
-}: ButtonGroupProps) {
+}: ButtonGridProps) {
 
   const columns = Math.floor(Math.sqrt(group!.boxes.length));  
   const voice = voices[i]

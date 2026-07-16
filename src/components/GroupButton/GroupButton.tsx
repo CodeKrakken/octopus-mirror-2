@@ -1,21 +1,16 @@
 import { useState } from "react";
-import { ButtonGroupProps, ButtonGroupType, Group } from "../shared.types";
+import { ButtonGridProps, ButtonGroupType, Group, GroupButtonProps, PianoProps } from "../shared.types";
 import { VoiceType } from "../Voice/Voice.types";
 import { updateButton } from "./GroupButton.functions";
 import ButtonGrid from "../ButtonGrid/ButtonGrid";
 
 
-export default function GroupButton({
-  group,
-  voices,
-  i,
-  setVoices,
-  component
-} : ButtonGroupProps) {
+export default function GroupButton(props: GroupButtonProps) {  
+  const [hidden, setHidden] = useState(true)  
+  const { group, component, voices, i, setVoices } = props  
+  
 
-  const [hidden, setHidden] = useState(true)
 
-  const voice = voices[i]
 
   let imgSrc
 
@@ -29,29 +24,24 @@ export default function GroupButton({
     setHidden((prev) => !prev)
   }
 
-  const ComponentToRender = component!;  
-
-  return <>
-
-    <button 
-      className="group-button"
-      onClick={handleClick}
-    >
-      {
-        imgSrc ? <img alt="" src={imgSrc} width="100%" height="100%" />
-        : <>{group.label || 'Piano'}</>
-      }
-    </button>
-
-    {
-      hidden ? <></>
-        :
-      <ComponentToRender 
-        group={group} 
-        voices={voices} 
-        i={i} 
-        setVoices={setVoices} 
-      />
-    }
-  </>
+  const ComponentToRender = component;  
+  
+  return <>  
+    <button   
+      className="group-button"  
+      onClick={handleClick}  
+    >  
+      {imgSrc ? <img alt="" src={imgSrc} width="100%" height="100%" />  
+        : <>{group.label}</>}  
+    </button>  
+  
+    {!hidden && ComponentToRender && (  
+      <ComponentToRender   
+        group={group as Group}  
+        voices={voices}  
+        i={i}  
+        setVoices={setVoices}  
+      />  
+    )}  
+  </>  
 }

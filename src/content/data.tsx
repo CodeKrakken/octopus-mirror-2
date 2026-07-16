@@ -76,6 +76,11 @@ const ranges = [
   'Decay',
 ] as const
 
+const piano = { 
+  label: 'Piano' as const, 
+  id: 'piano' as const 
+}
+
 const buttonGroups = [
   {
     label: 'Octaves',
@@ -487,5 +492,6 @@ export {
   oneMinute,
   samples,
   sampleFolders,
-  demoVoices
+  demoVoices,
+  piano
 }
